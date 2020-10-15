@@ -1,18 +1,51 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import Icon from 'react-native-vector-icons/Feather';
 
 import Dashboard from '../pages/Dashboard';
+import Contact from '../pages/Contact';
+import {Text} from 'react-native';
 
-const App = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
-const AppRoutes: React.FC = () => (
-  <App.Navigator
-    screenOptions={{
-      headerShown: false,
-      cardStyle: {backgroundColor: '#312e28'},
+const DrawerNavgation: React.FC = () => (
+  <Drawer.Navigator
+    drawerStyle={{
+      backgroundColor: '#313131',
+      paddingVertical: 20,
+    }}
+    drawerContentOptions={{
+      activeBackgroundColor: '#fff',
+      inactiveTintColor: '#FFF',
     }}>
-    <App.Screen name="Dashboard" component={Dashboard} />
-  </App.Navigator>
+    <Drawer.Screen
+      name="Dashboard"
+      component={Dashboard}
+      options={{
+        drawerLabel: ({focused}) => (
+          <Text style={{color: focused ? '#313131' : '#fff'}}>Perfil</Text>
+        ),
+        drawerIcon: ({focused}) => (
+          <Icon color={focused ? '#313131' : '#fff'} name="user" />
+        ),
+      }}
+    />
+
+    <Drawer.Screen
+      name="Contact"
+      component={Contact}
+      options={{
+        drawerLabel: ({focused}) => (
+          <Text style={{color: focused ? '#313131' : '#fff'}}>
+            mais informações
+          </Text>
+        ),
+        drawerIcon: ({focused}) => (
+          <Icon color={focused ? '#313131' : '#fff'} name="home" />
+        ),
+      }}
+    />
+  </Drawer.Navigator>
 );
 
-export default AppRoutes;
+export default DrawerNavgation;
