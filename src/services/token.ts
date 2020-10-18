@@ -1,4 +1,4 @@
-import {AxiosRequestConfig}from 'axios';
+import {AxiosRequestConfig} from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Alert} from 'react-native';
 
