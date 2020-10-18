@@ -3,13 +3,13 @@ import {View, Button} from 'react-native';
 
 import {useAuth} from '../../hooks/auth';
 
-const Contact: React.FC = () => {
+const Expenses: React.FC = () => {
   const {signOut} = useAuth();
 
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Button title="Contact" onPress={signOut} />
+      <Button title="Expenses" onPress={signOut} />
     </View>
   );
 };
-export default Contact;
+export default Expenses;

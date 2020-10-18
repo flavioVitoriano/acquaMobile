@@ -10,11 +10,11 @@ export const Container = styled.View<ContainerProps>`
   width: 100%;
   height: 60px;
   padding: 0 16px;
-  background: #232129;
+  background: #40e0d0;
   border-radius: 10px;
   margin-bottom: 8px;
   border-width: 2px;
-  border-color: #232129;
+  border-color: #000;
 
   flex-direction: row;
   align-items: center;
@@ -22,13 +22,13 @@ export const Container = styled.View<ContainerProps>`
   ${(props) =>
     props.isErrored &&
     css`
-      border-color: #c53030;
+      border-color: #f00;
     `}
 
   ${(props) =>
     props.isFocused &&
     css`
-      border-color: #ff9000;
+      border-color: #00f;
     `}
 `;
 
@@ -37,7 +37,7 @@ export const Icon = styled(FeatherIcon)`
 `;
 export const TextInput = styled.TextInput`
   flex: 1;
-  color: #fff;
+  color: #000;
   font-size: 16px;
   font-family: 'RobotoSlab-Regular';
 `;
