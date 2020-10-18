@@ -8,7 +8,6 @@ import {
   Platform,
   Alert,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 
 import {Form} from '@unform/mobile';
 import {FormHandles} from '@unform/core';
@@ -25,14 +24,7 @@ import Button from '../../components/Button';
 //import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
 
-import {
-  Container,
-  Title,
-  ForgotPassword,
-  ForgotPasswordText,
-  CreateAccountButton,
-  CreateAccountButtonText,
-} from './styles';
+import {Container, Title, ForgotPassword, ForgotPasswordText} from './styles';
 
 interface SignInFormaData {
   username: string;
@@ -93,7 +85,7 @@ const SignIn: React.FC = () => {
             <Image source={logoImg} />
 
             <View>
-              <Title>Faça seu login</Title>
+              <Title>Faça seu login no Aqua</Title>
             </View>
 
             <Form ref={formRef} onSubmit={handleSignIn}>
@@ -137,11 +129,6 @@ const SignIn: React.FC = () => {
           </Container>
         </ScrollView>
       </KeyboardAvoidingView>
-
-      <CreateAccountButton onPress={() => {}}>
-        <Icon name="log-in" size={20} color="#ff9000" />
-        <CreateAccountButtonText>Criar Conta</CreateAccountButtonText>
-      </CreateAccountButton>
     </>
   );
 };
