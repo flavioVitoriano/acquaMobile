@@ -27,7 +27,7 @@ const DrawerNavgation: React.FC = () => (
     }}
   >
     <Drawer.Screen
-      name="HomePage"
+      name="Home"
       component={HomePage}
       options={{
         drawerLabel: ({ focused }) => (
@@ -84,7 +84,7 @@ const DrawerNavgation: React.FC = () => (
       options={{
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>
-            empréstimo de garrafão
+            Empréstimos de garrafões
           </Text>
         ),
         drawerIcon: ({ focused }) => (
@@ -99,7 +99,7 @@ const DrawerNavgation: React.FC = () => (
       options={{
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>
-            relatorios
+            Relatórios
           </Text>
         ),
         drawerIcon: ({ focused }) => (
@@ -114,7 +114,7 @@ const DrawerNavgation: React.FC = () => (
       options={{
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>
-            Rotas de Cleintes
+            Rotas de Clientes
           </Text>
         ),
         drawerIcon: ({ focused }) => (
