@@ -2,9 +2,9 @@ import React, { useRef } from "react";
 import {
   ScrollView,
   View,
-  Image,
   KeyboardAvoidingView,
   Platform,
+  SafeAreaView,
 } from "react-native";
 
 import { Form } from "@unform/mobile";
@@ -43,20 +43,34 @@ const Client: React.FC = () => {
                 placeholder="Nome do cliente"
                 returnKeyType="next"
               />
-
               <Input
                 name="city"
                 icon="phone"
                 placeholder="telefone"
-                secureTextEntry
                 returnKeyType="next"
               />
-
+              <Input
+                name="preferred_price"
+                icon="bell"
+                placeholder="preço padrão"
+                returnKeyType="send"
+              />
               <Input
                 name="city"
+                icon="city"
+                placeholder="Cidade"
+                returnKeyType="send"
+              />
+              <Input
+                name="address"
+                icon="address"
+                placeholder="Endereco"
+                returnKeyType="send"
+              />
+              <Input
+                name="number_address"
                 icon="bell"
-                placeholder="preço preferido"
-                secureTextEntry
+                placeholder="número endereço"
                 returnKeyType="send"
               />
 
