@@ -1,6 +1,21 @@
+import React from 'react';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {Text} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 
+import CarboyLoans from '../pages/CarboyLoans'
+import Client from '../pages/Client'
+import ClientCreated from '../pages/ClientCreated'
+import Expenses from '../pages/Expenses'
+import Inputs from '../pages/Inputs'
+import Reports from '../pages/Reports'
+import RoutesClients from '../pages/RoutesClients'
+import Sales from '../pages/Sales'
+import Shopping from '../pages/Shopping'
+import Button from '../components/Button';
+import SignOut from '../pages/signOut';
 
-const Drawer = createDrawerNavigator();
+ const Drawer = createDrawerNavigator();
 
 const DrawerNavgation: React.FC = () => (
   <Drawer.Navigator
@@ -13,46 +28,44 @@ const DrawerNavgation: React.FC = () => (
       inactiveTintColor: "#FFF",
     }}
   >
-    <Drawer.Screen
-      name="Home"
-      component={HomePage}
-      options={{
-        drawerLabel: ({ focused }) => (
-          <Text style={{ color: focused ? "#313131" : "#fff" }}>Home</Text>
-        ),
-        drawerIcon: ({ focused }) => (
-          <Icon color={focused ? "#313131" : "#fff"} name="home" />
-        ),
-      }}
-    />
 
     <Drawer.Screen
       name="Client"
       component={Client}
       options={{
-        drawerLabel: ({ focused }) => (
-
-        ),
+        drawerLabel: (({ focused }) => <Text style={{color:focused? '#313131' : '#fff'}}>Cadastrar clientes</Text>),
+          drawerIcon: (({focused})=> <Icon color={focused ? "#313131" : "#fff"} name="user-plus"/>)
       }}
     />
 
+
     <Drawer.Screen
+      name="ClientCreated"
+      component={ClientCreated}
+      options={{
+        drawerLabel: (({ focused }) => <Text style={{color:focused? '#313131' : '#fff'}}>Clientes Cadastrados</Text>),
+          drawerIcon: (({focused})=> <Icon color={focused ? "#313131" : "#fff"} name="users"/>)
+      }}
+    />
+
+
+
+<Drawer.Screen
       name="Shopping"
       component={Shopping}
       options={{
-        drawerLabel: ({ focused }) => (
-
-        ),
+        drawerLabel: (({ focused }) => <Text style={{color:focused? '#313131' : '#fff'}}>Compras</Text>),
+          drawerIcon: (({focused})=> <Icon color={focused ? "#313131" : "#fff"} name="shopping-cart"/>)
       }}
     />
+
 
     <Drawer.Screen
       name="Sales"
       component={Sales}
       options={{
-        drawerLabel: ({ focused }) => (
-
-        ),
+        drawerLabel: (({ focused }) => <Text style={{color:focused? '#313131' : '#fff'}}>Vendas</Text>),
+          drawerIcon: (({focused})=> <Icon color={focused ? "#313131" : "#fff"} name="shopping-bag"/>)
       }}
     />
 
@@ -60,9 +73,8 @@ const DrawerNavgation: React.FC = () => (
       name="CarboyLoans"
       component={CarboyLoans}
       options={{
-        drawerLabel: ({ focused }) => (
-
-        ),
+        drawerLabel: (({ focused }) => <Text style={{color:focused? '#313131' : '#fff'}}>Emprèstimo de Garrafão</Text>),
+          drawerIcon: (({focused})=> <Icon color={focused ? "#313131" : "#fff"} name="share-2"/>)
       }}
     />
 
@@ -70,8 +82,8 @@ const DrawerNavgation: React.FC = () => (
       name="Reports"
       component={Reports}
       options={{
-        drawerLabel: ({ focused }) => (
-        ),
+        drawerLabel: (({ focused }) => <Text style={{color:focused? '#313131' : '#fff'}}>Relatorios</Text>),
+          drawerIcon: (({focused})=> <Icon color={focused ? "#313131" : "#fff"} name="folder"/>)
       }}
     />
 
@@ -79,9 +91,8 @@ const DrawerNavgation: React.FC = () => (
       name="RoutesClients"
       component={RoutesClients}
       options={{
-        drawerLabel: ({ focused }) => (
-
-        ),
+        drawerLabel: (({ focused }) => <Text style={{color:focused? '#313131' : '#fff'}}>Rota de Clientes</Text>),
+          drawerIcon: (({focused})=> <Icon color={focused ? "#313131" : "#fff"} name="truck"/>)
       }}
     />
 
@@ -89,9 +100,8 @@ const DrawerNavgation: React.FC = () => (
       name="Expenses"
       component={Expenses}
       options={{
-        drawerLabel: ({ focused }) => (
-
-        ),
+        drawerLabel: (({ focused }) => <Text style={{color:focused? '#313131' : '#fff'}}>Despesas</Text>),
+          drawerIcon: (({focused})=> <Icon color={focused ? "#313131" : "#fff"} name="align-left"/>)
       }}
     />
 
@@ -99,11 +109,20 @@ const DrawerNavgation: React.FC = () => (
       name="Inputs"
       component={Inputs}
       options={{
-        drawerLabel: ({ focused }) => (
-
-        ),
+        drawerLabel: (({ focused }) => <Text style={{color:focused? '#313131' : '#fff'}}>Entradas</Text>),
+          drawerIcon: (({focused})=> <Icon color={focused ? "#313131" : "#fff"} name="log-in"/>)
       }}
     />
+
+<Drawer.Screen
+      name="SignOut"
+      component={SignOut}
+      options={{
+        drawerLabel: (({ focused }) => <Text style={{color:focused? '#313131' : '#fff'}}>Sair</Text>),
+          drawerIcon: (({focused})=> <Icon color={focused ? "#313131" : "#fff"} name="log-out"/>)
+      }}
+    />
+
   </Drawer.Navigator>
 );
 
