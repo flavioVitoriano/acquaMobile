@@ -6,7 +6,7 @@ import React, {
   useEffect,
 } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import api from '../services/api';
+import api from '../services/index';
 
 interface AuthState {
   token: string;
@@ -27,48 +27,48 @@ interface AuthContextData {
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-const AuthProvider: React.FC = ({children}) => {
+const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>({} as AuthState);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadStoragedData(): Promise<void> {
       const [token, user] = await AsyncStorage.multiGet([
-        '@waterPlus:token',
-        '@waterPlus:user',
+        '@WaterPlus:token',
+        '@WaterPlus:user',
       ]);
       if (token[1] && user[1]) {
-        setData({token: token[1], user: JSON.parse(user[1])});
+        setData({ token: token[1], user: JSON.parse(user[1]) });
       }
       setLoading(false);
     }
     loadStoragedData();
   }, []);
 
-  const signIn = useCallback(async ({username, password}) => {
-    const response = await api.post('/auth', {
+  const signIn = useCallback(async ({ username, password }) => {
+    const response = await api.post('/auth/', {
       username,
       password,
     });
 
-    const {token, user} = response.data;
+    const { token, user } = response.data;
 
     await AsyncStorage.multiSet([
-      ['@waterPlus:token', token],
-      ['@waterPlus:user', JSON.stringify(user)],
+      ['@WaterPlus:token', token],
+      ['@WaterPlus:user', JSON.stringify(user)],
     ]);
 
-    setData({token, user});
+    api.defaults.headers.authorization = `Bearer ${token}`
+    setData({ token, user });
   }, []);
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove(['@waterPlus:user', '@waterPlus:token']);
-
+    await AsyncStorage.multiRemove(['@WaterPlus:user', '@WaterPlus:token']);
     setData({} as AuthState);
   }, []);
 
   return (
-    <AuthContext.Provider value={{user: data.user, loading, signIn, signOut}}>
+    <AuthContext.Provider value={{ user: data.user, loading, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
@@ -82,4 +82,4 @@ function useAuth(): AuthContextData {
   }
   return context;
 }
-export {AuthProvider, useAuth};
+export { AuthProvider, useAuth };

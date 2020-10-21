@@ -1,14 +1,10 @@
-import React from 'react';
-import {View, Button} from 'react-native';
-
-import {useAuth} from '../../hooks/auth';
+import React from "react";
+import { View, Button } from "react-native";
 
 const Expenses: React.FC = () => {
-  const {signOut} = useAuth();
-
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Button title="Expenses" onPress={signOut} />
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Button title="Expenses" onPress={() => {}} />
     </View>
   );
 };

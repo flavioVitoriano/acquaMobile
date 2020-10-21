@@ -4,6 +4,8 @@ import Icon from 'react-native-vector-icons/Feather';
 import {Text} from 'react-native';
 
 import Client from '../pages/Client';
+import ClientCreated from '../pages/ClientCreated';
+
 import Shopping from '../pages/Shopping';
 import Sales from '../pages/Sales';
 import CarboyLoans from '../pages/CarboyLoans';
@@ -11,6 +13,7 @@ import Reports from '../pages/Reports';
 import RoutesClients from '../pages/RoutesClients';
 import Expenses from '../pages/Expenses';
 import Inputs from '../pages/Inputs';
+import signOut from '../pages/signOut';
 
 const Drawer = createDrawerNavigator();
 
@@ -30,14 +33,30 @@ const DrawerNavgation: React.FC = () => (
       component={Client}
       options={{
         drawerLabel: ({focused}) => (
-          <Text style={{color: focused ? '#313131' : '#fff'}}>Cliente</Text>
+          <Text style={{color: focused ? '#313131' : '#fff'}}>Cadastrar Clientes</Text>
         ),
         drawerIcon: ({focused}) => (
           <Icon color={focused ? '#313131' : '#fff'}
-          name="user" />
+          name="user-plus" />
         ),
       }}
     />
+
+<Drawer.Screen
+      name="ClientCreated"
+      component={ClientCreated}
+      options={{
+        drawerLabel: ({focused}) => (
+          <Text style={{color: focused ? '#313131' : '#fff'}}>Clientes Cadastrados</Text>
+        ),
+        drawerIcon: ({focused}) => (
+          <Icon color={focused ? '#313131' : '#fff'}
+          name="users" />
+        ),
+      }}
+    />
+
+
 
     <Drawer.Screen
       name="Shopping"
@@ -84,7 +103,7 @@ const DrawerNavgation: React.FC = () => (
         ),
         drawerIcon: ({focused}) => (
           <Icon color={focused ? '#313131' : '#fff'}
-          name="calendar"
+          name="share-2"
            />
         ),
       }}
@@ -101,7 +120,7 @@ const DrawerNavgation: React.FC = () => (
         ),
         drawerIcon: ({focused}) => (
           <Icon color={focused ? '#313131' : '#fff'}
-          name="file"
+          name="folder"
            />
         ),
       }}
@@ -118,7 +137,7 @@ const DrawerNavgation: React.FC = () => (
         ),
         drawerIcon: ({focused}) => (
           <Icon color={focused ? '#313131' : '#fff'}
-          name="crop"
+          name="truck"
            />
         ),
       }}
@@ -157,6 +176,24 @@ const DrawerNavgation: React.FC = () => (
         ),
       }}
     />
+
+<Drawer.Screen
+      name="signOut"
+      component={signOut}
+      options={{
+        drawerLabel: ({focused}) => (
+          <Text style={{color: focused ? '#313131' : '#fff'}}>
+           Sair
+          </Text>
+        ),
+        drawerIcon: ({focused}) => (
+          <Icon color={focused ? '#313131' : '#fff'}
+          name="log-out"
+           />
+        ),
+      }}
+    />
+
 
   </Drawer.Navigator>
 );
