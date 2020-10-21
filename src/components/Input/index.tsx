@@ -80,7 +80,7 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
       />
       <TextInput
         ref={inputElementRef}
-        placeholderTextColor="#000"
+        placeholderTextColor="#737380"
         keyboardAppearance="dark"
         defaultValue={defaultValue}
         onFocus={handleInputFocus}

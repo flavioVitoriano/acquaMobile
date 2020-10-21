@@ -13,7 +13,7 @@ import Reports from '../pages/Reports';
 import RoutesClients from '../pages/RoutesClients';
 import Expenses from '../pages/Expenses';
 import Inputs from '../pages/Inputs';
-import signOut from '../pages/signOut';
+import SignOut from '../pages/SignOut';
 
 const Drawer = createDrawerNavigator();
 
@@ -178,8 +178,8 @@ const DrawerNavgation: React.FC = () => (
     />
 
 <Drawer.Screen
-      name="signOut"
-      component={signOut}
+      name="SignOut"
+      component={SignOut}
       options={{
         drawerLabel: ({focused}) => (
           <Text style={{color: focused ? '#313131' : '#fff'}}>

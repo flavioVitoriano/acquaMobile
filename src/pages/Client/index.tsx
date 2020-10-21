@@ -26,6 +26,7 @@ interface ClientFormData {
   full_name: string;
   phone: string;
   preferred_price: number;
+  city: string;
 }
 
 const Client: React.FC = () => {
@@ -34,6 +35,7 @@ const Client: React.FC = () => {
 
   const phoneInputRef = useRef<TextInput>(null);
   const passswordInputRef = useRef<TextInput>(null);
+  const cityInputRef = useRef<TextInput>(null);
 
   const handleSignUp = useCallback(
     async (data: ClientFormData) => {
@@ -44,6 +46,7 @@ const Client: React.FC = () => {
         const schema = Yup.object().shape({
           full_name: Yup.string().required('Nome obrigatório'),
           phone: Yup.string().required('telefone obrigatório'),
+          city: Yup.string().required('Cidade obrigatório'),
           preferred_price: Yup.number().min(1, 'digite um número'),
         });
         await schema.validate(data, {
@@ -102,9 +105,23 @@ const Client: React.FC = () => {
               placeholder="telefone"
               returnKeyType="next"
               onSubmitEditing={() => {
+                cityInputRef.current?.focus();
+              }}
+            />
+
+              <Input
+              ref={cityInputRef}
+              autoCorrect={false}
+              autoCapitalize="none"
+              name="city"
+              icon="map-pin"
+              placeholder="cidade"
+              returnKeyType="next"
+              onSubmitEditing={() => {
                 passswordInputRef.current?.focus();
               }}
             />
+
             <Input
               ref={passswordInputRef}
               name="preferred_price"
