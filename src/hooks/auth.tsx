@@ -34,8 +34,9 @@ const AuthProvider: React.FC = ({ children }) => {
   useEffect(() => {
     async function loadStoragedData(): Promise<void> {
       const [token, user] = await AsyncStorage.multiGet([
-        "@waterPlus:token",
-        "@waterPlus:user",
+
+        '@WaterPlus:token',
+        '@WaterPlus:user',
       ]);
       if (token[1] && user[1]) {
         setData({ token: token[1], user: JSON.parse(user[1]) });
@@ -45,7 +46,7 @@ const AuthProvider: React.FC = ({ children }) => {
     loadStoragedData();
   }, []);
 
-  const signIn = useCallback(async ({username,password}) => {
+  const signIn = useCallback(async ({ username, password }) => {
     const response = await api.post('/auth/', {
       username,
       password,
@@ -54,16 +55,16 @@ const AuthProvider: React.FC = ({ children }) => {
     const { token, user } = response.data;
 
     await AsyncStorage.multiSet([
-      ["@waterPlus:token", token],
-      ["@waterPlus:user", JSON.stringify(user)],
+      ['@WaterPlus:token', token],
+      ['@WaterPlus:user', JSON.stringify(user)],
     ]);
+
     api.defaults.headers.authorization = `Bearer ${token}`
-    setData({token, user})
+    setData({ token, user });
   }, []);
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove(["@waterPlus:user", "@waterPlus:token"]);
-
+    await AsyncStorage.multiRemove(['@WaterPlus:user', '@WaterPlus:token']);
     setData({} as AuthState);
   }, []);
 
@@ -78,7 +79,7 @@ function useAuth(): AuthContextData {
   const context = useContext(AuthContext);
 
   if (!context) {
-    throw new Error(" useAuth must be used within an authProvider ");
+    throw new Error(' useAuth must be used within an authProvider ');
   }
   return context;
 }

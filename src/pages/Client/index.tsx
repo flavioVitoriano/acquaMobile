@@ -53,7 +53,7 @@ const Client: React.FC = () => {
         await api.post('/clients/', data)
         Alert.alert(
           'Cadastro realizado com sucesso!',
-          'Você já pode fazer login na aplicação',
+          'Veja agora seus clientes cadastrados',
         );
         navigation.navigate('ClientCreated')
       } catch (err) {

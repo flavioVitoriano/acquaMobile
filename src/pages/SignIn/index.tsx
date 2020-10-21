@@ -53,6 +53,10 @@ const SignIn: React.FC = () => {
           username: data.username,
           password: data.password,
         });
+        Alert.alert(
+          'Cadastro realizado com sucesso!',
+          'Você já pode fazer login na aplicação',
+        );
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
