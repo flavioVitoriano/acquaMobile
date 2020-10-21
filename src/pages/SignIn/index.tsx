@@ -14,14 +14,13 @@ import {FormHandles} from '@unform/core';
 
 import {useAuth} from '../../hooks/auth';
 
-import logoImg from '../../assets/avatar.png';
+import logoImg from '../../assets/logo.png';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-//import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
 
 import {Container, Title, ForgotPassword, ForgotPasswordText} from './styles';
@@ -34,8 +33,6 @@ interface SignInFormaData {
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
-
-  // const navigation = useNavigation();
 
   const {signIn} = useAuth();
 
