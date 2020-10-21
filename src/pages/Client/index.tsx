@@ -1,53 +1,88 @@
-import React, { useRef } from "react";
+
 import {
-  ScrollView,
+  TextInput,
   View,
   KeyboardAvoidingView,
   Platform,
-  SafeAreaView,
-} from "react-native";
 
-import { Form } from "@unform/mobile";
-import { FormHandles } from "@unform/core";
 
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 
-import { Container, Title } from "./styles";
-
 const Client: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const navigation = useNavigation();
+
+  const phoneInputRef = useRef<TextInput>(null);
+  const passswordInputRef = useRef<TextInput>(null);
+
+  const handleSignUp = useCallback(
+    async (data: ClientFormData) => {
+      try {
+        formRef.current?.setErrors({});
+
+
+        const schema = Yup.object().shape({
+          full_name: Yup.string().required('Nome obrigatório'),
+          phone: Yup.string().required('telefone obrigatório'),
+          preferred_price: Yup.number().min(1, 'digite um número'),
+        });
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        await api.post('/clients/', data)
+        Alert.alert(
+          'Cadastro realizado com sucesso!',
+          'Você já pode fazer login na aplicação',
+        );
+          navigation.navigate('ClientCreated')
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+
+          formRef.current?.setErrors(errors);
+
+          return;
+        }
+        Alert.alert('Erro no cadastro', 'Ocorreu um erro ao fazer cadastro');
+      }
+    },
+    [navigation],
+  );
 
   return (
     <>
       <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-        enabled
-      >
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{ flex: 1 }}
-        >
+
           <Container>
             <View>
               <Title>Cadastrar Cliente</Title>
             </View>
 
-            <Form ref={formRef} onSubmit={() => {}}>
+
               <Input
-                autoCorrect={false}
                 autoCapitalize="none"
-                name="username"
+                autoCorrect={false}
+                name="full_name"
                 icon="user"
-                placeholder="Nome do cliente"
+                placeholder="Nome"
                 returnKeyType="next"
+                onSubmitEditing={() => {
+                  phoneInputRef.current?.focus();
+                }}
               />
               <Input
-                name="city"
+                ref={phoneInputRef}
+                autoCorrect={false}
+                autoCapitalize="none"
+                name="phone"
                 icon="phone"
-                placeholder="telefone"
+
                 returnKeyType="next"
+                onSubmitEditing={() => {
+                  passswordInputRef.current?.focus();
+                }}
               />
               <Input
                 name="preferred_price"
@@ -56,37 +91,21 @@ const Client: React.FC = () => {
                 returnKeyType="send"
               />
               <Input
-                name="city"
-                icon="city"
-                placeholder="Cidade"
+
                 returnKeyType="send"
-              />
-              <Input
-                name="address"
-                icon="address"
-                placeholder="Endereco"
-                returnKeyType="send"
-              />
-              <Input
-                name="number_address"
-                icon="bell"
-                placeholder="número endereço"
-                returnKeyType="send"
+                onSubmitEditing={() => formRef.current?.submitForm()}
               />
 
               <View>
-                <Button
-                  onPress={() => {
-                    formRef.current?.submitForm();
-                  }}
-                >
+
                   Cadastrar
                 </Button>
               </View>
             </Form>
           </Container>
-        </ScrollView>
       </KeyboardAvoidingView>
+
+
     </>
   );
 };
