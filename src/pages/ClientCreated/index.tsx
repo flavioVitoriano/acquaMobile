@@ -1,14 +1,14 @@
 import React from 'react';
 import {View, Button} from 'react-native';
 
-import {useAuth} from '../../hooks/auth';
+import {useAuth} from '../../hooks/auth'//;
 
 const ClientCreated: React.FC = () => {
-  const {signOut} = useAuth();
+//  const {signOut} = useAuth();
 
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Button title="ClientCreated" onPress={signOut} />
+      <Button title="ClientCreated" onPress={()=>{}} />
     </View>
   );
 };

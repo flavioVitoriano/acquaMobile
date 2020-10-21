@@ -4,6 +4,9 @@ import React, {
   useState,
   useContext,
   useEffect,
+} from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+import api from '../services/index';
 
 
 interface AuthState {
@@ -43,17 +46,20 @@ const AuthProvider: React.FC = ({ children }) => {
     loadStoragedData();
   }, []);
 
-
+  const signIn = useCallback(async ({username,password}) => {
+    const response = await api.post('/auth/', {
       username,
       password,
     });
 
+    const {token, user} = response.data;
 
     await AsyncStorage.multiSet([
       ["@waterPlus:token", token],
       ["@waterPlus:user", JSON.stringify(user)],
     ]);
-
+    api.defaults.headers.authorization = `Bearer ${token}`
+    setData({token, user})
   }, []);
 
   const signOut = useCallback(async () => {
