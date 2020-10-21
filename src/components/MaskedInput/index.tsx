@@ -9,11 +9,14 @@ import React, {
 
 import { TextInputProps } from "react-native";
 import { useField } from "@unform/core";
-import { Container, Icon, TextInput } from "./styles";
+import { Container, Icon } from "./styles";
+import { TextInputMask } from "react-native-masked-text";
 
 interface InputProps extends TextInputProps {
   name: string;
   icon: string;
+  mask: string;
+  maskOptions: object;
 }
 
 interface InputValueReference {
@@ -25,7 +28,7 @@ interface InputRef {
 }
 
 const Input: React.RefForwardingComponent<InputRef, InputProps> = (
-  { name, icon, ...rest },
+  { name, icon, mask, maskOptions, ...rest },
   ref,
 ) => {
   const inputElementRef = useRef<any>(null);
@@ -79,7 +82,9 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
         size={20}
         color={isFocused || isFilled ? "#3d9be9" : "#000"}
       />
-      <TextInput
+      <TextInputMask
+        type={mask}
+        options={maskOptions}
         ref={inputElementRef}
         placeholderTextColor="#000"
         keyboardAppearance="dark"
