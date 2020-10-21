@@ -1,32 +1,13 @@
-import React, {useRef, useCallback} from 'react';
+
 import {
   TextInput,
   View,
   KeyboardAvoidingView,
   Platform,
-  Alert,
-} from 'react-native';
-
-import {useNavigation} from '@react-navigation/native';
-import {Form} from '@unform/mobile';
-import {FormHandles} from '@unform/core';
-
-import * as Yup from 'yup';
 
 
-import getValidationErrors from '../../utils/getValidationErrors';
-
-import Input from '../../components/Input';
-import Button from '../../components/Button';
-
-import {Container, Title} from './styles';
-import api from '../../services';
-
-interface ClientFormData {
-  full_name: string;
-  phone: string;
-  preferred_price: number;
-}
+import Input from "../../components/Input";
+import Button from "../../components/Button";
 
 const Client: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
@@ -73,17 +54,13 @@ const Client: React.FC = () => {
   return (
     <>
       <KeyboardAvoidingView
-        style={{flex: 1}}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        enabled>
 
           <Container>
-
             <View>
               <Title>Cadastrar Cliente</Title>
             </View>
 
-            <Form ref={formRef} onSubmit={handleSignUp}>
+
               <Input
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -95,32 +72,32 @@ const Client: React.FC = () => {
                   phoneInputRef.current?.focus();
                 }}
               />
-
               <Input
                 ref={phoneInputRef}
                 autoCorrect={false}
                 autoCapitalize="none"
                 name="phone"
                 icon="phone"
-                placeholder="Telefone"
+
                 returnKeyType="next"
                 onSubmitEditing={() => {
                   passswordInputRef.current?.focus();
                 }}
               />
-
               <Input
-                ref={passswordInputRef}
-                autoCorrect={false}
                 name="preferred_price"
                 icon="bell"
-                placeholder="preço preferido"
+                placeholder="preço padrão"
+                returnKeyType="send"
+              />
+              <Input
+
                 returnKeyType="send"
                 onSubmitEditing={() => formRef.current?.submitForm()}
               />
 
               <View>
-                <Button onPress={() => formRef.current?.submitForm()}>
+
                   Cadastrar
                 </Button>
               </View>
