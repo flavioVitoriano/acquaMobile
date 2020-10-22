@@ -35,7 +35,7 @@ const DrawerNavgation: React.FC = () => (
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>
-            Cadastrar Clientes
+            Cadastrar cliente
           </Text>
         ),
         drawerIcon: ({ focused }) => (
@@ -51,7 +51,7 @@ const DrawerNavgation: React.FC = () => (
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>
-            Clientes Cadastrados
+            Ver clientes
           </Text>
         ),
         drawerIcon: ({ focused }) => (
@@ -92,7 +92,7 @@ const DrawerNavgation: React.FC = () => (
       options={{
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>
-            empréstimo de garrafão
+            Empréstimo de garrafão
           </Text>
         ),
         drawerIcon: ({ focused }) => (
@@ -107,7 +107,7 @@ const DrawerNavgation: React.FC = () => (
       options={{
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>
-            relatorios
+            Relatórios
           </Text>
         ),
         drawerIcon: ({ focused }) => (
@@ -122,7 +122,7 @@ const DrawerNavgation: React.FC = () => (
       options={{
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>
-            Rotas de Clientes
+            Rota de Clientes
           </Text>
         ),
         drawerIcon: ({ focused }) => (
