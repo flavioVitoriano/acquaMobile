@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import  Icon  from 'react-native-vector-icons/Feather';
-import { useNavigation } from '@react-navigation/native';
-import { View, FlatList, Image, Text, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from "react";
+import Icon from "react-native-vector-icons/Feather";
+import { useNavigation } from "@react-navigation/native";
+import { View, FlatList, Text, TouchableOpacity } from "react-native";
+import api from "../../services/index";
 
-import api from '../../services/index';
-
-
-import styles from './styles';
+import styles from "./styles";
 
 export default function ClientCreated() {
-  const [client, setClient] = useState([]);
+  const [client, setClientList] = useState([]);
   const [total, setTotal] = useState(0);
 
   const [page, setPage] = useState(1);
@@ -18,45 +16,51 @@ export default function ClientCreated() {
   const navigation = useNavigation();
 
   function navigateToDetail(client) {
-    navigation.navigate('Inputs', { client });
+    navigation.navigate("Inputs", { client });
   }
 
-  async function loadclient() {
+  function loadclient() {
     if (loading) {
       return;
     }
-
-    if (total > 0 && client.length === total) {
+    if (Number(total) > 0 && Number(client.length) === Number(total)) {
       return;
     }
 
     setLoading(true);
 
-    const response = await api.get('/clients/', {
-      params: { page }
-    });
-
-    setClient([...client, ...response.data]);
-    setTotal(response.headers['x-total-count']);
-    setPage(page + 1);
-    setLoading(false);
+    api
+      .get("/clients/", {
+        params: { page },
+      })
+      .then((res) => {
+        setClientList([...client, ...res.data]);
+        setTotal(res.headers["x-total-count"]);
+        setPage(page + 1);
+        setLoading(false);
+      });
   }
 
   useEffect(() => {
     loadclient();
+
+    return () => {
+      setClientList([]);
+    };
   }, []);
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-      </View>
+      <View style={styles.header}></View>
 
-      <Text style={styles.description}>Escolha um de seus clientes e entre em contato.</Text>
+      <Text style={styles.description}>
+        Escolha um de seus clientes e entre em contato.
+      </Text>
 
       <FlatList
         data={client}
         style={styles.clientList}
-        keyExtractor={client => String(client.id)}
+        keyExtractor={(client) => String(client.id)}
         // showsVerticalScrollIndicator={false}
         onEndReached={loadclient}
         onEndReachedThreshold={0.2}
@@ -69,16 +73,7 @@ export default function ClientCreated() {
             <Text style={styles.clientValue}>{client.city}</Text>
 
             <Text style={styles.clientProperty}>telefone:</Text>
-        <Text style={styles.clientValue}>{client.phone}</Text>
-
-
-            <Text style={styles.clientProperty}>VALOR:</Text>
-            <Text style={styles.clientValue}>
-              {Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-              }).format(client.preferred_price)}
-            </Text>
+            <Text style={styles.clientValue}>{client.phone}</Text>
 
             <TouchableOpacity
               style={styles.detailsButton}
