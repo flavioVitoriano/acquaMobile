@@ -4,9 +4,9 @@ import React, {
   useState,
   useContext,
   useEffect,
-} from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
-import api from '../services/index';
+} from "react";
+import AsyncStorage from "@react-native-community/async-storage";
+import api from "../services/index";
 
 interface AuthState {
   token: string;
@@ -34,9 +34,8 @@ const AuthProvider: React.FC = ({ children }) => {
   useEffect(() => {
     async function loadStoragedData(): Promise<void> {
       const [token, user] = await AsyncStorage.multiGet([
-
-        '@WaterPlus:token',
-        '@WaterPlus:user',
+        "@WaterPlus:token",
+        "@WaterPlus:user",
       ]);
       if (token[1] && user[1]) {
         setData({ token: token[1], user: JSON.parse(user[1]) });
@@ -47,7 +46,7 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const signIn = useCallback(async ({ username, password }) => {
-    const response = await api.post('/auth/', {
+    const response = await api.post("/auth/", {
       username,
       password,
     });
@@ -55,16 +54,16 @@ const AuthProvider: React.FC = ({ children }) => {
     const { token, user } = response.data;
 
     await AsyncStorage.multiSet([
-      ['@WaterPlus:token', token],
-      ['@WaterPlus:user', JSON.stringify(user)],
+      ["@WaterPlus:token", token],
+      ["@WaterPlus:user", JSON.stringify(user)],
     ]);
 
-    api.defaults.headers.authorization = `Bearer ${token}`
+    api.defaults.headers.authorization = `Token ${token}`;
     setData({ token, user });
   }, []);
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove(['@WaterPlus:user', '@WaterPlus:token']);
+    await AsyncStorage.multiRemove(["@WaterPlus:user", "@WaterPlus:token"]);
     setData({} as AuthState);
   }, []);
 
@@ -79,7 +78,7 @@ function useAuth(): AuthContextData {
   const context = useContext(AuthContext);
 
   if (!context) {
-    throw new Error(' useAuth must be used within an authProvider ');
+    throw new Error(" useAuth must be used within an authProvider ");
   }
   return context;
 }
