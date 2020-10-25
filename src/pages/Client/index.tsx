@@ -85,7 +85,7 @@ const Client: React.FC = () => {
 
           <Form ref={formRef} onSubmit={handleSignUp}>
             <Input
-              autoCapitalize="none"
+              autoCapitalize="words"
               autoCorrect={false}
               name="full_name"
               icon="user"
@@ -98,10 +98,11 @@ const Client: React.FC = () => {
             <Input
               ref={phoneInputRef}
               autoCorrect={false}
-              autoCapitalize="none"
+              autoCapitalize="characters"
               name="phone"
               icon="phone"
               placeholder="telefone"
+              keyboardType="phone-pad"
               returnKeyType="next"
               onSubmitEditing={() => {
                 cityInputRef.current?.focus();
@@ -111,7 +112,7 @@ const Client: React.FC = () => {
               <Input
               ref={cityInputRef}
               autoCorrect={false}
-              autoCapitalize="none"
+              autoCapitalize="words"
               name="city"
               icon="map-pin"
               placeholder="cidade"
@@ -123,6 +124,7 @@ const Client: React.FC = () => {
 
             <Input
               ref={passswordInputRef}
+              keyboardType="numeric"
               name="preferred_price"
               icon="bell"
               placeholder="preço padrão"

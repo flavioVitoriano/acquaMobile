@@ -87,7 +87,13 @@ export default function ClientCreated() {
             <ClientValue>{clients.phone}</ClientValue>
 
             <ClientProperty>preço sugerido:</ClientProperty>
-            <ClientValue>{clients.preferred_price}</ClientValue>
+            <ClientValue>
+              {Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+              }).format(clients.preferred_price)}
+            </ClientValue>
+
 
             <DetailsButton
               onPress={navigateToDetail}
@@ -102,3 +108,4 @@ export default function ClientCreated() {
     </Container>
   );
 }
+

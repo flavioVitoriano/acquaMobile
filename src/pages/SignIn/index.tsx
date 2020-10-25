@@ -1,4 +1,4 @@
-import React, {useCallback, useRef} from 'react';
+import React, {useCallback, useEffect,useState,useRef} from 'react';
 import {
   TextInput,
   ScrollView,
@@ -7,6 +7,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
+  Animated,
+  Keyboard
 } from 'react-native';
 
 import {Form} from '@unform/mobile';
@@ -33,6 +35,45 @@ interface SignInFormaData {
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
+
+  const [logo] = useState(new Animated.ValueXY({x:120, y:206}))
+
+  useEffect(() => {
+
+  keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', KeyboardDidShow)
+  keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', KeyboardDidHide)
+  },[]);
+
+
+  function KeyboardDidShow() {
+    Animated.parallel([
+      Animated.timing(logo.x,{
+        toValue:60,
+        duration: 100,
+        useNativeDriver: false,
+      }),
+      Animated.timing(logo.y,{
+        toValue:103,
+        duration:100,
+        useNativeDriver: false,
+      })
+    ]).start();
+  }
+
+  function KeyboardDidHide() {
+    Animated.parallel([
+      Animated.timing(logo.x,{
+        toValue:120,
+        duration: 100,
+        useNativeDriver: false,
+      }),
+      Animated.timing(logo.y,{
+        toValue:206,
+        duration:100,
+        useNativeDriver:false,
+      })
+    ]).start();
+  }
 
   const {signIn} = useAuth();
 
@@ -83,7 +124,10 @@ const SignIn: React.FC = () => {
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={{flex: 1}}>
           <Container>
-            <Image source={logoImg} />
+            <Animated.Image style={{
+              width: logo.x,
+               height: logo.y
+               }} source={logoImg} />
 
             <View>
               <Title>Faça seu login no Aqua</Title>
