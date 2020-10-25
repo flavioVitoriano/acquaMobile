@@ -42,7 +42,6 @@ const Client: React.FC = () => {
       try {
         formRef.current?.setErrors({});
 
-
         const schema = Yup.object().shape({
           full_name: Yup.string().required('Nome obrigatório'),
           phone: Yup.string().required('telefone obrigatório'),

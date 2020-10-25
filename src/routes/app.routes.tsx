@@ -64,6 +64,7 @@ const DrawerNavgation: React.FC = () => (
       name="Shopping"
       component={Shopping}
       options={{
+        unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>Compras</Text>
         ),
@@ -77,6 +78,7 @@ const DrawerNavgation: React.FC = () => (
       name="Sales"
       component={Sales}
       options={{
+        unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>Vendas</Text>
         ),
@@ -90,6 +92,7 @@ const DrawerNavgation: React.FC = () => (
       name="CarboyLoans"
       component={CarboyLoans}
       options={{
+        unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>
             Empréstimo de garrafão
@@ -105,6 +108,7 @@ const DrawerNavgation: React.FC = () => (
       name="Reports"
       component={Reports}
       options={{
+        unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>
             Relatórios
@@ -120,6 +124,7 @@ const DrawerNavgation: React.FC = () => (
       name="RoutesClients"
       component={RoutesClients}
       options={{
+        unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>
             Rota de Clientes
@@ -135,6 +140,7 @@ const DrawerNavgation: React.FC = () => (
       name="Expenses"
       component={Expenses}
       options={{
+        unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>Despesas</Text>
         ),
@@ -148,6 +154,7 @@ const DrawerNavgation: React.FC = () => (
       name="Inputs"
       component={Inputs}
       options={{
+        unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>Entradas</Text>
         ),
@@ -161,6 +168,7 @@ const DrawerNavgation: React.FC = () => (
       name="SignOut"
       component={SignOut}
       options={{
+        unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>Sair</Text>
         ),
