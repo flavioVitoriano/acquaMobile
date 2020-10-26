@@ -44,15 +44,15 @@ margin-bottom: 16px;
 `;
 
 export const ClientProperty = styled.Text`
-font-size: 14;
+font-size: 14px;
 color: #4169b3;
 font-weight: bold;
 `;
 
 export const ClientValue = styled.Text`
-margin-top: 8;
-font-size: 15;
-margin-bottom: 24;
+margin-top: 8px;
+font-size: 15px;
+margin-bottom: 24px;
 color: #737373;
 `;
 
@@ -64,6 +64,6 @@ align-items: center;
 
 export const DetailsButtonText = styled.Text`
 color: #e02041;
-font-size:15;
+font-size:15px;
 font-weight:bold
 `;

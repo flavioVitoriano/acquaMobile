@@ -44,7 +44,6 @@ const SignIn: React.FC = () => {
   keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', KeyboardDidHide)
   },[]);
 
-
   function KeyboardDidShow() {
     Animated.parallel([
       Animated.timing(logo.x,{
