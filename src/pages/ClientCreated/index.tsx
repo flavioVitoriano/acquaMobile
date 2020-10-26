@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/Feather";
-import { useNavigation,useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import api from "../../services/index";
 
-import {ClientValue,
-   Container,
-   Client,
-   Header,
-   Description,
-   ClientList,
-   ClientProperty,
-   DetailsButton,
-   DetailsButtonText
-  } from './styles';
+import {
+  ClientValue,
+  Container,
+  Client,
+  Header,
+  Description,
+  ClientList,
+  ClientProperty,
+  DetailsButton,
+  DetailsButtonText
+} from './styles';
 
 interface ClientData {
   id: number;
@@ -28,12 +29,13 @@ export default function ClientCreated() {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-
+  const [full_name_contains, setFull_name_contains] = useState('');
   const navigation = useNavigation();
 
   function navigateToDetail() {
     navigation.navigate("Inputs", { clients });
   }
+
 
   function loadclient() {
     if (loading) {
@@ -47,7 +49,7 @@ export default function ClientCreated() {
 
     api
       .get("/clients/", {
-        params: { page },
+        params: { page,full_name_contains },
       })
       .then((response) => {
         setClientList([...clients, ...response.data]);
@@ -65,14 +67,16 @@ export default function ClientCreated() {
     <Container>
       <Header></Header>
 
-      <Description>
-        Escolha um de seus clientes e entre em contato.
-      </Description>
+      <Description placeholder="Buscar cliente por nome..."
+      placeholderTextColor="#000"
+        value={full_name_contains}
+        onChangeText={setFull_name_contains}
+      />
 
       <ClientList
         data={clients}
         keyExtractor={(client) => String(client.id)}
-         showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         onEndReached={loadclient}
         onEndReachedThreshold={0.2}
         renderItem={({ item: clients }) => (
@@ -93,7 +97,6 @@ export default function ClientCreated() {
                 currency: 'BRL'
               }).format(clients.preferred_price)}
             </ClientValue>
-
 
             <DetailsButton
               onPress={navigateToDetail}
