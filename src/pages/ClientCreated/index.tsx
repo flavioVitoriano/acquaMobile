@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/Feather";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { ActivityIndicator, View } from "react-native";
 import api from "../../services/index";
 
 import {
@@ -12,8 +13,8 @@ import {
   ClientList,
   ClientProperty,
   DetailsButton,
-  DetailsButtonText
-} from './styles';
+  DetailsButtonText,
+} from "./styles";
 
 interface ClientData {
   id: number;
@@ -24,20 +25,18 @@ interface ClientData {
 }
 
 export default function ClientCreated() {
-
   const [clients, setClientList] = useState<ClientData[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [full_name_contains, setFull_name_contains] = useState('');
+  const [filterValue, setFilterValue] = useState("");
   const navigation = useNavigation();
 
   function navigateToDetail() {
     navigation.navigate("Inputs", { clients });
   }
 
-
-  function loadclient() {
+  function loadClients() {
     if (loading) {
       return;
     }
@@ -49,7 +48,7 @@ export default function ClientCreated() {
 
     api
       .get("/clients/", {
-        params: { page,full_name_contains },
+        params: { page },
       })
       .then((response) => {
         setClientList([...clients, ...response.data]);
@@ -59,25 +58,52 @@ export default function ClientCreated() {
       });
   }
 
+  const fetchFilterData = () => {
+    setLoading(true);
+
+    api
+      .get("/clients/", {
+        params: { page, full_name_contains: filterValue },
+      })
+      .then((response) => {
+        setClientList(response.data);
+        setTotal(response.headers["x-total-count"]);
+        setPage(1);
+        setLoading(false);
+      });
+  };
+
   useEffect(() => {
-    loadclient();
+    fetchFilterData();
+  }, [filterValue]);
+
+  useEffect(() => {
+    loadClients();
   }, []);
+
+  const RenderHeader = () => (
+    <Description
+      placeholder="Procure..."
+      onChangeText={setFilterValue}
+      value={filterValue}
+      autoCorrect={false}
+    />
+  );
 
   return (
     <Container>
       <Header></Header>
-
-      <Description placeholder="Buscar cliente por nome..."
-      placeholderTextColor="#000"
-        value={full_name_contains}
-        onChangeText={setFull_name_contains}
+      <Description
+        placeholder="Procure..."
+        onChangeText={setFilterValue}
+        value={filterValue}
+        autoCorrect={false}
       />
-
       <ClientList
         data={clients}
         keyExtractor={(client) => String(client.id)}
         showsVerticalScrollIndicator={false}
-        onEndReached={loadclient}
+        onEndReached={loadClients}
         onEndReachedThreshold={0.2}
         renderItem={({ item: clients }) => (
           <Client>
@@ -90,18 +116,7 @@ export default function ClientCreated() {
             <ClientProperty>telefone:</ClientProperty>
             <ClientValue>{clients.phone}</ClientValue>
 
-            <ClientProperty>preço sugerido:</ClientProperty>
-            <ClientValue>
-              {Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-              }).format(clients.preferred_price)}
-            </ClientValue>
-
-            <DetailsButton
-              onPress={navigateToDetail}
-            >
-
+            <DetailsButton onPress={navigateToDetail}>
               <DetailsButtonText>Ver mais detalhes</DetailsButtonText>
               <Icon name="arrow-right" size={16} color="#E02041" />
             </DetailsButton>
@@ -111,4 +126,3 @@ export default function ClientCreated() {
     </Container>
   );
 }
-
