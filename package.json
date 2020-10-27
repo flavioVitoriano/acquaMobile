@@ -21,6 +21,7 @@
     "intl": "^1.2.5",
     "react": "16.13.1",
     "react-native": "0.63.3",
+    "react-native-elements": "^3.0.0-alpha.1",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-masked-text": "^1.13.0",
     "react-native-reanimated": "^1.13.1",
