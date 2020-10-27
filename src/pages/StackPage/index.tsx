@@ -19,7 +19,7 @@ interface clientsDetail{
   preferred_price: number | any;
 }
 
-export default function DetailClient() {
+export default function StackPage() {
     const route = useRoute();
     const params = route.params as clientsDetailRouteParams;
     const navigation = useNavigation();
@@ -37,7 +37,7 @@ export default function DetailClient() {
   ${Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(clients?.preferred_price)}`;
 
   function navigateBack() {
-    navigation.navigate('ClientCreated')
+    navigation.goBack()
   }
 
 
@@ -48,11 +48,12 @@ export default function DetailClient() {
   return (
     <ScrollView>
 
+
     <View style={styles.container}>
       <View style={styles.header}>
 
         <TouchableOpacity onPress={navigateBack}>
-          <Icon name="arrow-left" size={30} color="#E82041" />
+          <Icon name="arrow-left" size={28} color="#E82041" />
         </TouchableOpacity>
       </View>
 
@@ -86,6 +87,9 @@ export default function DetailClient() {
             <Text style={styles.actionText}>WhatsApp</Text>
           </TouchableOpacity>
 
+          <TouchableOpacity style={styles.action} onPress={() => {}}>
+            <Text style={styles.actionText}>E-mail</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

@@ -1,9 +1,7 @@
 import React, { useRef, useCallback } from 'react';
 import {
   TextInput,
-  ScrollView,
   View,
-  Image,
   KeyboardAvoidingView,
   Platform,
   Alert,

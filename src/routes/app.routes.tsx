@@ -12,9 +12,9 @@ import CarboyLoans from "../pages/CarboyLoans";
 import Reports from "../pages/Reports";
 import RoutesClients from "../pages/RoutesClients";
 import Expenses from "../pages/Expenses";
-import Inputs from "../pages/Inputs";
+import DetailClient from "../pages/DetailClient";
 import SignOut from "../pages/SignOut";
-
+import StackRoutes from './stack.routes'
 const Drawer = createDrawerNavigator();
 
 const DrawerNavgation: React.FC = () => (
@@ -151,12 +151,12 @@ const DrawerNavgation: React.FC = () => (
     />
 
     <Drawer.Screen
-      name="Inputs"
-      component={Inputs}
+      name="DetailClient"
+      component={DetailClient}
       options={{
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
-          <Text style={{ color: focused ? "#313131" : "#fff" }}>Entradas</Text>
+          <Text style={{ color: focused ? "#313131" : "#fff" }}>Detalhe do cliente</Text>
         ),
         drawerIcon: ({ focused }) => (
           <Icon color={focused ? "#313131" : "#fff"} name="log-in" />
@@ -177,6 +177,14 @@ const DrawerNavgation: React.FC = () => (
         ),
       }}
     />
+
+<Drawer.Screen
+      name="StackRoutes"
+      component={StackRoutes}
+      options={{title: ''}}
+
+    />
+
   </Drawer.Navigator>
 );
 

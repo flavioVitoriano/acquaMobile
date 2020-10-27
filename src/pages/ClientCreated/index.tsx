@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/Feather";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { ActivityIndicator, View } from "react-native";
 import api from "../../services/index";
-
 import {
   ClientValue,
   Container,
@@ -16,7 +14,7 @@ import {
   DetailsButtonText,
 } from "./styles";
 
-interface ClientData {
+interface ClientFormData {
   id: number;
   full_name: string;
   phone: string;
@@ -25,16 +23,21 @@ interface ClientData {
 }
 
 export default function ClientCreated() {
-  const [clients, setClientList] = useState<ClientData[]>([]);
+  const [clients, setClientList] = useState<ClientFormData[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [filterValue, setFilterValue] = useState("");
+
   const navigation = useNavigation();
 
-  function navigateToDetail() {
-    navigation.navigate("Inputs", { clients });
+  function navigateToDetail(id: number) {
+    navigation.navigate("DetailClient" , {id} );
   }
+  function navigateToDetailStack(id: number) {
+    navigation.navigate("StackRoutes" , {id} );
+  }
+
 
   function loadClients() {
     api
@@ -99,21 +102,27 @@ export default function ClientCreated() {
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.2}
-        renderItem={({ item: clients }) => (
+        renderItem={({ item: clients2 }) => (
           <Client>
             <ClientProperty>Nome:</ClientProperty>
-            <ClientValue>{clients.full_name}</ClientValue>
+            <ClientValue>{clients2.full_name}</ClientValue>
 
             <ClientProperty>Cidade:</ClientProperty>
-            <ClientValue>{clients.city}</ClientValue>
+            <ClientValue>{clients2.city}</ClientValue>
 
             <ClientProperty>telefone:</ClientProperty>
-            <ClientValue>{clients.phone}</ClientValue>
+            <ClientValue>{clients2.phone}</ClientValue>
 
-            <DetailsButton onPress={navigateToDetail}>
+            <DetailsButton onPress={() => navigateToDetail(clients2.id)}>
               <DetailsButtonText>Ver mais detalhes</DetailsButtonText>
               <Icon name="arrow-right" size={16} color="#E02041" />
             </DetailsButton>
+
+            <DetailsButton onPress={() => navigateToDetailStack(clients2.id)}>
+              <DetailsButtonText>Ver mais detalhes no Stack</DetailsButtonText>
+              <Icon  name="arrow-right" size={16} color="#E02041" />
+            </DetailsButton>
+
           </Client>
         )}
       />
