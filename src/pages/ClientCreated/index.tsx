@@ -37,28 +37,35 @@ export default function ClientCreated() {
   }
 
   function loadClients() {
-    if (loading) {
-      return;
-    }
-    if (Number(total) > 0 && Number(clients.length) === Number(total)) {
-      return;
-    }
-
-    setLoading(true);
-
     api
       .get("/clients/", {
         params: { page },
       })
       .then((response) => {
-        setClientList([...clients, ...response.data]);
+        setClientList(response.data);
         setTotal(response.headers["x-total-count"]);
         setPage(page + 1);
         setLoading(false);
       });
   }
 
-  const fetchFilterData = () => {
+  const onFilterChange = (text: string) => {
+    setClientList([]);
+    setPage(1);
+    setFilterValue(text);
+  };
+
+  const onEndReached = () => {
+    if (loading) {
+      return;
+    }
+    if (Number(total) > 0 && Number(clients.length) === Number(total)) {
+      return;
+    }
+    setPage(page + 1);
+  };
+
+  useEffect(() => {
     setLoading(true);
 
     api
@@ -66,36 +73,23 @@ export default function ClientCreated() {
         params: { page, full_name_contains: filterValue },
       })
       .then((response) => {
-        setClientList(response.data);
+        const data = new Set([...clients, ...response.data]);
+        setClientList(Array.from(data.values()));
         setTotal(response.headers["x-total-count"]);
-        setPage(1);
         setLoading(false);
       });
-  };
-
-  useEffect(() => {
-    fetchFilterData();
-  }, [filterValue]);
+  }, [page, filterValue]);
 
   useEffect(() => {
     loadClients();
   }, []);
-
-  const RenderHeader = () => (
-    <Description
-      placeholder="Procure..."
-      onChangeText={setFilterValue}
-      value={filterValue}
-      autoCorrect={false}
-    />
-  );
 
   return (
     <Container>
       <Header></Header>
       <Description
         placeholder="Procure..."
-        onChangeText={setFilterValue}
+        onChangeText={onFilterChange}
         value={filterValue}
         autoCorrect={false}
       />
@@ -103,7 +97,7 @@ export default function ClientCreated() {
         data={clients}
         keyExtractor={(client) => String(client.id)}
         showsVerticalScrollIndicator={false}
-        onEndReached={loadClients}
+        onEndReached={onEndReached}
         onEndReachedThreshold={0.2}
         renderItem={({ item: clients }) => (
           <Client>
