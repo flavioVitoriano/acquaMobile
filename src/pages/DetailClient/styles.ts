@@ -14,6 +14,13 @@ export const Header = styled.View`
   flex-direction: row;
   `;
 
+export const Title = styled.Text`
+
+font-size: 20px;
+color: #41414d;
+font-family: 'RobotoSlab-Medium';
+`;
+
 export const Clients = styled.View`
 padding: 24px;
 border-radius: 8px;
@@ -28,7 +35,7 @@ export const ClientsProperty = styled.Text`
   font-family: 'RobotoSlab-Medium';
   margin-top: 24px;
 `;
-export const ClientsValue= styled.Text`
+export const ClientsValue= styled.TextInput`
     margin-top: 8px;
     font-size: 15px;
     font-family: 'RobotoSlab-Medium';

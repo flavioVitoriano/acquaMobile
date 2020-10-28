@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Icon from "react-native-vector-icons/Feather";
 import { useNavigation, useRoute } from '@react-navigation/native';
-import {Linking, ScrollView } from 'react-native';
-import {RectButton} from 'react-native-gesture-handler'
+import { Linking, ScrollView, Alert } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler'
 import {
   Container,
   Header,
@@ -12,6 +12,7 @@ import {
   ClientDescription,
   ClientTitle,
   Clients,
+  Title,
   ClientsProperty,
   ClientsValue,
   ContactBox
@@ -33,6 +34,7 @@ interface clientsDetail {
 
 export default function DetailClient() {
   const route = useRoute();
+
   const params = route.params as clientsDetailRouteParams;
   const navigation = useNavigation();
   const [clients, setClients] = useState<clientsDetail>();
@@ -42,6 +44,24 @@ export default function DetailClient() {
       setClients(response.data);
     })
   }, [params.id])
+
+
+  const EditClient= useCallback(
+    async (data: clientsDetail) => {
+      try {
+
+        await api.patch(`/clients/${params.id}/`, data)
+        Alert.alert(
+          'Edição concluída',
+          'Edição realizado com sucesso!',
+        );
+      } catch (err) {
+
+        Alert.alert('Erro na edição', 'Ocorreu um erro ao editar cliente');
+      }
+    },
+    [params.id],
+  );
 
   const message = `Olá ${clients?.full_name}, estou entrando em contato pois gostaria de saber se o senhor
    vai fazer pedido de garrafões.`;
@@ -58,17 +78,26 @@ export default function DetailClient() {
     <ScrollView>
 
       <Container style={{ paddingHorizontal: 24 }}>
-        <Header>
 
+        <Header>
           <RectButton onPress={navigateBack}>
             <Icon name="arrow-left" size={28} color="#E82041" />
+          </RectButton>
+          <Title>Toque Para editar Cliente</Title>
+          <RectButton onPress={() => { }}>
+            <Icon name="edit" size={28} color="#e82041" />
           </RectButton>
         </Header>
 
         <Clients>
-          <ClientsProperty style={{ marginTop: 0 }}>Nome:</ClientsProperty>
-          <ClientsValue>{clients?.full_name}</ClientsValue>
+          <Header>
+            <ClientsProperty style={{ marginTop: 0 }}>Nome:</ClientsProperty>
+            <RectButton onPress={() => EditClient}>
+              <Icon name="save" size={28} color="#E82041" />
+            </RectButton>
+          </Header>
 
+          <ClientsValue>{clients?.full_name}</ClientsValue>
           <ClientsProperty>Endereço:</ClientsProperty>
           <ClientsValue>{clients?.city}/{clients?.address} e casa número {clients?.number_address}</ClientsValue>
 

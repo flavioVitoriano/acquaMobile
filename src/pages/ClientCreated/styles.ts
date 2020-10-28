@@ -23,6 +23,7 @@ export const Header = styled.View`
 `;
 
 export const HeaderText = styled.Text`
+font-family: 'RobotoSlab-Medium';
 font-size: 15px;
 color: #737373;
 `
@@ -30,6 +31,7 @@ color: #737373;
 export const Description = styled.TextInput`
 font-size: 16px;
 line-height:24px;
+font-family: 'RobotoSlab-Medium';
 color: #737373;
 ;`
 
@@ -45,12 +47,14 @@ margin-bottom: 16px;
 `;
 
 export const ClientProperty = styled.Text`
+font-family: 'RobotoSlab-Medium';
 font-size: 14px;
 color: #4169b3;
 font-weight: bold;
 `;
 
 export const ClientValue = styled.Text`
+font-family: 'RobotoSlab-Medium';
 margin-top: 8px;
 font-size: 15px;
 margin-bottom: 24px;
@@ -64,6 +68,7 @@ align-items: center;
 `;
 
 export const DetailsButtonText = styled.Text`
+font-family: 'RobotoSlab-Medium';
 color: #e02041;
 font-size:15px;
 font-weight:bold

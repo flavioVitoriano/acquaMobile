@@ -28,6 +28,7 @@ const DrawerNavgation: React.FC = () => (
       inactiveTintColor: "#FFF",
     }}
   >
+
     <Drawer.Screen
       name="Client"
       component={Client}
@@ -66,7 +67,7 @@ const DrawerNavgation: React.FC = () => (
       options={{
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
-          <Text style={{ color: focused ? "#313131" : "#fff" }}>Detalhe do último cliente</Text>
+          <Text style={{ color: focused ? "#313131" : "#fff" }}>Detalhe do cliente</Text>
         ),
         drawerIcon: ({ focused }) => (
           <Icon color={focused ? "#313131" : "#fff"} name="edit" />
