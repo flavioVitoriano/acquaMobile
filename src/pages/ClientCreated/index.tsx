@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/Feather";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import api from "../../services/index";
 import {
   ClientValue,
@@ -13,6 +13,8 @@ import {
   DetailsButton,
   DetailsButtonText,
 } from "./styles";
+import debounce from "lodash/debounce";
+import { ActivityIndicator } from "react-native";
 
 interface ClientFormData {
   id: number;
@@ -32,12 +34,11 @@ export default function ClientCreated() {
   const navigation = useNavigation();
 
   function navigateToDetail(id: number) {
-    navigation.navigate("DetailClient" , {id} );
+    navigation.navigate("DetailClient", { id });
   }
   function navigateToDetailStack(id: number) {
-    navigation.navigate("StackRoutes" , {id} );
+    navigation.navigate("StackRoutes", { id });
   }
-
 
   function loadClients() {
     api
@@ -68,7 +69,7 @@ export default function ClientCreated() {
     setPage(page + 1);
   };
 
-  useEffect(() => {
+  const debouncedLoad = debounce(() => {
     setLoading(true);
 
     api
@@ -81,6 +82,10 @@ export default function ClientCreated() {
         setTotal(response.headers["x-total-count"]);
         setLoading(false);
       });
+  }, 0.5);
+
+  useEffect(() => {
+    debouncedLoad();
   }, [page, filterValue]);
 
   useEffect(() => {
@@ -120,9 +125,8 @@ export default function ClientCreated() {
 
             <DetailsButton onPress={() => navigateToDetailStack(clients2.id)}>
               <DetailsButtonText>Ver mais detalhes no Stack</DetailsButtonText>
-              <Icon  name="arrow-right" size={16} color="#E02041" />
+              <Icon name="arrow-right" size={16} color="#E02041" />
             </DetailsButton>
-
           </Client>
         )}
       />
