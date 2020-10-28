@@ -11,6 +11,7 @@ interface ClientData {
 }
 
 export const Container = styled.SafeAreaView`
+  margin: 20px;
   flex: 1;
   padding: 0 30px ${Platform.OS === 'android' ? 120 : 40}px;
 `;

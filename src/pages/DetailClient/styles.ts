@@ -3,12 +3,10 @@ import {Platform} from 'react-native';
 //15c3d6 ,41aef4,3d9be9,15B6D6
 
 export const Container= styled.SafeAreaView`
-  margin: 24px;
+  margin: 20px;
   flex: 1;
   padding: 0 30px ${Platform.OS === 'android' ? 120 : 40}px;
 `;
-
-
 
 export const Header = styled.View`
   align-items: center;
