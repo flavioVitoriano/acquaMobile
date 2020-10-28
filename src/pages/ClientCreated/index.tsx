@@ -34,10 +34,6 @@ export default function ClientCreated() {
   function navigateToDetail(id: number) {
     navigation.navigate("DetailClient" , {id} );
   }
-  function navigateToDetailStack(id: number) {
-    navigation.navigate("StackRoutes" , {id} );
-  }
-
 
   function loadClients() {
     api
@@ -116,11 +112,6 @@ export default function ClientCreated() {
             <DetailsButton onPress={() => navigateToDetail(clients2.id)}>
               <DetailsButtonText>Ver mais detalhes</DetailsButtonText>
               <Icon name="arrow-right" size={16} color="#E02041" />
-            </DetailsButton>
-
-            <DetailsButton onPress={() => navigateToDetailStack(clients2.id)}>
-              <DetailsButtonText>Ver mais detalhes no Stack</DetailsButtonText>
-              <Icon  name="arrow-right" size={16} color="#E02041" />
             </DetailsButton>
 
           </Client>

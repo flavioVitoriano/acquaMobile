@@ -1,6 +1,7 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Icon from "react-native-vector-icons/Feather";
+
 import { Text } from "react-native";
 
 import Client from "../pages/Client";
@@ -14,7 +15,6 @@ import RoutesClients from "../pages/RoutesClients";
 import Expenses from "../pages/Expenses";
 import DetailClient from "../pages/DetailClient";
 import SignOut from "../pages/SignOut";
-import StackRoutes from './stack.routes'
 const Drawer = createDrawerNavigator();
 
 const DrawerNavgation: React.FC = () => (
@@ -59,6 +59,21 @@ const DrawerNavgation: React.FC = () => (
         ),
       }}
     />
+
+<Drawer.Screen
+      name="DetailClient"
+      component={DetailClient}
+      options={{
+        unmountOnBlur: true,
+        drawerLabel: ({ focused }) => (
+          <Text style={{ color: focused ? "#313131" : "#fff" }}>Detalhe do último cliente</Text>
+        ),
+        drawerIcon: ({ focused }) => (
+          <Icon color={focused ? "#313131" : "#fff"} name="edit" />
+        ),
+      }}
+    />
+
 
     <Drawer.Screen
       name="Shopping"
@@ -151,20 +166,6 @@ const DrawerNavgation: React.FC = () => (
     />
 
     <Drawer.Screen
-      name="DetailClient"
-      component={DetailClient}
-      options={{
-        unmountOnBlur: true,
-        drawerLabel: ({ focused }) => (
-          <Text style={{ color: focused ? "#313131" : "#fff" }}>Detalhe do cliente</Text>
-        ),
-        drawerIcon: ({ focused }) => (
-          <Icon color={focused ? "#313131" : "#fff"} name="log-in" />
-        ),
-      }}
-    />
-
-    <Drawer.Screen
       name="SignOut"
       component={SignOut}
       options={{
@@ -176,13 +177,6 @@ const DrawerNavgation: React.FC = () => (
           <Icon color={focused ? "#313131" : "#fff"} name="log-out" />
         ),
       }}
-    />
-
-<Drawer.Screen
-      name="StackRoutes"
-      component={StackRoutes}
-      options={{title: ''}}
-
     />
 
   </Drawer.Navigator>
