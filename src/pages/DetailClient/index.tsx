@@ -3,7 +3,19 @@ import Icon from "react-native-vector-icons/Feather";
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { View, Text, TouchableOpacity, Linking,ScrollView } from 'react-native';
 
-import styles from './styles';
+import {
+  Container,
+  Header,
+  Action,
+  ActionText,
+  Actions,
+  ClientDescription,
+  ClientTitle,
+  Clients,
+  ClientsProperty,
+  ClientsValue,
+  ContactBox
+} from './styles';
 import api from '../../services';
 
 interface clientsDetailRouteParams{
@@ -26,11 +38,10 @@ export default function DetailClient() {
     const [clients, setClients] = useState<clientsDetail>();
 
   useEffect(() => {
-    if(params.id){
     api.get(`/clients/${params.id}/`).then(response=> {
       setClients(response.data);
     })
-  }},[params.id])
+  },[params.id])
 
   const message = `Olá ${clients?.full_name}, estou entrando em contato pois gostaria de ajudar no caso
   "${clients?.full_name} do  ${clients?.preferred_price}" com o valor de
@@ -48,47 +59,47 @@ export default function DetailClient() {
   return (
     <ScrollView>
 
-    <View style={styles.container}>
-      <View style={styles.header}>
+    <Container style={{paddingHorizontal:24}}>
+      <Header>
 
         <TouchableOpacity onPress={navigateBack}>
           <Icon name="arrow-left" size={30} color="#E82041" />
         </TouchableOpacity>
-      </View>
+      </Header>
 
-      <View style={styles.clients}>
-        <Text style={[styles.clientsProperty, { marginTop: 0 }]}>Nome:</Text>
-        <Text style={styles.clientsValue}>{clients?.full_name}</Text>
+      <Clients>
+      <ClientsProperty style={{marginTop: 0}}>Nome:</ClientsProperty>
+        <ClientsValue>{clients?.full_name}</ClientsValue>
 
-        <Text style={styles.clientsProperty}>endereço:</Text>
-  <Text style={styles.clientsValue}>{clients?.city}/{clients?.address} e casa número {clients?.number_address}</Text>
+        <ClientsProperty>Endereço:</ClientsProperty>
+  <ClientsValue>{clients?.city}/{clients?.address} e casa número {clients?.number_address}</ClientsValue>
 
-        <Text style={styles.clientsProperty}>telefone:</Text>
-        <Text style={styles.clientsValue}>{clients?.phone}</Text>
+        <ClientsProperty>Telefone:</ClientsProperty>
+        <ClientsValue>{clients?.phone}</ClientsValue>
 
-        <Text style={styles.clientsProperty}>VALOR:</Text>
-        <Text style={styles.clientsValue}>
+        <ClientsProperty>Valor:</ClientsProperty>
+        <ClientsValue>
           {Intl.NumberFormat('pt-BR', {
             style: 'currency',
             currency: 'BRL'
           }).format(clients?.preferred_price)}
-        </Text>
-      </View>
+        </ClientsValue>
+      </Clients>
 
-      <View style={styles.contactBox}>
-        <Text style={styles.heroTitle}>Entre em contato e</Text>
-        <Text style={styles.heroTitle}>converse com seu cliente</Text>
+      <ContactBox>
+        <ClientTitle>Entre em contato e</ClientTitle>
+        <ClientTitle>converse com seu cliente</ClientTitle>
 
-        <Text style={styles.heroDescription}>Entrar em contato  via:</Text>
+        <ClientDescription>Entrar em contato  via:</ClientDescription>
 
-        <View style={styles.actions}>
-          <TouchableOpacity style={styles.action} onPress={sendWhatsapp}>
-            <Text style={styles.actionText}>WhatsApp</Text>
-          </TouchableOpacity>
+        <Actions>
+          <Action onPress={sendWhatsapp}>
+            <ActionText>WhatsApp</ActionText>
+          </Action>
 
-        </View>
-      </View>
-    </View>
+        </Actions>
+      </ContactBox>
+    </Container>
     </ScrollView>
   );
 }
