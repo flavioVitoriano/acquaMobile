@@ -72,8 +72,8 @@ export default function DetailClient() {
 
         await api.patch(`/clients/${params.id}/`, data)
         Alert.alert(
-          'Cadastro realizado com sucesso!',
-          'Veja agora seus clientes cadastrados',
+          'Edição realizada com sucesso!',
+          'dados do cliente atualizados',
         );
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -83,7 +83,7 @@ export default function DetailClient() {
 
           return;
         }
-        Alert.alert('Erro no cadastro', 'Ocorreu um erro ao fazer cadastro');
+        Alert.alert('Erro na edição', 'Ocorreu um erro ao fazer edição do cliente');
       }
     },
     [params.id],
@@ -101,19 +101,20 @@ export default function DetailClient() {
   }
 
   return (
-    <ScrollView>
-
-      <Container style={{ paddingHorizontal: 24 }}>
+          <Container style={{ paddingHorizontal: 24 }}>
 
         <Header>
           <RectButton onPress={navigateBack}>
             <Icon name="arrow-left" size={28} color="#E82041" />
           </RectButton>
           <Title>Toque Para editar Cliente</Title>
+
           <RectButton onPress={()=> {}}>
             <Icon name="edit" size={28} color="#e82041" />
           </RectButton>
         </Header>
+
+        <ScrollView>
 
         <Clients>
         <Form ref={formRef} onSubmit={EditClient}>
@@ -186,7 +187,8 @@ export default function DetailClient() {
 
           </Actions>
         </ContactBox>
+            </ScrollView>
+
       </Container>
-    </ScrollView>
   );
 }
