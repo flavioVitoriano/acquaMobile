@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/Feather";
 import { Text } from "react-native";
 
 import Client from "../pages/Client";
-import ClientCreated from "../pages/ClientCreated";
+import StackRoutes from "./stack.routes";
 
 import Shopping from "../pages/Shopping";
 import Sales from "../pages/Sales";
@@ -13,7 +13,6 @@ import CarboyLoans from "../pages/CarboyLoans";
 import Reports from "../pages/Reports";
 import RoutesClients from "../pages/RoutesClients";
 import Expenses from "../pages/Expenses";
-import DetailClient from "../pages/DetailClient";
 import SignOut from "../pages/SignOut";
 const Drawer = createDrawerNavigator();
 
@@ -46,8 +45,8 @@ const DrawerNavgation: React.FC = () => (
     />
 
     <Drawer.Screen
-      name="ClientCreated"
-      component={ClientCreated}
+      name="StackRoutes"
+      component={StackRoutes}
       options={{
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
@@ -60,21 +59,6 @@ const DrawerNavgation: React.FC = () => (
         ),
       }}
     />
-
-<Drawer.Screen
-      name="DetailClient"
-      component={DetailClient}
-      options={{
-        unmountOnBlur: true,
-        drawerLabel: ({ focused }) => (
-          <Text style={{ color: focused ? "#313131" : "#fff" }}>Detalhe do cliente</Text>
-        ),
-        drawerIcon: ({ focused }) => (
-          <Icon color={focused ? "#313131" : "#fff"} name="edit" />
-        ),
-      }}
-    />
-
 
     <Drawer.Screen
       name="Shopping"

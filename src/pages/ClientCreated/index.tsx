@@ -109,6 +109,9 @@ export default function ClientCreated() {
             <ClientProperty>telefone:</ClientProperty>
             <ClientValue>{clients2.phone}</ClientValue>
 
+            <ClientProperty>preço:</ClientProperty>
+            <ClientValue>{clients2.preferred_price}</ClientValue>
+
             <DetailsButton onPress={() => navigateToDetail(clients2.id)}>
               <DetailsButtonText>Ver mais detalhes</DetailsButtonText>
               <Icon name="arrow-right" size={16} color="#E02041" />
