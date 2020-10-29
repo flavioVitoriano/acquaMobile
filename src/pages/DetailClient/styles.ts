@@ -29,18 +29,6 @@ margin-bottom: 16px;
 margin-top: 48px;
 `;
 
-export const ClientsProperty = styled.Text`
-  font-size: 14px;
-  color: #41414d;
-  font-family: 'RobotoSlab-Medium';
-  margin-top: 24px;
-`;
-export const ClientsValue= styled.TextInput`
-    margin-top: 8px;
-    font-size: 15px;
-    font-family: 'RobotoSlab-Medium';
-    color: #737380;
-  `;
 export const ContactBox= styled.View`
   padding: 24px;
   border-radius: 8px;
