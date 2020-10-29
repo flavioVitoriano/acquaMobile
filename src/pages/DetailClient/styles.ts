@@ -5,7 +5,7 @@ import {Platform} from 'react-native';
 export const Container= styled.SafeAreaView`
   margin: 20px;
   flex: 1;
-  padding: 0 30px ${Platform.OS === 'android' ? 120 : 40}px;
+  padding: 0 5px ${Platform.OS === 'android' ? 10 : 40}px;
 `;
 
 export const Header = styled.View`
