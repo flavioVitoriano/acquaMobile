@@ -61,29 +61,28 @@ export default function DetailClient() {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          full_name: Yup.string().required('Nome obrigatório'),
-          phone: Yup.string().required('telefone obrigatório'),
-          city: Yup.string().required('Cidade obrigatório'),
-          preferred_price: Yup.number().min(1, 'digite um número'),
-        });
+          full_name: Yup.string().notRequired(),
+          phone: Yup.string().notRequired(),
+          city: Yup.string().notRequired(),
+          preferred_price: Yup.string().notRequired(),
+        }).test('Erro',"Atualize no minimo 1 campo", value =>
+        !!(value?.full_name || value?.phone || value?.city || value?.preferred_price))
+
         await schema.validate(data, {
           abortEarly: false,
         });
 
         await api.patch(`/clients/${params.id}/`, data)
         Alert.alert(
-          'Edição realizada com sucesso!',
+          'Edição realizada com sucesso 😃!',
           'dados do cliente atualizados',
         );
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
-          const errors = getValidationErrors(err);
 
-          formRef.current?.setErrors(errors);
+          return Alert.alert('Erro na edição 🙁', 'Ocorreu um erro ao fazer edição do cliente');
 
-          return;
         }
-        Alert.alert('Erro na edição', 'Ocorreu um erro ao fazer edição do cliente');
       }
     },
     [params.id],
