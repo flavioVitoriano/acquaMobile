@@ -3,19 +3,18 @@ import {Platform} from 'react-native';
 //15c3d6 ,41aef4,3d9be9,15B6D6
 
 export const Container= styled.SafeAreaView`
-  margin: 20px;
   flex: 1;
-  padding: 0 5px ${Platform.OS === 'android' ? 10 : 40}px;
+  margin: 8px;
 `;
 
 export const Header = styled.View`
+ margin-top: 8px;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
   `;
 
 export const Title = styled.Text`
-
 font-size: 20px;
 color: #41414d;
 font-family: 'RobotoSlab-Medium';
