@@ -87,7 +87,7 @@ export default function ClientCreated() {
     <Container>
       <Header></Header>
       <Description
-        placeholder="Procure..."
+        placeholder="Buscar clientes por nome..."
         onChangeText={onFilterChange}
         value={filterValue}
         autoCorrect={false}
@@ -98,21 +98,21 @@ export default function ClientCreated() {
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.2}
-        renderItem={({ item: clients2 }) => (
+        renderItem={({ item: clients }) => (
           <Client>
             <ClientProperty>Nome:</ClientProperty>
-            <ClientValue>{clients2.full_name}</ClientValue>
+            <ClientValue>{clients.full_name}</ClientValue>
 
             <ClientProperty>Cidade:</ClientProperty>
-            <ClientValue>{clients2.city}</ClientValue>
+            <ClientValue>{clients.city}</ClientValue>
 
             <ClientProperty>telefone:</ClientProperty>
-            <ClientValue>{clients2.phone}</ClientValue>
+            <ClientValue>{clients.phone}</ClientValue>
 
             <ClientProperty>preço:</ClientProperty>
-            <ClientValue>{clients2.preferred_price}</ClientValue>
+            <ClientValue>{clients.preferred_price}</ClientValue>
 
-            <DetailsButton onPress={() => navigateToDetail(clients2.id)}>
+            <DetailsButton onPress={() => navigateToDetail(clients.id)}>
               <DetailsButtonText>Ver mais detalhes</DetailsButtonText>
               <Icon name="arrow-right" size={16} color="#E02041" />
             </DetailsButton>
