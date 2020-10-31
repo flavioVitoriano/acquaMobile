@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/Feather";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import api from "../../services/index";
 import {
   ClientValue,
@@ -32,7 +32,7 @@ export default function ClientCreated() {
   const navigation = useNavigation();
 
   function navigateToDetail(id: number) {
-    navigation.navigate("DetailClient" , {id} );
+    navigation.navigate("DetailClient", { id });
   }
 
   function loadClients() {
@@ -116,7 +116,6 @@ export default function ClientCreated() {
               <DetailsButtonText>Ver mais detalhes</DetailsButtonText>
               <Icon name="arrow-right" size={16} color="#E02041" />
             </DetailsButton>
-
           </Client>
         )}
       />
