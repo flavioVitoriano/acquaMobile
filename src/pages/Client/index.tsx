@@ -1,11 +1,11 @@
- import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback } from 'react';
 import {
-        TextInput,
+  TextInput,
   View,
   KeyboardAvoidingView,
   Platform,
   Alert,
-}   from 'react-native';
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
@@ -107,7 +107,7 @@ const Client: React.FC = () => {
               }}
             />
 
-              <Input
+            <Input
               ref={cityInputRef}
               autoCorrect={false}
               autoCapitalize="words"

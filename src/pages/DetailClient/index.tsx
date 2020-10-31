@@ -109,7 +109,7 @@ export default function DetailClient() {
               {({ handleChange, handleBlur, handleSubmit, values }) => {
                 return (
                   <>
-                    <Description style={{ color: '#4169b3' }}>Nome: </Description>
+                    <Description>Nome: </Description>
                     <Input
                       autoCapitalize="words"
                       autoCorrect={false}
@@ -119,7 +119,7 @@ export default function DetailClient() {
                       value={values.full_name}
                       returnKeyType="next"
                     />
-                    <Description style={{ color: '#4169b3' }}>Telefone: </Description>
+                    <Description>Telefone: </Description>
 
                     <Input
                       autoCorrect={false}
@@ -131,7 +131,7 @@ export default function DetailClient() {
                       keyboardType="phone-pad"
                       returnKeyType="next"
                     />
-                    <Description style={{ color: '#4169b3' }}>Cidade: </Description>
+                    <Description>Cidade: </Description>
 
                     <Input
                       autoCorrect={false}
@@ -142,7 +142,7 @@ export default function DetailClient() {
                       value={values.city}
                       returnKeyType="next"
                     />
-                    <Description style={{ color: '#4169b3' }}>Preço Padrão: </Description>
+                    <Description>Preço Padrão: </Description>
 
                     <Input
                       keyboardType="numeric"
@@ -152,7 +152,7 @@ export default function DetailClient() {
                       value={String(values.preferred_price)}
                       returnKeyType="send"
                     />
-                    <Button onPress={handleSubmit} title="Salvar Edições" color="#000" />
+                    <Button onPress={handleSubmit} title="Salvar Edições"  color="#000" />
                   </>
                 );
               }}

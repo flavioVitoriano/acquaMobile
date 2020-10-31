@@ -16,11 +16,10 @@ export const Header = styled.View`
   flex-direction: row;
   `;
   export const Input = styled.TextInput`
- font-family: 'RobotoSlab-Medium';
-margin-top: 8px;
-font-size: 15px;
-margin-bottom: 24px;
-color: #737373;
+ flex: 1;
+  color: #000;
+  font-size: 16px;
+  font-family: 'RobotoSlab-Regular';
   `;
 export const Description = styled.Text`
 font-family: 'RobotoSlab-Medium';
