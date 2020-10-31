@@ -1,15 +1,139 @@
-import React from 'react';
-import {View, Button} from 'react-native';
+import React, { useState, useEffect } from "react";
+import Icon from "react-native-vector-icons/Feather";
+import { useNavigation } from "@react-navigation/native";
+import api from "../../services/index";
+import {
+  ShoppingValue,
+  Container,
+  Shopping,
+  Header,
+  ShoppingList,
+  ShoppingProperty,
+  DetailsButton,
+  DetailsButtonText,
+} from "./styles";
+import DateRange from "../../components/DateRange";
+import moment from "moment";
 
-//import {useAuth} from '../../hooks/auth';
+interface PurchaseFormData {
+  id: number;
+  quantity: number;
+  value: number;
+  obs: string;
+  submit_date: any;
+}
 
-const Shopping: React.FC = () => {
-//  const {signOut} = useAuth();
+interface DateProps {
+  startDate: Date;
+  endDate: Date;
+}
+
+const humanDate = (date: any) => {
+  return date.format("DD/MM/YYYY");
+};
+
+const makeResponseData = (data: Array<object>) =>
+  data.map((item: any) => {
+    item.submit_date = moment(item.submit_date);
+    return item;
+  });
+
+export default function ShoppingCreated() {
+  const [purchases, setPurchaces] = useState<PurchaseFormData[]>([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [filterParams, setFilterParams] = useState({});
+
+  const navigation = useNavigation();
+
+  function navigateToDetail(id: number) {
+    navigation.navigate("DetailShopping", { id });
+  }
+
+  function loadShoppings() {
+    api
+      .get("/purchases/", {
+        params: { page },
+      })
+      .then((response) => {
+        setPurchaces(makeResponseData(response.data));
+        setTotal(response.headers["x-total-count"]);
+        setPage(page + 1);
+        setLoading(false);
+      });
+  }
+
+  const onSubmitFilter = (dates: DateProps) => {
+    setPurchaces([]);
+    setPage(1);
+    setFilterParams({
+      start_date: dates.startDate,
+      end_date: dates.endDate,
+    });
+  };
+
+  const onEndReached = () => {
+    if (loading) {
+      return;
+    }
+    if (Number(total) > 0 && Number(purchases.length) === Number(total)) {
+      return;
+    }
+    setPage(page + 1);
+  };
+
+  useEffect(() => {
+    setLoading(true);
+
+    api
+      .get("/purchases/", {
+        params: { page, ...filterParams },
+      })
+      .then((response) => {
+        const resData = makeResponseData(response.data);
+        const data = new Set([...purchases, ...resData]);
+        setPurchaces(Array.from(data.values()));
+        setTotal(response.headers["x-total-count"]);
+        setLoading(false);
+      });
+  }, [page, filterParams]);
+
+  useEffect(() => {
+    loadShoppings();
+  }, []);
 
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Button title="Shopping" onPress={()=> {}} />
-    </View>
+    <Container>
+      <Header></Header>
+      <DateRange onSubmit={onSubmitFilter} />
+      <ShoppingList
+        data={purchases}
+        keyExtractor={(purchase: PurchaseFormData) => String(purchase.id)}
+        showsVerticalScrollIndicator={false}
+        onEndReached={onEndReached}
+        onEndReachedThreshold={0.2}
+        renderItem={({ item: purchase }) => (
+          <Shopping>
+            <ShoppingProperty>Data:</ShoppingProperty>
+            <ShoppingValue>{humanDate(purchase.submit_date)}</ShoppingValue>
+
+            <ShoppingProperty>Quantidade:</ShoppingProperty>
+            <ShoppingValue>{purchase.quantity}</ShoppingValue>
+
+            <ShoppingProperty>Valor Unitário:</ShoppingProperty>
+            <ShoppingValue>{purchase.value}</ShoppingValue>
+
+            <ShoppingProperty>total:</ShoppingProperty>
+            <ShoppingValue>{purchase.quantity * purchase.value}</ShoppingValue>
+
+            <DetailsButton onPress={() => navigateToDetail(purchase.id)}>
+              <DetailsButtonText>Ver mais detalhes</DetailsButtonText>
+              <Icon name="arrow-right" size={16} color="#E02041" />
+            </DetailsButton>
+          </Shopping>
+        )}
+      />
+    </Container>
   );
-};
-export default Shopping;
+}
