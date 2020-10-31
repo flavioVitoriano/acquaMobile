@@ -6,8 +6,6 @@ import {
   ScrollView,
   Alert,
   Button,
-  View,
-  TextInput,
 } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import {
@@ -21,10 +19,12 @@ import {
   Clients,
   Title,
   ContactBox,
+  Input
 } from "./styles";
 import api from "../../services";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { Description } from "../ClientCreated/styles";
 
 interface clientDetailRouteParams {
   id: number;
@@ -85,90 +85,95 @@ export default function DetailClient() {
   }
 
   return (
-    <Container style={{ paddingHorizontal: 24 }}>
-      <Header>
-        <RectButton onPress={navigateBack}>
-          <Icon name="arrow-left" size={28} color="#E82041" />
-        </RectButton>
-        <Title>Toque Para editar Cliente</Title>
+    <>
+      <Container style={{ paddingHorizontal: 24 }}>
+        <Header>
+          <RectButton onPress={navigateBack}>
+            <Icon name="arrow-left" size={28} color="#E82041" />
+          </RectButton>
+          <Title>Toque Para editar Cliente</Title>
 
-        <RectButton onPress={() => {}}>
-          <Icon name="edit" size={28} color="#e82041" />
-        </RectButton>
-      </Header>
+          <RectButton onPress={() => { }}>
+            <Icon name="edit" size={28} color="#e82041" />
+          </RectButton>
+        </Header>
 
-      <ScrollView>
-        <Clients>
-          <Formik
-            initialValues={client}
-            enableReinitialize={true}
-            onSubmit={updateClient}
-            validationSchema={schema}
-          >
-            {({ handleChange, handleBlur, handleSubmit, values }) => {
-              return (
-                <View>
-                  <TextInput
-                    autoCapitalize="words"
-                    autoCorrect={false}
-                    placeholder="Nome completo"
-                    onChangeText={handleChange("full_name")}
-                    onBlur={handleBlur("full_name")}
-                    value={values.full_name}
-                    returnKeyType="next"
-                  />
-                  <TextInput
-                    autoCorrect={false}
-                    autoCapitalize="characters"
-                    placeholder="Número de contato"
-                    onChangeText={handleChange("phone")}
-                    onBlur={handleBlur("phone")}
-                    value={values.phone}
-                    keyboardType="phone-pad"
-                    returnKeyType="next"
-                  />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Clients>
+            <Formik
+              initialValues={client}
+              enableReinitialize={true}
+              onSubmit={updateClient}
+              validationSchema={schema}
+            >
+              {({ handleChange, handleBlur, handleSubmit, values }) => {
+                return (
+                  <>
+                    <Description style={{ color: '#4169b3' }}>Nome: </Description>
+                    <Input
+                      autoCapitalize="words"
+                      autoCorrect={false}
+                      placeholder="Nome completo"
+                      onChangeText={handleChange("full_name")}
+                      onBlur={handleBlur("full_name")}
+                      value={values.full_name}
+                      returnKeyType="next"
+                    />
+                    <Description style={{ color: '#4169b3' }}>Telefone: </Description>
 
-                  <TextInput
-                    autoCorrect={false}
-                    autoCapitalize="words"
-                    placeholder="Nome da cidade"
-                    onChangeText={handleChange("city")}
-                    onBlur={handleBlur("city")}
-                    value={values.city}
-                    returnKeyType="next"
-                  />
+                    <Input
+                      autoCorrect={false}
+                      autoCapitalize="characters"
+                      placeholder="Número de contato"
+                      onChangeText={handleChange("phone")}
+                      onBlur={handleBlur("phone")}
+                      value={values.phone}
+                      keyboardType="phone-pad"
+                      returnKeyType="next"
+                    />
+                    <Description style={{ color: '#4169b3' }}>Cidade: </Description>
 
-                  <TextInput
-                    keyboardType="numeric"
-                    placeholder="Preço padrão"
-                    onChangeText={handleChange("preferred_price")}
-                    onBlur={handleBlur("preferred_price")}
-                    value={values.preferred_price}
-                    returnKeyType="send"
-                  />
+                    <Input
+                      autoCorrect={false}
+                      autoCapitalize="words"
+                      placeholder="Nome da cidade"
+                      onChangeText={handleChange("city")}
+                      onBlur={handleBlur("city")}
+                      value={values.city}
+                      returnKeyType="next"
+                    />
+                    <Description style={{ color: '#4169b3' }}>Preço Padrão: </Description>
 
-                  <View>
-                    <Button onPress={handleSubmit} title="salvar" />
-                  </View>
-                </View>
-              );
-            }}
-          </Formik>
-        </Clients>
+                    <Input
+                      keyboardType="numeric"
+                      placeholder="Preço padrão"
+                      onChangeText={handleChange("preferred_price")}
+                      onBlur={handleBlur("preferred_price")}
+                      value={String(values.preferred_price)}
+                      returnKeyType="send"
+                    />
+                    <Button onPress={handleSubmit} title="Salvar Edições" color="#000" />
+                  </>
+                );
+              }}
+            </Formik>
 
-        <ContactBox>
-          <ClientTitle>Entre em contato e</ClientTitle>
-          <ClientTitle>converse com seu cliente</ClientTitle>
+          </Clients>
 
-          <ClientDescription>Entrar em contato via:</ClientDescription>
+          <ContactBox>
+            <ClientTitle>Entre em contato e</ClientTitle>
+            <ClientTitle>converse com seu cliente</ClientTitle>
 
-          <Actions>
-            <Action onPress={sendWhatsapp}>
-              <ActionText>WhatsApp</ActionText>
-            </Action>
-          </Actions>
-        </ContactBox>
-      </ScrollView>
-    </Container>
+            <ClientDescription>Entrar em contato via:</ClientDescription>
+
+            <Actions>
+              <Action onPress={sendWhatsapp}>
+                <ActionText>WhatsApp</ActionText>
+              </Action>
+            </Actions>
+          </ContactBox>
+        </ScrollView>
+      </Container>
+    </>
   );
 }

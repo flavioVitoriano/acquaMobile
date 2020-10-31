@@ -1,10 +1,12 @@
 import styled from 'styled-components/native';
 import {Platform} from 'react-native';
 //15c3d6 ,41aef4,3d9be9,15B6D6
+import {RectButton} from 'react-native-gesture-handler';
 
 export const Container= styled.SafeAreaView`
+   margin: 20px;
   flex: 1;
-  margin: 8px;
+  padding: 0 8px ${Platform.OS === 'android' ? 8 : 40}px;
 `;
 
 export const Header = styled.View`
@@ -13,6 +15,27 @@ export const Header = styled.View`
   justify-content: space-between;
   flex-direction: row;
   `;
+  export const Input = styled.TextInput`
+ font-family: 'RobotoSlab-Medium';
+margin-top: 8px;
+font-size: 15px;
+margin-bottom: 24px;
+color: #737373;
+  `;
+export const Description = styled.Text`
+font-family: 'RobotoSlab-Medium';
+font-size: 16px;
+color: #4169b3;
+font-weight: bold;
+`;
+export const Button = styled.TouchableOpacity`
+width: 100%;
+  height: 60px;
+  background: #ff9000;
+  border-radius: 10px;
+  margin-top: 8px;
+`;
+
 
 export const Title = styled.Text`
 font-size: 20px;
