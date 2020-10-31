@@ -1,24 +1,25 @@
- import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback } from "react";
 import {
-        TextInput,
+  TextInput,
   View,
   KeyboardAvoidingView,
   Platform,
   Alert,
-}   from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { Form } from '@unform/mobile';
-import { FormHandles } from '@unform/core';
-import * as Yup from 'yup';
+  Text,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Form } from "@unform/mobile";
+import { FormHandles } from "@unform/core";
+import * as Yup from "yup";
 
-import api from '../../services/index';
+import api from "../../services/index";
 
-import getValidationErrors from '../../utils/getValidationErrors';
+import getValidationErrors from "../../utils/getValidationErrors";
 
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 
-import { Container, Title, } from './styles';
+import { Container, Title } from "./styles";
 
 interface ClientFormData {
   full_name: string;
@@ -41,21 +42,21 @@ const Client: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          full_name: Yup.string().required('Nome obrigatório'),
-          phone: Yup.string().required('telefone obrigatório'),
-          city: Yup.string().required('Cidade obrigatório'),
-          preferred_price: Yup.number().min(1, 'digite um número'),
+          full_name: Yup.string().required("Nome obrigatório"),
+          phone: Yup.string().required("telefone obrigatório"),
+          city: Yup.string().required("Cidade obrigatório"),
+          preferred_price: Yup.number().min(1, "digite um número"),
         });
         await schema.validate(data, {
           abortEarly: false,
         });
 
-        await api.post('/clients/', data)
+        await api.post("/clients/", data);
         Alert.alert(
-          'Cadastro realizado com sucesso!',
-          'Veja agora seus clientes cadastrados',
+          "Cadastro realizado com sucesso!",
+          "Veja agora seus clientes cadastrados",
         );
-        navigation.navigate('StackRoutes')
+        navigation.navigate("StackRoutes");
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -64,7 +65,7 @@ const Client: React.FC = () => {
 
           return;
         }
-        Alert.alert('Erro no cadastro', 'Ocorreu um erro ao fazer cadastro');
+        Alert.alert("Erro no cadastro", "Ocorreu um erro ao fazer cadastro");
       }
     },
     [navigation],
@@ -74,8 +75,9 @@ const Client: React.FC = () => {
     <>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        enabled>
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        enabled
+      >
         <Container>
           <View>
             <Title>Cadastrar Cliente</Title>
@@ -107,7 +109,7 @@ const Client: React.FC = () => {
               }}
             />
 
-              <Input
+            <Input
               ref={cityInputRef}
               autoCorrect={false}
               autoCapitalize="words"
@@ -133,13 +135,11 @@ const Client: React.FC = () => {
             <View>
               <Button onPress={() => formRef.current?.submitForm()}>
                 Cadastrar
-                  </Button>
+              </Button>
             </View>
           </Form>
         </Container>
       </KeyboardAvoidingView>
-
-
     </>
   );
 };

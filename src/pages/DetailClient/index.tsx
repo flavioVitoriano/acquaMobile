@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/Feather";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import {
-  Linking,
-  ScrollView,
-  Alert,
-  Button,
-} from "react-native";
+import { Linking, ScrollView, Alert, Button, Text } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import {
   Container,
@@ -19,7 +14,7 @@ import {
   Clients,
   Title,
   ContactBox,
-  Input
+  Input,
 } from "./styles";
 import api from "../../services";
 import { Formik } from "formik";
@@ -67,8 +62,10 @@ export default function DetailClient() {
   const updateClient = (values: object) => {
     api
       .patch(`/clients/${params.id}/`, values)
-      .then((res) => Alert.alert("sucesso!"))
-      .catch((error) => Alert.alert("fracasso!"));
+      .then((res) => Alert.alert("sucesso!", "cliente atualizado"))
+      .catch((error) =>
+        Alert.alert("fracasso!", "contate o administrador do sistema"),
+      );
   };
 
   const message = `Olá ${client?.full_name}, estou entrando em contato pois gostaria de saber se o senhor
@@ -79,6 +76,7 @@ export default function DetailClient() {
   }
 
   function sendWhatsapp() {
+    if (!client.phone) return;
     Linking.openURL(
       `whatsapp://send?phone=+55${client?.phone}&text=${message}`,
     );
@@ -93,7 +91,7 @@ export default function DetailClient() {
           </RectButton>
           <Title>Toque Para editar Cliente</Title>
 
-          <RectButton onPress={() => { }}>
+          <RectButton onPress={() => {}}>
             <Icon name="edit" size={28} color="#e82041" />
           </RectButton>
         </Header>
@@ -106,10 +104,12 @@ export default function DetailClient() {
               onSubmit={updateClient}
               validationSchema={schema}
             >
-              {({ handleChange, handleBlur, handleSubmit, values }) => {
+              {({ handleChange, handleBlur, handleSubmit, values, errors }) => {
                 return (
                   <>
-                    <Description style={{ color: '#4169b3' }}>Nome: </Description>
+                    <Description style={{ color: "#4169b3" }}>
+                      Nome:{" "}
+                    </Description>
                     <Input
                       autoCapitalize="words"
                       autoCorrect={false}
@@ -119,7 +119,13 @@ export default function DetailClient() {
                       value={values.full_name}
                       returnKeyType="next"
                     />
-                    <Description style={{ color: '#4169b3' }}>Telefone: </Description>
+                    {errors.full_name && (
+                      <Text style={{ color: "red" }}>{errors.full_name}</Text>
+                    )}
+
+                    <Description style={{ color: "#4169b3" }}>
+                      Telefone:{" "}
+                    </Description>
 
                     <Input
                       autoCorrect={false}
@@ -131,7 +137,9 @@ export default function DetailClient() {
                       keyboardType="phone-pad"
                       returnKeyType="next"
                     />
-                    <Description style={{ color: '#4169b3' }}>Cidade: </Description>
+                    <Description style={{ color: "#4169b3" }}>
+                      Cidade:{" "}
+                    </Description>
 
                     <Input
                       autoCorrect={false}
@@ -142,7 +150,9 @@ export default function DetailClient() {
                       value={values.city}
                       returnKeyType="next"
                     />
-                    <Description style={{ color: '#4169b3' }}>Preço Padrão: </Description>
+                    <Description style={{ color: "#4169b3" }}>
+                      Preço Padrão:{" "}
+                    </Description>
 
                     <Input
                       keyboardType="numeric"
@@ -152,12 +162,15 @@ export default function DetailClient() {
                       value={String(values.preferred_price)}
                       returnKeyType="send"
                     />
-                    <Button onPress={handleSubmit} title="Salvar Edições" color="#000" />
+                    <Button
+                      onPress={handleSubmit}
+                      title="Salvar Edições"
+                      color="#000"
+                    />
                   </>
                 );
               }}
             </Formik>
-
           </Clients>
 
           <ContactBox>
