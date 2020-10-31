@@ -7,30 +7,43 @@ import {
   Container,
   Shopping,
   Header,
-  Description,
   ShoppingList,
   ShoppingProperty,
   DetailsButton,
   DetailsButtonText,
 } from "./styles";
-import { DateTime } from "luxon";
+import DateRange from "../../components/DateRange";
+import moment from "moment";
 
 interface PurchaseFormData {
   id: number;
   quantity: number;
   value: number;
   obs: string;
-  submit_date: DateTime;
+  submit_date: any;
 }
 
-const humanDate = (date: Date) => date.toLocaleString();
+interface DateProps {
+  startDate: Date;
+  endDate: Date;
+}
+
+const humanDate = (date: any) => {
+  return date.format("DD/MM/YYYY");
+};
+
+const makeResponseData = (data: Array<object>) =>
+  data.map((item: any) => {
+    item.submit_date = moment(item.submit_date);
+    return item;
+  });
 
 export default function ShoppingCreated() {
   const [purchases, setPurchaces] = useState<PurchaseFormData[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [filterValue, setFilterValue] = useState("");
+  const [filterParams, setFilterParams] = useState({});
 
   const navigation = useNavigation();
 
@@ -44,22 +57,20 @@ export default function ShoppingCreated() {
         params: { page },
       })
       .then((response) => {
-        setPurchaces(
-          response.data.map((item: any) => {
-            item.submit_date = DateTime.fromISO(item.submit_date);
-            return item;
-          }),
-        );
+        setPurchaces(makeResponseData(response.data));
         setTotal(response.headers["x-total-count"]);
         setPage(page + 1);
         setLoading(false);
       });
   }
 
-  const onFilterChange = (text: string) => {
+  const onSubmitFilter = (dates: DateProps) => {
     setPurchaces([]);
     setPage(1);
-    setFilterValue(text);
+    setFilterParams({
+      start_date: dates.startDate,
+      end_date: dates.endDate,
+    });
   };
 
   const onEndReached = () => {
@@ -77,15 +88,16 @@ export default function ShoppingCreated() {
 
     api
       .get("/purchases/", {
-        params: { page, full_name_contains: filterValue },
+        params: { page, ...filterParams },
       })
       .then((response) => {
-        const data = new Set([...purchases, ...response.data]);
+        const resData = makeResponseData(response.data);
+        const data = new Set([...purchases, ...resData]);
         setPurchaces(Array.from(data.values()));
         setTotal(response.headers["x-total-count"]);
         setLoading(false);
       });
-  }, [page, filterValue]);
+  }, [page, filterParams]);
 
   useEffect(() => {
     loadShoppings();
@@ -94,12 +106,7 @@ export default function ShoppingCreated() {
   return (
     <Container>
       <Header></Header>
-      <Description
-        placeholder="Buscar compras por nome..."
-        onChangeText={onFilterChange}
-        value={filterValue}
-        autoCorrect={false}
-      />
+      <DateRange onSubmit={onSubmitFilter} />
       <ShoppingList
         data={purchases}
         keyExtractor={(purchase: PurchaseFormData) => String(purchase.id)}
