@@ -1,13 +1,14 @@
 import styled from 'styled-components/native';
 import { Platform } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import { DateTime } from "luxon";
 
-interface ShoppingData {
+interface PurchaseFormData {
   id: number;
-  full_name: string;
-  phone: string;
-  preferred_price: number;
-  city: string;
+  quantity: number;
+  value: number;
+  obs: string;
+  submit_date: DateTime;
 }
 
 export const Container = styled.SafeAreaView`
@@ -35,7 +36,7 @@ font-family: 'RobotoSlab-Medium';
 color: #737373;
 ;`
 
-export const ShoppingList = styled(FlatList as new () => FlatList<ShoppingData>)`
+export const ShoppingList = styled(FlatList as new () => FlatList<PurchaseFormData>)`
 margin-top:32px;
 `;
 
