@@ -107,13 +107,7 @@ export default function DetailClient() {
               {({ handleChange, handleBlur, handleSubmit, values, errors }) => {
                 return (
                   <>
-<<<<<<< HEAD
                     <Description>Nome: </Description>
-=======
-                    <Description style={{ color: "#4169b3" }}>
-                      Nome:{" "}
-                    </Description>
->>>>>>> f5a2ebf89674087251cf4e52653adfa0318e7617
                     <Input
                       autoCapitalize="words"
                       autoCorrect={false}
@@ -123,17 +117,7 @@ export default function DetailClient() {
                       value={values.full_name}
                       returnKeyType="next"
                     />
-<<<<<<< HEAD
                     <Description>Telefone: </Description>
-=======
-                    {errors.full_name && (
-                      <Text style={{ color: "red" }}>{errors.full_name}</Text>
-                    )}
-
-                    <Description style={{ color: "#4169b3" }}>
-                      Telefone:{" "}
-                    </Description>
->>>>>>> f5a2ebf89674087251cf4e52653adfa0318e7617
 
                     <Input
                       autoCorrect={false}
@@ -145,13 +129,7 @@ export default function DetailClient() {
                       keyboardType="phone-pad"
                       returnKeyType="next"
                     />
-<<<<<<< HEAD
                     <Description>Cidade: </Description>
-=======
-                    <Description style={{ color: "#4169b3" }}>
-                      Cidade:{" "}
-                    </Description>
->>>>>>> f5a2ebf89674087251cf4e52653adfa0318e7617
 
                     <Input
                       autoCorrect={false}
@@ -162,13 +140,7 @@ export default function DetailClient() {
                       value={values.city}
                       returnKeyType="next"
                     />
-<<<<<<< HEAD
                     <Description>Preço Padrão: </Description>
-=======
-                    <Description style={{ color: "#4169b3" }}>
-                      Preço Padrão:{" "}
-                    </Description>
->>>>>>> f5a2ebf89674087251cf4e52653adfa0318e7617
 
                     <Input
                       keyboardType="numeric"
@@ -178,15 +150,7 @@ export default function DetailClient() {
                       value={String(values.preferred_price)}
                       returnKeyType="send"
                     />
-<<<<<<< HEAD
                     <Button onPress={handleSubmit} title="Salvar Edições"  color="#000" />
-=======
-                    <Button
-                      onPress={handleSubmit}
-                      title="Salvar Edições"
-                      color="#000"
-                    />
->>>>>>> f5a2ebf89674087251cf4e52653adfa0318e7617
                   </>
                 );
               }}
