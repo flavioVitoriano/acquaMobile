@@ -7,6 +7,7 @@ interface RemoteSelectProps {
   labelField: string;
   valueField: string;
   initialLabel: string;
+  style?: any;
 }
 
 const RemoteSelect = (props: RemoteSelectProps) => {
@@ -16,9 +17,14 @@ const RemoteSelect = (props: RemoteSelectProps) => {
     setSelected(value);
     props.onSelectChange(value);
   };
+
   return (
     <>
-      <Picker selectedValue={selected} onValueChange={onValueChange}>
+      <Picker
+        style={props.style}
+        selectedValue={selected}
+        onValueChange={onValueChange}
+      >
         <Picker.Item label={props.initialLabel} value="" />
 
         {props.data.map((item: any) => (
