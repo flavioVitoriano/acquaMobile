@@ -48,7 +48,7 @@ const makeResponseData = (data: Array<object>) =>
   });
 
 export default function SaleCreated() {
-  const [sales, setPurchaces] = useState<SaleFormData[]>([]);
+  const [sales, setSales] = useState<SaleFormData[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -68,7 +68,7 @@ export default function SaleCreated() {
         params: { page },
       })
       .then((response) => {
-        setPurchaces(makeResponseData(response.data));
+        setSales(makeResponseData(response.data));
         setTotal(response.headers["x-total-count"]);
         setPage(page + 1);
         setLoading(false);
@@ -87,7 +87,7 @@ export default function SaleCreated() {
   };
 
   const onSubmitFilter = (dates: DateProps) => {
-    setPurchaces([]);
+    setSales([]);
     setPage(1);
     setFilterParams({
       start_date: dates.startDate,
@@ -116,7 +116,7 @@ export default function SaleCreated() {
       .then((response) => {
         const resData = makeResponseData(response.data);
         const data = uniqBy([...sales, ...resData], "id");
-        setPurchaces(Array.from(data.values()));
+        setSales(data);
         setTotal(response.headers["x-total-count"]);
         setLoading(false);
       });
