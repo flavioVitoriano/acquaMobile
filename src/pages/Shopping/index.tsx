@@ -13,6 +13,7 @@ import {
   DetailsButtonText,
 } from "./styles";
 import DateRange from "../../components/DateRange";
+import uniqBy from "lodash/uniqBy";
 import moment from "moment";
 
 interface PurchaseFormData {
@@ -92,7 +93,7 @@ export default function ShoppingCreated() {
       })
       .then((response) => {
         const resData = makeResponseData(response.data);
-        const data = new Set([...purchases, ...resData]);
+        const data = uniqBy([...purchases, ...resData], "id");
         setPurchaces(Array.from(data.values()));
         setTotal(response.headers["x-total-count"]);
         setLoading(false);
