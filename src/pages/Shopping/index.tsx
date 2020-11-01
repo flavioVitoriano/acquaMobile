@@ -94,7 +94,7 @@ export default function ShoppingCreated() {
       .then((response) => {
         const resData = makeResponseData(response.data);
         const data = uniqBy([...purchases, ...resData], "id");
-        setPurchaces(Array.from(data.values()));
+        setPurchaces(data);
         setTotal(response.headers["x-total-count"]);
         setLoading(false);
       });

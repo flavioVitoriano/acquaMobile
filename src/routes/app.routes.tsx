@@ -12,7 +12,6 @@ import Sales from "../pages/Sales";
 import CarboyLoans from "../pages/CarboyLoans";
 import Reports from "../pages/Reports";
 import RoutesClients from "../pages/RoutesClients";
-import Expenses from "../pages/Expenses";
 import SignOut from "../pages/SignOut";
 const Drawer = createDrawerNavigator();
 
@@ -27,7 +26,6 @@ const DrawerNavgation: React.FC = () => (
       inactiveTintColor: "#FFF",
     }}
   >
-
     <Drawer.Screen
       name="Client"
       component={Client}
@@ -137,20 +135,6 @@ const DrawerNavgation: React.FC = () => (
     />
 
     <Drawer.Screen
-      name="Expenses"
-      component={Expenses}
-      options={{
-        unmountOnBlur: true,
-        drawerLabel: ({ focused }) => (
-          <Text style={{ color: focused ? "#313131" : "#fff" }}>Despesas</Text>
-        ),
-        drawerIcon: ({ focused }) => (
-          <Icon color={focused ? "#313131" : "#fff"} name="align-left" />
-        ),
-      }}
-    />
-
-    <Drawer.Screen
       name="SignOut"
       component={SignOut}
       options={{
@@ -163,7 +147,6 @@ const DrawerNavgation: React.FC = () => (
         ),
       }}
     />
-
   </Drawer.Navigator>
 );
 
