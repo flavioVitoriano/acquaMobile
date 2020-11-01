@@ -20,38 +20,35 @@ import RemoteSelect from "../../components/RemoteSelect";
 import moment from "moment";
 
 /*
-interface SaleFormData {
-  submit_date: string;
+interface CarboyLoanFormData {
+  order_date: string;
   quantity: Number;
-  value: Number;
   client: Number;
   obs: string;
 }
 */
 
 const initialValues: any = {
-  submit_date: moment().format("YYYY-MM-DD"),
+  order_date: moment().format("YYYY-MM-DD"),
   quantity: "",
-  value: "",
   obs: "",
   client: "",
 };
 
 const schema = Yup.object().shape({
   quantity: Yup.number().required("Campo necessário").min(1),
-  value: Yup.number().required("Campo necessário").min(0.1),
   client: Yup.number().required("Cliente é necessário"),
   obs: Yup.string(),
-  submit_date: Yup.string().required("Necessário definir data"),
+  order_date: Yup.string().required("Necessário definir data"),
 });
 
-const Sale: React.FC = () => {
+const CarboyLoan: React.FC = () => {
   const [clients, setClients] = useState([]);
 
   const onSubmit = (values: any) => {
     api
-      .post("/sales/", values)
-      .then(() => Alert.alert("Sucesso!", "venda registrada!"))
+      .post("/loans/", values)
+      .then(() => Alert.alert("Sucesso!", "emprestimo registrado!"))
       .catch(() =>
         Alert.alert("Fracasso!", "contate o administrador do sistema"),
       );
@@ -77,7 +74,7 @@ const Sale: React.FC = () => {
       >
         <Container>
           <View>
-            <Title>Registrar venda</Title>
+            <Title>Cadastro de empréstimo</Title>
           </View>
 
           <Formik
@@ -114,19 +111,6 @@ const Sale: React.FC = () => {
 
                 <TextInput
                   style={styles.input}
-                  onChangeText={handleChange("value")}
-                  keyboardType="numeric"
-                  onBlur={handleBlur("value")}
-                  placeholder="valor unitario"
-                  value={String(values.value)}
-                />
-
-                {errors.value && (
-                  <Text style={styles.errorText}>{errors.value}</Text>
-                )}
-
-                <TextInput
-                  style={styles.input}
                   onChangeText={handleChange("obs")}
                   onBlur={handleBlur("obs")}
                   placeholder="Observação"
@@ -134,8 +118,8 @@ const Sale: React.FC = () => {
                 />
 
                 <DateInput
-                  value={values.submit_date}
-                  handleChange={handleChange("submit_date")}
+                  value={values.order_date}
+                  handleChange={handleChange("order_date")}
                 />
 
                 <View>
@@ -165,4 +149,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Sale;
+export default CarboyLoan;

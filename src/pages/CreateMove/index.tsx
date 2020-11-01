@@ -20,38 +20,35 @@ import RemoteSelect from "../../components/RemoteSelect";
 import moment from "moment";
 
 /*
-interface SaleFormData {
-  submit_date: string;
-  quantity: Number;
+interface CreateMoveFormData {
+  order_date: string;
   value: Number;
-  client: Number;
+  status: Number;
   obs: string;
 }
 */
 
 const initialValues: any = {
-  submit_date: moment().format("YYYY-MM-DD"),
-  quantity: "",
+  order_date: moment().format("YYYY-MM-DD"),
   value: "",
+  status: "",
   obs: "",
-  client: "",
 };
 
 const schema = Yup.object().shape({
-  quantity: Yup.number().required("Campo necessário").min(1),
   value: Yup.number().required("Campo necessário").min(0.1),
-  client: Yup.number().required("Cliente é necessário"),
+  status: Yup.number().required("Campo necessário"),
   obs: Yup.string(),
-  submit_date: Yup.string().required("Necessário definir data"),
+  order_date: Yup.string().required("Necessário definir data"),
 });
 
-const Sale: React.FC = () => {
+const CreateMove: React.FC = () => {
   const [clients, setClients] = useState([]);
 
   const onSubmit = (values: any) => {
     api
-      .post("/sales/", values)
-      .then(() => Alert.alert("Sucesso!", "venda registrada!"))
+      .post("/moves/", values)
+      .then(() => Alert.alert("Sucesso!", "movimento registrado!"))
       .catch(() =>
         Alert.alert("Fracasso!", "contate o administrador do sistema"),
       );
@@ -77,7 +74,7 @@ const Sale: React.FC = () => {
       >
         <Container>
           <View>
-            <Title>Registrar venda</Title>
+            <Title>Registro de movimento</Title>
           </View>
 
           <Formik
@@ -89,35 +86,25 @@ const Sale: React.FC = () => {
               <>
                 <RemoteSelect
                   style={styles.input}
-                  onSelectChange={handleChange("client")}
-                  data={clients}
-                  labelField="full_name"
-                  valueField="id"
-                  initialLabel="Selecione um cliente"
+                  onSelectChange={handleChange("status")}
+                  data={[
+                    { value: 0, label: "ENTRADA" },
+                    { value: 1, label: "SAIDA" },
+                  ]}
+                  labelField="label"
+                  valueField="value"
+                  initialLabel="Selecione um tipo de movimento"
                 />
 
-                {errors.client && (
-                  <Text style={styles.errorText}>{errors.client}</Text>
+                {errors.status && (
+                  <Text style={styles.errorText}>{errors.status}</Text>
                 )}
-                <TextInput
-                  style={styles.input}
-                  onChangeText={handleChange("quantity")}
-                  keyboardType="numeric"
-                  onBlur={handleBlur("quantity")}
-                  placeholder="quantidade"
-                  value={String(values.quantity)}
-                />
-
-                {errors.quantity && (
-                  <Text style={styles.errorText}>{errors.quantity}</Text>
-                )}
-
                 <TextInput
                   style={styles.input}
                   onChangeText={handleChange("value")}
                   keyboardType="numeric"
                   onBlur={handleBlur("value")}
-                  placeholder="valor unitario"
+                  placeholder="valor"
                   value={String(values.value)}
                 />
 
@@ -134,8 +121,8 @@ const Sale: React.FC = () => {
                 />
 
                 <DateInput
-                  value={values.submit_date}
-                  handleChange={handleChange("submit_date")}
+                  value={values.order_date}
+                  handleChange={handleChange("order_date")}
                 />
 
                 <View>
@@ -165,4 +152,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Sale;
+export default CreateMove;

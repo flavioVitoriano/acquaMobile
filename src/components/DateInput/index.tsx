@@ -1,5 +1,5 @@
 ﻿import React, { useState } from "react";
-import { Text, Button, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import TextInputMask from "react-native-text-input-mask";
 import moment from "moment";
 

@@ -20,7 +20,7 @@ import RemoteSelect from "../../components/RemoteSelect";
 import moment from "moment";
 
 /*
-interface SaleFormData {
+interface CreateClientRouteFormData {
   submit_date: string;
   quantity: Number;
   value: Number;
@@ -30,7 +30,9 @@ interface SaleFormData {
 */
 
 const initialValues: any = {
-  submit_date: moment().format("YYYY-MM-DD"),
+  last_ship_date: moment().format("YYYY-MM-DD"),
+  warning_sub_days: "",
+  step_days: "",
   quantity: "",
   value: "",
   obs: "",
@@ -38,20 +40,21 @@ const initialValues: any = {
 };
 
 const schema = Yup.object().shape({
+  step_days: Yup.number().required("Campo necessário").min(1),
+  warning_sub_days: Yup.number().required("Campo necessário").min(0),
+  client: Yup.number().required("Cliente necessário"),
   quantity: Yup.number().required("Campo necessário").min(1),
   value: Yup.number().required("Campo necessário").min(0.1),
-  client: Yup.number().required("Cliente é necessário"),
-  obs: Yup.string(),
-  submit_date: Yup.string().required("Necessário definir data"),
+  last_ship_date: Yup.string().required("Campo necessário"),
 });
 
-const Sale: React.FC = () => {
+const CreateClientRoute: React.FC = () => {
   const [clients, setClients] = useState([]);
 
   const onSubmit = (values: any) => {
     api
-      .post("/sales/", values)
-      .then(() => Alert.alert("Sucesso!", "venda registrada!"))
+      .post("/paths/", values)
+      .then(() => Alert.alert("Sucesso!", "rota de cliente cadastrada!"))
       .catch(() =>
         Alert.alert("Fracasso!", "contate o administrador do sistema"),
       );
@@ -77,7 +80,7 @@ const Sale: React.FC = () => {
       >
         <Container>
           <View>
-            <Title>Registrar venda</Title>
+            <Title>Cadastrar rota de cliente</Title>
           </View>
 
           <Formik
@@ -99,6 +102,7 @@ const Sale: React.FC = () => {
                 {errors.client && (
                   <Text style={styles.errorText}>{errors.client}</Text>
                 )}
+
                 <TextInput
                   style={styles.input}
                   onChangeText={handleChange("quantity")}
@@ -124,19 +128,41 @@ const Sale: React.FC = () => {
                 {errors.value && (
                   <Text style={styles.errorText}>{errors.value}</Text>
                 )}
-
                 <TextInput
                   style={styles.input}
-                  onChangeText={handleChange("obs")}
-                  onBlur={handleBlur("obs")}
-                  placeholder="Observação"
-                  value={values.obs}
+                  onChangeText={handleChange("step_days")}
+                  keyboardType="numeric"
+                  onBlur={handleBlur("step_days")}
+                  placeholder="periodo de entrega (dias)"
+                  value={String(values.step_days)}
                 />
 
-                <DateInput
-                  value={values.submit_date}
-                  handleChange={handleChange("submit_date")}
+                {errors.step_days && (
+                  <Text style={styles.errorText}>{errors.step_days}</Text>
+                )}
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange("warning_sub_days")}
+                  keyboardType="numeric"
+                  onBlur={handleBlur("warning_sub_days")}
+                  placeholder="antecedência de (dias)"
+                  value={String(values.warning_sub_days)}
                 />
+
+                {errors.warning_sub_days && (
+                  <Text style={styles.errorText}>
+                    {errors.warning_sub_days}
+                  </Text>
+                )}
+
+                <DateInput
+                  handleChange={handleChange("last_ship_date")}
+                  value={values.step_days}
+                />
+
+                {errors.last_ship_date && (
+                  <Text style={styles.errorText}>{errors.last_ship_date}</Text>
+                )}
 
                 <View>
                   <Button onPress={handleSubmit} title="Registrar" />
@@ -165,4 +191,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Sale;
+export default CreateClientRoute;
