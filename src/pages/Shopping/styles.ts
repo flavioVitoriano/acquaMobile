@@ -1,14 +1,13 @@
 import styled from 'styled-components/native';
 import { Platform } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { DateTime } from "luxon";
 
 interface PurchaseFormData {
   id: number;
   quantity: number;
   value: number;
   obs: string;
-  submit_date: DateTime;
+  submit_date:any;
 }
 
 export const Container = styled.SafeAreaView`

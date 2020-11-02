@@ -12,7 +12,6 @@ import {
   DetailsButton,
   DetailsButtonText,
 } from "./styles";
-import DateRange from "../../components/DateRange";
 import RemoteSelect from "../../components/RemoteSelect";
 import moment from "moment";
 import { Alert } from "react-native";
@@ -140,7 +139,6 @@ export default function PathCreated() {
         valueField="id"
         initialLabel="Selecione um cliente"
       />
-      <DateRange onSubmit={onSubmitFilter} />
       <PathList
         data={paths}
         keyExtractor={(path: PathFormData) => String(path.id)}

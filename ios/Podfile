@@ -8,9 +8,7 @@ target 'acquaMobile' do
 
   use_react_native!(:path => config["reactNativePath"])
 
-  pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker'
-
-  pod 'RNCPicker', :path => '../node_modules/@react-native-picker/picker'
+  pod 'RNInputMask', :path => '../node_modules/react-native-text-input-mask/ios/InputMask'
 
   target 'acquaMobileTests' do
     inherit! :complete

@@ -32,7 +32,7 @@ export const Description = styled.TextInput`
 font-size: 16px;
 line-height:24px;
 font-family: 'RobotoSlab-Medium';
-color: #737373;
+color: #4169b3;
 ;`
 
 export const ClientList = styled(FlatList as new () => FlatList<ClientData>)`

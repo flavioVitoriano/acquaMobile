@@ -12,7 +12,6 @@ import {
   DetailsButton,
   DetailsButtonText,
 } from "./styles";
-import DateRange from "../../components/DateRange";
 import uniqBy from "lodash/uniqBy";
 import moment from "moment";
 
@@ -107,10 +106,9 @@ export default function ShoppingCreated() {
   return (
     <Container>
       <Header></Header>
-      <DateRange onSubmit={onSubmitFilter} />
       <ShoppingList
         data={purchases}
-        keyExtractor={(purchase: PurchaseFormData) => String(purchase.id)}
+        keyExtractor={(purchase) => String(purchase.id)}
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.2}

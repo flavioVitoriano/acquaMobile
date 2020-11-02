@@ -4,23 +4,22 @@ import {Platform} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 
 export const Container= styled.SafeAreaView`
-   margin: 20px;
+  margin: 20px;
   flex: 1;
   padding: 0 8px ${Platform.OS === 'android' ? 8 : 40}px;
 `;
 
 export const Header = styled.View`
- margin-top: 8px;
+  margin-top: 8px;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
   `;
   export const Input = styled.TextInput`
- font-family: 'RobotoSlab-Medium';
-margin-top: 8px;
-font-size: 15px;
-margin-bottom: 24px;
-color: #737373;
+  flex: 1;
+  color: #000;
+  font-size: 16px;
+  font-family: 'RobotoSlab-Regular';
   `;
 export const Description = styled.Text`
 font-family: 'RobotoSlab-Medium';

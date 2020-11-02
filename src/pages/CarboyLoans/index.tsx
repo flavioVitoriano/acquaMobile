@@ -12,7 +12,6 @@ import {
   DetailsButton,
   DetailsButtonText,
 } from "./styles";
-import DateRange from "../../components/DateRange";
 import RemoteSelect from "../../components/RemoteSelect";
 import moment from "moment";
 import { Alert } from "react-native";
@@ -140,10 +139,9 @@ export default function LoanCreated() {
         valueField="id"
         initialLabel="Selecione um cliente"
       />
-      <DateRange onSubmit={onSubmitFilter} />
       <LoanList
         data={loans}
-        keyExtractor={(loan: LoanFormData) => String(loan.id)}
+        keyExtractor={(loan) => String(loan.id)}
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.2}

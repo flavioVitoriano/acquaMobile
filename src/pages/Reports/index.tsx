@@ -12,7 +12,6 @@ import {
   DetailsButton,
   DetailsButtonText,
 } from "./styles";
-import DateRange from "../../components/DateRange";
 import uniqBy from "lodash/uniqBy";
 import moment from "moment";
 
@@ -109,7 +108,6 @@ export default function MoveCreated() {
   return (
     <Container>
       <Header></Header>
-      <DateRange onSubmit={onSubmitFilter} />
       <MoveList
         data={moves}
         keyExtractor={(move: MoveFormData) => String(move.id)}

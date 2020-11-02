@@ -1,16 +1,15 @@
-import React, { useRef, useCallback } from "react";
+import React, { useRef, useCallback } from 'react';
 import {
   TextInput,
   View,
   KeyboardAvoidingView,
   Platform,
   Alert,
-  Text,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { Form } from "@unform/mobile";
-import { FormHandles } from "@unform/core";
-import * as Yup from "yup";
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Form } from '@unform/mobile';
+import { FormHandles } from '@unform/core';
+import * as Yup from 'yup';
 
 import api from "../../services/index";
 

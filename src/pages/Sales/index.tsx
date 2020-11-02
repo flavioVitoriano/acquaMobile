@@ -12,7 +12,6 @@ import {
   DetailsButton,
   DetailsButtonText,
 } from "./styles";
-import DateRange from "../../components/DateRange";
 import RemoteSelect from "../../components/RemoteSelect";
 import moment from "moment";
 import { Alert } from "react-native";
@@ -140,10 +139,9 @@ export default function SaleCreated() {
         valueField="id"
         initialLabel="Selecione um cliente"
       />
-      <DateRange onSubmit={onSubmitFilter} />
       <SaleList
         data={sales}
-        keyExtractor={(sale: SaleFormData) => String(sale.id)}
+        keyExtractor={(sale) => String(sale.id)}
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.2}
