@@ -158,8 +158,8 @@ export default function LoanCreated() {
             <LoanProperty>Quantidade:</LoanProperty>
             <LoanValue>{loan.quantity}</LoanValue>
 
-            <LoanProperty>Valor Unitário:</LoanProperty>
-            <LoanValue>{loan.value}</LoanValue>
+            <LoanProperty>Obs:</LoanProperty>
+            <LoanValue>{loan.obs}</LoanValue>
 
             <DetailsButton onPress={() => navigateToDetail(loan.id)}>
               <DetailsButtonText>Ver mais detalhes</DetailsButtonText>
