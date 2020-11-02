@@ -110,7 +110,10 @@ export default function ClientCreated() {
             <ClientValue>{clients.phone}</ClientValue>
 
             <ClientProperty>preço:</ClientProperty>
-            <ClientValue>{clients.preferred_price}</ClientValue>
+            <ClientValue>{Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+              }).format(clients.preferred_price)}</ClientValue>
 
             <DetailsButton onPress={() => navigateToDetail(clients.id)}>
               <DetailsButtonText>Ver mais detalhes</DetailsButtonText>

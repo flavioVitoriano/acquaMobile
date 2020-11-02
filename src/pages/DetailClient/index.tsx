@@ -15,11 +15,11 @@ import {
   Title,
   ContactBox,
   Input,
+  Description,
 } from "./styles";
 import api from "../../services";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Description } from "../ClientCreated/styles";
 
 interface clientDetailRouteParams {
   id: number;

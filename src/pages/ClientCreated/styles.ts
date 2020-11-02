@@ -28,7 +28,7 @@ font-size: 15px;
 color: #737373;
 `
 
-export const Description = styled.Text`
+export const Description = styled.TextInput`
 font-size: 16px;
 line-height:24px;
 font-family: 'RobotoSlab-Medium';

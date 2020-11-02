@@ -4,19 +4,19 @@ import {Platform} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 
 export const Container= styled.SafeAreaView`
-   margin: 20px;
+  margin: 20px;
   flex: 1;
   padding: 0 8px ${Platform.OS === 'android' ? 8 : 40}px;
 `;
 
 export const Header = styled.View`
- margin-top: 8px;
+  margin-top: 8px;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
   `;
   export const Input = styled.TextInput`
- flex: 1;
+  flex: 1;
   color: #000;
   font-size: 16px;
   font-family: 'RobotoSlab-Regular';
