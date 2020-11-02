@@ -13,6 +13,12 @@ import CarboyLoans from "../pages/CarboyLoans";
 import Reports from "../pages/Reports";
 import RoutesClients from "../pages/RoutesClients";
 import SignOut from "../pages/SignOut";
+import CreatePurchase from "../pages/CreatePurchase";
+import CreateSale from "../pages/CreateSale";
+import CreateCarboyLoan from "../pages/CreateCarboyLoan";
+import CreateMove from "../pages/CreateMove";
+import CreateClientRoute from "../pages/CreateClientRoute";
+
 const Drawer = createDrawerNavigator();
 
 const DrawerNavgation: React.FC = () => (
@@ -59,6 +65,22 @@ const DrawerNavgation: React.FC = () => (
     />
 
     <Drawer.Screen
+      name="CreatePurchase"
+      component={CreatePurchase}
+      options={{
+        unmountOnBlur: true,
+        drawerLabel: ({ focused }) => (
+          <Text style={{ color: focused ? "#313131" : "#fff" }}>
+            Registrar compra
+          </Text>
+        ),
+        drawerIcon: ({ focused }) => (
+          <Icon color={focused ? "#313131" : "#fff"} name="user-plus" />
+        ),
+      }}
+    />
+
+    <Drawer.Screen
       name="Shopping"
       component={Shopping}
       options={{
@@ -68,6 +90,22 @@ const DrawerNavgation: React.FC = () => (
         ),
         drawerIcon: ({ focused }) => (
           <Icon color={focused ? "#313131" : "#fff"} name="shopping-cart" />
+        ),
+      }}
+    />
+
+    <Drawer.Screen
+      name="CreateSale"
+      component={CreateSale}
+      options={{
+        unmountOnBlur: true,
+        drawerLabel: ({ focused }) => (
+          <Text style={{ color: focused ? "#313131" : "#fff" }}>
+            Registrar venda
+          </Text>
+        ),
+        drawerIcon: ({ focused }) => (
+          <Icon color={focused ? "#313131" : "#fff"} name="user-plus" />
         ),
       }}
     />
@@ -85,7 +123,21 @@ const DrawerNavgation: React.FC = () => (
         ),
       }}
     />
-
+    <Drawer.Screen
+      name="CreateCarboyLoan"
+      component={CreateCarboyLoan}
+      options={{
+        unmountOnBlur: true,
+        drawerLabel: ({ focused }) => (
+          <Text style={{ color: focused ? "#313131" : "#fff" }}>
+            Cadastrar Empréstimo
+          </Text>
+        ),
+        drawerIcon: ({ focused }) => (
+          <Icon color={focused ? "#313131" : "#fff"} name="user-plus" />
+        ),
+      }}
+    />
     <Drawer.Screen
       name="CarboyLoans"
       component={CarboyLoans}
@@ -103,13 +155,29 @@ const DrawerNavgation: React.FC = () => (
     />
 
     <Drawer.Screen
+      name="CreateMove"
+      component={CreateMove}
+      options={{
+        unmountOnBlur: true,
+        drawerLabel: ({ focused }) => (
+          <Text style={{ color: focused ? "#313131" : "#fff" }}>
+            Registrar movimento
+          </Text>
+        ),
+        drawerIcon: ({ focused }) => (
+          <Icon color={focused ? "#313131" : "#fff"} name="user-plus" />
+        ),
+      }}
+    />
+
+    <Drawer.Screen
       name="Reports"
       component={Reports}
       options={{
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>
-            Relatórios
+            Movimentos
           </Text>
         ),
         drawerIcon: ({ focused }) => (
@@ -117,7 +185,21 @@ const DrawerNavgation: React.FC = () => (
         ),
       }}
     />
-
+    <Drawer.Screen
+      name="CreateClientRoute"
+      component={CreateClientRoute}
+      options={{
+        unmountOnBlur: true,
+        drawerLabel: ({ focused }) => (
+          <Text style={{ color: focused ? "#313131" : "#fff" }}>
+            Cadastrar rota
+          </Text>
+        ),
+        drawerIcon: ({ focused }) => (
+          <Icon color={focused ? "#313131" : "#fff"} name="user-plus" />
+        ),
+      }}
+    />
     <Drawer.Screen
       name="RoutesClients"
       component={RoutesClients}

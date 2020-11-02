@@ -122,6 +122,9 @@ export default function MoveCreated() {
             <MoveProperty>Valor: </MoveProperty>
             <MoveValue>{move.value}</MoveValue>
 
+            <MoveProperty>Obs: </MoveProperty>
+            <MoveValue>{move.obs}</MoveValue>
+
             <MoveProperty>Tipo</MoveProperty>
             <MoveValue>{formatType(move.type)}</MoveValue>
 
