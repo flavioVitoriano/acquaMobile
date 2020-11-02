@@ -8,7 +8,7 @@ import Client from "../pages/Client";
 import StackRoutes from "./stack.routes";
 
 import Shopping from "../pages/Shopping";
-import Sales from "../pages/Sales";
+import SaleCreated from "../pages/SaleCreated";
 import CarboyLoans from "../pages/CarboyLoans";
 import Reports from "../pages/Reports";
 import RoutesClients from "../pages/RoutesClients";
@@ -73,8 +73,8 @@ const DrawerNavgation: React.FC = () => (
     />
 
     <Drawer.Screen
-      name="Sales"
-      component={Sales}
+      name="SaleCreated"
+      component={SaleCreated}
       options={{
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (

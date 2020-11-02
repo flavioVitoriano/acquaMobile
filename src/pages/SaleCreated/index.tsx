@@ -145,26 +145,26 @@ export default function SaleCreated() {
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.2}
-        renderItem={({ item: sale }) => (
+        renderItem={({ item: sales }) => (
           <Sale>
             <SaleProperty>ID e cliente:</SaleProperty>
             <SaleValue>
-              {sale.id} {sale.client.full_name}
+         {sales.client.full_name}
             </SaleValue>
 
             <SaleProperty>Data:</SaleProperty>
-            <SaleValue>{humanDate(sale.submit_date)}</SaleValue>
+            <SaleValue>{humanDate(sales.submit_date)}</SaleValue>
 
             <SaleProperty>Quantidade:</SaleProperty>
-            <SaleValue>{sale.quantity}</SaleValue>
+            <SaleValue>{sales.quantity}</SaleValue>
 
             <SaleProperty>Valor Unitário:</SaleProperty>
-            <SaleValue>{sale.value}</SaleValue>
+            <SaleValue>{sales.value}</SaleValue>
 
             <SaleProperty>total:</SaleProperty>
-            <SaleValue>{sale.quantity * sale.value}</SaleValue>
+            <SaleValue>{sales.quantity * sales.value}</SaleValue>
 
-            <DetailsButton onPress={() => navigateToDetail(sale.id)}>
+            <DetailsButton onPress={() => navigateToDetail(sales.id)}>
               <DetailsButtonText>Ver mais detalhes</DetailsButtonText>
               <Icon name="arrow-right" size={16} color="#E02041" />
             </DetailsButton>

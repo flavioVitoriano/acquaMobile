@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { Platform } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+
 interface ClientData {
   id: number;
   full_name: string;
