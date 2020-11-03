@@ -16,4 +16,10 @@ export const Title = styled.Text`
   margin: 64px 0 24px;
 `;
 
+export const ErrorValue = styled.Text`
+background-color: #f00;
+color: #fff;
+font-size: 16px;
+width: 100%;
 
+`;

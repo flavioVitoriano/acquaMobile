@@ -75,7 +75,7 @@ const DrawerNavgation: React.FC = () => (
           </Text>
         ),
         drawerIcon: ({ focused }) => (
-          <Icon color={focused ? "#313131" : "#fff"} name="user-plus" />
+          <Icon color={focused ? "#313131" : "#fff"} name="shopping-cart" />
         ),
       }}
     />
@@ -89,7 +89,7 @@ const DrawerNavgation: React.FC = () => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>Compras</Text>
         ),
         drawerIcon: ({ focused }) => (
-          <Icon color={focused ? "#313131" : "#fff"} name="shopping-cart" />
+          <Icon color={focused ? "#313131" : "#fff"} name="dollar-sign"/>
         ),
       }}
     />
@@ -118,7 +118,7 @@ const DrawerNavgation: React.FC = () => (
           </Text>
         ),
         drawerIcon: ({ focused }) => (
-          <Icon color={focused ? "#313131" : "#fff"} name="user-plus" />
+          <Icon color={focused ? "#313131" : "#fff"} name="plus-square" />
         ),
       }}
     />
@@ -149,7 +149,7 @@ const DrawerNavgation: React.FC = () => (
           </Text>
         ),
         drawerIcon: ({ focused }) => (
-          <Icon color={focused ? "#313131" : "#fff"} name="user-plus" />
+          <Icon color={focused ? "#313131" : "#fff"} name="refresh-ccw" />
         ),
       }}
     />
@@ -165,7 +165,7 @@ const DrawerNavgation: React.FC = () => (
           </Text>
         ),
         drawerIcon: ({ focused }) => (
-          <Icon color={focused ? "#313131" : "#fff"} name="folder" />
+          <Icon color={focused ? "#313131" : "#fff"} name="repeat" />
         ),
       }}
     />
@@ -180,7 +180,7 @@ const DrawerNavgation: React.FC = () => (
           </Text>
         ),
         drawerIcon: ({ focused }) => (
-          <Icon color={focused ? "#313131" : "#fff"} name="user-plus" />
+          <Icon color={focused ? "#313131" : "#fff"} name="map" />
         ),
       }}
     />

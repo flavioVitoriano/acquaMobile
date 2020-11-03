@@ -1,14 +1,15 @@
 ﻿import React, { useState } from "react";
-import { StyleSheet } from "react-native";
 import TextInputMask from "react-native-text-input-mask";
 import moment from "moment";
+import { Container,Icon } from "./styles";
 
 interface DateInputProps {
   handleChange: Function;
   value: string;
+  icon: string;
 }
 
-const DateInput = (props: DateInputProps) => {
+const DateInput: React.FC<DateInputProps> = (props) => {
   const [value, setValue] = useState(moment().format("DD/MM/YYYY"));
   const onChange = (formatted: string) => {
     const isoValue = moment(formatted, "DD/MM/YYYY").format("YYYY-MM-DD");
@@ -17,22 +18,19 @@ const DateInput = (props: DateInputProps) => {
   };
 
   return (
-    <>
+
+    <Container>
+   <Icon name={props.icon} size={20} color="#000" />
+
       <TextInputMask
-        style={styles.Input}
         onChangeText={onChange}
         mask={"[00]/[00]/[0000]"}
         value={value}
       />
-    </>
+    </Container>
   );
 };
 
-const styles = StyleSheet.create({
-  Input: {
-    backgroundColor: "#fff",
-    width: "90%",
-  },
-});
+
 
 export default DateInput;

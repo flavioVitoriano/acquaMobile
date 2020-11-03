@@ -1,31 +1,18 @@
 import React from "react";
 import {
-  TextInput,
   View,
   KeyboardAvoidingView,
   Platform,
   Alert,
-  StyleSheet,
   Button,
-  Text,
 } from "react-native";
 import * as Yup from "yup";
 import { Formik } from "formik";
-
 import api from "../../services/index";
-
-import { Container, Title } from "./styles";
+import InputText from '../../components/InputText';
+import { Container, Title,ErrorValue } from "./styles";
 import DateInput from "../../components/DateInput";
 import moment from "moment";
-
-/*
-interface PurchaseFormData {
-  submit_date: string;
-  quantity: Number;
-  value: Number;
-  obs: string;
-}
-*/
 
 const initialValues: any = {
   submit_date: moment().format("YYYY-MM-DD"),
@@ -70,8 +57,8 @@ const Purchase: React.FC = () => {
           >
             {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
               <>
-                <TextInput
-                  style={styles.input}
+                <InputText
+                  icon="shopping-cart"
                   onChangeText={handleChange("quantity")}
                   keyboardType="numeric"
                   onBlur={handleBlur("quantity")}
@@ -80,11 +67,11 @@ const Purchase: React.FC = () => {
                 />
 
                 {errors.quantity && (
-                  <Text style={styles.errorText}>{errors.quantity}</Text>
+                  <ErrorValue>{errors.quantity}</ErrorValue>
                 )}
 
-                <TextInput
-                  style={styles.input}
+                <InputText
+                  icon="dollar-sign"
                   onChangeText={handleChange("value")}
                   keyboardType="numeric"
                   onBlur={handleBlur("value")}
@@ -93,11 +80,12 @@ const Purchase: React.FC = () => {
                 />
 
                 {errors.value && (
-                  <Text style={styles.errorText}>{errors.value}</Text>
+                  <ErrorValue>{errors.value}</ErrorValue>
                 )}
 
-                <TextInput
-                  style={styles.input}
+                <InputText
+                  keyboardType="default"
+                  icon="alert-circle"
                   onChangeText={handleChange("obs")}
                   onBlur={handleBlur("obs")}
                   placeholder="Observação"
@@ -105,6 +93,7 @@ const Purchase: React.FC = () => {
                 />
 
                 <DateInput
+                  icon="bell"
                   value={values.submit_date}
                   handleChange={handleChange("submit_date")}
                 />
@@ -121,19 +110,5 @@ const Purchase: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  input: {
-    backgroundColor: "#fff",
-    width: "90%",
-    borderStyle: "solid",
-    borderColor: "#000",
-  },
-  errorText: {
-    color: "red",
-  },
-  confirmButton: {
-    width: "90%",
-  },
-});
 
 export default Purchase;

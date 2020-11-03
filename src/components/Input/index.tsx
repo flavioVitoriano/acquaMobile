@@ -12,7 +12,7 @@ import {useField} from '@unform/core';
 import {Container, Icon, TextInput} from './styles';
 
 interface InputProps extends TextInputProps {
-  name?: string;
+  name: string;
   icon: string;
 }
 
