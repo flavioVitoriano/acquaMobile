@@ -2,20 +2,18 @@ import React from 'react';
 import {Container, Icon,TextInput} from './styles';
 
 interface InputProps {
-  onChangeText: Function;
-  name?: string;
-  icon: string;
-  onBlur:Function;
-  placeholder:string;
-  value: string | number;
-  keyboardType: string;
+ icon: string;
+ onChangeText: any;
+ onBlur: any;
+ placeholder: string;
+ value: string;
 }
 
-const InputText : React.FC<InputProps> =({name,value,keyboardType, icon,onChangeText,onBlur, ...rest}) =>(
-
+const InputText : React.FC<InputProps> =({ icon, ...rest}) =>(
  <Container>
    <Icon name={icon} size={20} color="#666360" />
 <TextInput
+
 keyboardAppearance="dark"
 placeholderTextColor="#666360"
 {...rest}

@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import { Platform } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
-interface PurchaseFormData {
+interface PurchaseData {
   id: number;
   quantity: number;
   value: number;
@@ -35,7 +35,7 @@ font-family: 'RobotoSlab-Medium';
 color: #737373;
 ;`
 
-export const ShoppingList = styled(FlatList as new () => FlatList<PurchaseFormData>)`
+export const ShoppingList = styled(FlatList as new () => FlatList<PurchaseData>)`
 margin-top:32px;
 `;
 

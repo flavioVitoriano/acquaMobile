@@ -13,7 +13,7 @@ import InputText from '../../components/InputText';
 import { Container, Title,ErrorValue } from "./styles";
 import DateInput from "../../components/DateInput";
 import moment from "moment";
-
+import { useNavigation, useRoute } from "@react-navigation/native";
 const initialValues: any = {
   submit_date: moment().format("YYYY-MM-DD"),
   quantity: "",
@@ -22,13 +22,17 @@ const initialValues: any = {
 };
 
 const Purchase: React.FC = () => {
+  const navigation= useNavigation();
   const onSubmit = (values: any) => {
-    api
-      .post("/purchases/", values)
-      .then(() => Alert.alert("Sucesso!", "compra registrada!"))
-      .catch(() =>
-        Alert.alert("Fracasso!", "contate o administrador do sistema"),
-      );
+    try {
+    api.post("/purchases/", values)
+
+      Alert.alert("Sucesso!", "compra registrada!")
+      navigation.navigate('ShoppingStackRoutes')
+
+    }catch {
+        Alert.alert("Fracasso!", "contate o administrador do sistema")
+    }
   };
 
   const schema = Yup.object().shape({
@@ -60,7 +64,6 @@ const Purchase: React.FC = () => {
                 <InputText
                   icon="shopping-cart"
                   onChangeText={handleChange("quantity")}
-                  keyboardType="numeric"
                   onBlur={handleBlur("quantity")}
                   placeholder="quantidade"
                   value={String(values.quantity)}
@@ -73,7 +76,6 @@ const Purchase: React.FC = () => {
                 <InputText
                   icon="dollar-sign"
                   onChangeText={handleChange("value")}
-                  keyboardType="numeric"
                   onBlur={handleBlur("value")}
                   placeholder="valor unitario"
                   value={String(values.value)}
@@ -84,7 +86,6 @@ const Purchase: React.FC = () => {
                 )}
 
                 <InputText
-                  keyboardType="default"
                   icon="alert-circle"
                   onChangeText={handleChange("obs")}
                   onBlur={handleBlur("obs")}
@@ -99,7 +100,7 @@ const Purchase: React.FC = () => {
                 />
 
                 <View>
-                  <Button onPress={handleSubmit} title="Registrar" />
+                  <Button onPress={handleSubmit} title="Registrar" color="#000" />
                 </View>
               </>
             )}

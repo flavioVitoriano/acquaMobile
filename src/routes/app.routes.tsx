@@ -5,16 +5,16 @@ import Icon from "react-native-vector-icons/Feather";
 import { Text } from "react-native";
 
 import Client from "../pages/Client";
-import StackRoutes from "./stack.routes";
+import StackRoutes from "./client.stack.routes";
 
-import Shopping from "../pages/Shopping";
+import ShoppingStackRoutes from "./shopping.stack.routes";
+import CreatePurchase from "../pages/CreatePurchase";
+
 import SaleCreated from "../pages/SaleCreated";
 import CarboyLoans from "../pages/CarboyLoans";
 import Reports from "../pages/Reports";
 import RoutesClients from "../pages/RoutesClients";
 import SignOut from "../pages/SignOut";
-import CreatePurchase from "../pages/CreatePurchase";
-import CreateSale from "../pages/CreateSale";
 import CreateCarboyLoan from "../pages/CreateCarboyLoan";
 import CreateMove from "../pages/CreateMove";
 import CreateClientRoute from "../pages/CreateClientRoute";
@@ -81,12 +81,14 @@ const DrawerNavgation: React.FC = () => (
     />
 
     <Drawer.Screen
-      name="Shopping"
-      component={Shopping}
+      name="ShoppingStackRoutes"
+      component={ShoppingStackRoutes}
       options={{
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
-          <Text style={{ color: focused ? "#313131" : "#fff" }}>Compras</Text>
+          <Text style={{ color: focused ? "#313131" : "#fff" }}>
+            Compras
+            </Text>
         ),
         drawerIcon: ({ focused }) => (
           <Icon color={focused ? "#313131" : "#fff"} name="dollar-sign"/>

@@ -60,12 +60,13 @@ export default function DetailClient() {
   }, [params.id]);
 
   const updateClient = (values: object) => {
+    try {
     api
       .patch(`/clients/${params.id}/`, values)
-      .then((res) => Alert.alert("sucesso!", "cliente atualizado"))
-      .catch((error) =>
-        Alert.alert("fracasso!", "contate o administrador do sistema"),
-      );
+       Alert.alert("sucesso!", "cliente atualizado")
+       } catch{
+        Alert.alert("fracasso!", "contate o administrador do sistema")
+      }
   };
 
   const message = `Olá ${client?.full_name}, estou entrando em contato pois gostaria de saber se o senhor
