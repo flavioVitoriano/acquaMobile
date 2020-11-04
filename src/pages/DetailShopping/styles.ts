@@ -28,6 +28,12 @@ color: #4169b3;
 font-weight: bold;
 `;
 
+export const SeachData = styled.TextInput`
+font-size: 16px;
+line-height:24px;
+font-family: 'RobotoSlab-Medium';
+color: #4169b3;
+;`
 export const Title = styled.Text`
 font-size: 20px;
 color: #41414d;

@@ -8,6 +8,7 @@ import {
   Shopping,
   Header,
   ShoppingList,
+  SearchData,
   ShoppingProperty,
   DetailsButton,
   DetailsButtonText,
@@ -105,7 +106,16 @@ export default function ShoppingCreated() {
 
   return (
     <Container>
+
+<SearchData
+        placeholder="Buscar compras por data..."
+        //onChangeText={onFilterChange}
+        //value={filterValue}
+        autoCorrect={false}
+      />
       <Header></Header>
+
+
       <ShoppingList
         data={purchases}
         keyExtractor={(purchase) => String(purchase.id)}

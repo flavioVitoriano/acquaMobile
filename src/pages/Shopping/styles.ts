@@ -21,7 +21,12 @@ export const Header = styled.View`
   justify-content: space-between;
   align-items: center;
 `;
-
+export const SearchData = styled.TextInput`
+font-size: 16px;
+line-height:24px;
+font-family: 'RobotoSlab-Medium';
+color: #4169b3;
+;`
 export const HeaderText = styled.Text`
 font-family: 'RobotoSlab-Medium';
 font-size: 15px;

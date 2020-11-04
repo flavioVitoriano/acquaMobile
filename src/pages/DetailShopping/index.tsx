@@ -78,6 +78,7 @@ export default function Detailshopping() {
     <>
       <Container style={{ paddingHorizontal: 24 }}>
         <Header>
+
           <RectButton onPress={navigateBack}>
             <Icon name="arrow-left" size={28} color="#E82041" />
           </RectButton>
