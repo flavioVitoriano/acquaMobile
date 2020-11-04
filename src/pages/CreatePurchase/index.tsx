@@ -36,10 +36,10 @@ const Purchase: React.FC = () => {
   };
 
   const schema = Yup.object().shape({
-    quantity: Yup.number().required("Campo necessário").min(1),
-    value: Yup.number().required("Campo necessário").min(0.1),
+    quantity: Yup.number().required("Campo obrigatório").min(1),
+    value: Yup.number().required("Campo obrigatório").min(0.1),
     obs: Yup.string(),
-    submit_date: Yup.string().required("Necessário definir data"),
+    submit_date: Yup.string().required("obrigatório definir data"),
   });
 
   return (
@@ -62,6 +62,7 @@ const Purchase: React.FC = () => {
             {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
               <>
                 <InputText
+                  keyboardType="numeric"
                   icon="shopping-cart"
                   onChangeText={handleChange("quantity")}
                   onBlur={handleBlur("quantity")}
@@ -74,10 +75,11 @@ const Purchase: React.FC = () => {
                 )}
 
                 <InputText
+                  keyboardType="numeric"
                   icon="dollar-sign"
                   onChangeText={handleChange("value")}
                   onBlur={handleBlur("value")}
-                  placeholder="valor unitario"
+                  placeholder="valor unitário"
                   value={String(values.value)}
                 />
 
@@ -86,6 +88,7 @@ const Purchase: React.FC = () => {
                 )}
 
                 <InputText
+                  keyboardType="default"
                   icon="alert-circle"
                   onChangeText={handleChange("obs")}
                   onBlur={handleBlur("obs")}

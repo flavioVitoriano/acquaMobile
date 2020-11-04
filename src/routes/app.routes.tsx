@@ -102,7 +102,9 @@ const DrawerNavgation: React.FC = () => (
       options={{
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
-          <Text style={{ color: focused ? "#313131" : "#fff" }}>Vendas</Text>
+          <Text style={{ color: focused ? "#313131" : "#fff" }}>
+            Vendas
+            </Text>
         ),
         drawerIcon: ({ focused }) => (
           <Icon color={focused ? "#313131" : "#fff"} name="shopping-bag" />

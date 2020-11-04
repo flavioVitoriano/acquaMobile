@@ -13,8 +13,8 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 
 import api from "../../services/index";
-
-import { Container, Title } from "./styles";
+import InputText from '../../components/InputText'
+import { Container, Title, ContainerRemoteButtonText,ErrorValue } from "./styles";
 import DateInput from "../../components/DateInput";
 import RemoteSelect from "../../components/RemoteSelect";
 import moment from "moment";
@@ -36,10 +36,10 @@ const initialValues: any = {
 };
 
 const schema = Yup.object().shape({
-  value: Yup.number().required("Campo necessário").min(0.1),
-  status: Yup.number().required("Campo necessário"),
+  value: Yup.number().required("Campo obrigatório").min(0.1),
+  status: Yup.number().required("Campo obrigatório"),
   obs: Yup.string(),
-  order_date: Yup.string().required("Necessário definir data"),
+  order_date: Yup.string().required("obrigatório definir data"),
 });
 
 const CreateMove: React.FC = () => {
@@ -84,8 +84,9 @@ const CreateMove: React.FC = () => {
           >
             {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
               <>
+              <ContainerRemoteButtonText>
                 <RemoteSelect
-                  style={styles.input}
+                style={styles.input}
                   onSelectChange={handleChange("status")}
                   data={[
                     { value: 0, label: "ENTRADA" },
@@ -95,25 +96,26 @@ const CreateMove: React.FC = () => {
                   valueField="value"
                   initialLabel="Selecione um tipo de movimento"
                 />
+              </ContainerRemoteButtonText>
+
 
                 {errors.status && (
-                  <Text style={styles.errorText}>{errors.status}</Text>
+                  <ErrorValue>{errors.status}</ErrorValue>
                 )}
-                <TextInput
-                  style={styles.input}
+                <InputText
+                  icon="dollar-sign"
                   onChangeText={handleChange("value")}
-                  keyboardType="numeric"
                   onBlur={handleBlur("value")}
                   placeholder="valor"
                   value={String(values.value)}
                 />
 
                 {errors.value && (
-                  <Text style={styles.errorText}>{errors.value}</Text>
+                  <ErrorValue>{errors.value}</ErrorValue>
                 )}
 
-                <TextInput
-                  style={styles.input}
+                <InputText
+                  icon="alert-circle"
                   onChangeText={handleChange("obs")}
                   onBlur={handleBlur("obs")}
                   placeholder="Observação"
@@ -121,12 +123,13 @@ const CreateMove: React.FC = () => {
                 />
 
                 <DateInput
+                icon="bell"
                   value={values.order_date}
                   handleChange={handleChange("order_date")}
                 />
 
                 <View>
-                  <Button onPress={handleSubmit} title="Registrar" />
+                  <Button onPress={handleSubmit} title="Registrar" color='#000'/>
                 </View>
               </>
             )}
@@ -139,17 +142,11 @@ const CreateMove: React.FC = () => {
 
 const styles = StyleSheet.create({
   input: {
-    backgroundColor: "#fff",
-    width: "90%",
-    borderStyle: "solid",
-    borderColor: "#000",
-  },
-  errorText: {
-    color: "red",
-  },
-  confirmButton: {
-    width: "90%",
-  },
+    flex:1,
+    color: "#000",
+    fontSize: 16,
+    fontFamily: "RobotoSlab-Regular",
+},
 });
 
 export default CreateMove;

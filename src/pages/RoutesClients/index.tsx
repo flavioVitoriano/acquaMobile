@@ -141,7 +141,7 @@ export default function PathCreated() {
       />
       <PathList
         data={paths}
-        keyExtractor={(path: PathFormData) => String(path.id)}
+        keyExtractor={(path) => String(path.id)}
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.2}

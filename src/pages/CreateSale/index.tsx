@@ -38,11 +38,11 @@ const initialValues: any = {
 };
 
 const schema = Yup.object().shape({
-  quantity: Yup.number().required("Campo necessário").min(1),
-  value: Yup.number().required("Campo necessário").min(0.1),
-  client: Yup.number().required("Cliente é necessário"),
+  quantity: Yup.number().required("Campo obrigatório").min(1),
+  value: Yup.number().required("Campo obrigatório").min(0.1),
+  client: Yup.number().required("Cliente é obrigatório"),
   obs: Yup.string(),
-  submit_date: Yup.string().required("Necessário definir data"),
+  submit_date: Yup.string().required("obrigatório definir data"),
 });
 
 const Sale: React.FC = () => {
@@ -117,7 +117,7 @@ const Sale: React.FC = () => {
                   onChangeText={handleChange("value")}
                   keyboardType="numeric"
                   onBlur={handleBlur("value")}
-                  placeholder="valor unitario"
+                  placeholder="valor unitário"
                   value={String(values.value)}
                 />
 
@@ -134,6 +134,7 @@ const Sale: React.FC = () => {
                 />
 
                 <DateInput
+                icon="bell"
                   value={values.submit_date}
                   handleChange={handleChange("submit_date")}
                 />

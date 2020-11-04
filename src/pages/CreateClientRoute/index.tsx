@@ -13,11 +13,12 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 
 import api from "../../services/index";
-
-import { Container, Title } from "./styles";
+import InputText from '../../components/InputText'
+import { Container, Title, ContainerRemoteButtonText, ErrorValue } from "./styles";
 import DateInput from "../../components/DateInput";
 import RemoteSelect from "../../components/RemoteSelect";
 import moment from "moment";
+import { ScrollView } from "react-native-gesture-handler";
 
 /*
 interface CreateClientRouteFormData {
@@ -40,12 +41,12 @@ const initialValues: any = {
 };
 
 const schema = Yup.object().shape({
-  step_days: Yup.number().required("Campo necessário").min(1),
-  warning_sub_days: Yup.number().required("Campo necessário").min(0),
-  client: Yup.number().required("Cliente necessário"),
-  quantity: Yup.number().required("Campo necessário").min(1),
-  value: Yup.number().required("Campo necessário").min(0.1),
-  last_ship_date: Yup.string().required("Campo necessário"),
+  step_days: Yup.number().required("Campo obrigatório").min(1),
+  warning_sub_days: Yup.number().required("Campo obrigatório").min(0),
+  client: Yup.number().required("Cliente obrigatório"),
+  quantity: Yup.number().required("Campo obrigatório").min(1),
+  value: Yup.number().required("Campo obrigatório").min(0.1),
+  last_ship_date: Yup.string().required("Campo obrigatório"),
 });
 
 const CreateClientRoute: React.FC = () => {
@@ -90,82 +91,90 @@ const CreateClientRoute: React.FC = () => {
           >
             {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
               <>
-                <RemoteSelect
-                  style={styles.input}
-                  onSelectChange={handleChange("client")}
-                  data={clients}
-                  labelField="full_name"
-                  valueField="id"
-                  initialLabel="Selecione um cliente"
-                />
+                <ContainerRemoteButtonText>
+                  <RemoteSelect
+                    style={styles.input}
+                    onSelectChange={handleChange("client")}
+                    data={clients}
+                    labelField="full_name"
+                    valueField="id"
+                    initialLabel="Selecione um cliente"
+                  />
+                </ContainerRemoteButtonText>
+
 
                 {errors.client && (
-                  <Text style={styles.errorText}>{errors.client}</Text>
+                  <ErrorValue>{errors.client}</ErrorValue>
                 )}
 
-                <TextInput
-                  style={styles.input}
-                  onChangeText={handleChange("quantity")}
+                <InputText
                   keyboardType="numeric"
+
+                  icon="shopping-cart"
+                  onChangeText={handleChange("quantity")}
                   onBlur={handleBlur("quantity")}
                   placeholder="quantidade"
                   value={String(values.quantity)}
                 />
 
                 {errors.quantity && (
-                  <Text style={styles.errorText}>{errors.quantity}</Text>
+                  <ErrorValue>{errors.quantity}</ErrorValue>
                 )}
 
-                <TextInput
-                  style={styles.input}
-                  onChangeText={handleChange("value")}
+                <InputText
                   keyboardType="numeric"
+
+                  icon="alert-circle"
+                  onChangeText={handleChange("value")}
                   onBlur={handleBlur("value")}
-                  placeholder="valor unitario"
+                  placeholder="valor unitário"
                   value={String(values.value)}
                 />
 
                 {errors.value && (
-                  <Text style={styles.errorText}>{errors.value}</Text>
+                  <ErrorValue>{errors.value}</ErrorValue>
                 )}
-                <TextInput
-                  style={styles.input}
-                  onChangeText={handleChange("step_days")}
+                <InputText
                   keyboardType="numeric"
+
+                  icon="truck"
+                  onChangeText={handleChange("step_days")}
                   onBlur={handleBlur("step_days")}
                   placeholder="periodo de entrega (dias)"
                   value={String(values.step_days)}
                 />
 
                 {errors.step_days && (
-                  <Text style={styles.errorText}>{errors.step_days}</Text>
+                  <ErrorValue>{errors.step_days}</ErrorValue>
                 )}
-                <TextInput
-                  style={styles.input}
-                  onChangeText={handleChange("warning_sub_days")}
+                <InputText
                   keyboardType="numeric"
+
+                  icon="zap"
+                  onChangeText={handleChange("warning_sub_days")}
                   onBlur={handleBlur("warning_sub_days")}
                   placeholder="antecedência de (dias)"
                   value={String(values.warning_sub_days)}
                 />
 
                 {errors.warning_sub_days && (
-                  <Text style={styles.errorText}>
+                  <ErrorValue>
                     {errors.warning_sub_days}
-                  </Text>
+                  </ErrorValue>
                 )}
 
                 <DateInput
+                  icon="bell"
                   handleChange={handleChange("last_ship_date")}
                   value={values.step_days}
                 />
 
                 {errors.last_ship_date && (
-                  <Text style={styles.errorText}>{errors.last_ship_date}</Text>
+                  <ErrorValue>{errors.last_ship_date}</ErrorValue>
                 )}
 
                 <View>
-                  <Button onPress={handleSubmit} title="Registrar" />
+                  <Button onPress={handleSubmit} title="Registrar" color="#000" />
                 </View>
               </>
             )}
@@ -176,19 +185,14 @@ const CreateClientRoute: React.FC = () => {
   );
 };
 
+
 const styles = StyleSheet.create({
   input: {
-    backgroundColor: "#fff",
-    width: "90%",
-    borderStyle: "solid",
-    borderColor: "#000",
-  },
-  errorText: {
-    color: "red",
-  },
-  confirmButton: {
-    width: "90%",
-  },
+    flex: 1,
+    color: "#000",
+    fontSize: 16,
+    fontFamily: "RobotoSlab-Regular",
+  }
 });
 
 export default CreateClientRoute;

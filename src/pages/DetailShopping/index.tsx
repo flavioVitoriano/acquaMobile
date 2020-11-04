@@ -42,7 +42,7 @@ const initialValues: ShoppingDetail = {
 };
 
 const schema = Yup.object().shape({
-  obs: Yup.string().required("Campo necessário"),
+  obs: Yup.string().required("Campo obrigatório"),
 });
 
 export default function Detailshopping() {

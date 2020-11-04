@@ -43,7 +43,7 @@ const initialValues: clientDetail = {
 };
 
 const schema = Yup.object().shape({
-  full_name: Yup.string().required("Campo necessário"),
+  full_name: Yup.string().required("Campo obrigatório"),
 });
 
 export default function DetailClient() {

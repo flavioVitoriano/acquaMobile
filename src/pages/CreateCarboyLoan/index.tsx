@@ -5,19 +5,19 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
-  StyleSheet,
   Button,
-  Text,
+  StyleSheet,
 } from "react-native";
 import * as Yup from "yup";
 import { Formik } from "formik";
 
 import api from "../../services/index";
-
-import { Container, Title } from "./styles";
+import InputText from '../../components/InputText';
+import { Container, Title,ErrorValue,ContainerRemoteButtonText } from "./styles";
 import DateInput from "../../components/DateInput";
 import RemoteSelect from "../../components/RemoteSelect";
 import moment from "moment";
+import { ScrollView } from "react-native-gesture-handler";
 
 /*
 interface CarboyLoanFormData {
@@ -36,10 +36,10 @@ const initialValues: any = {
 };
 
 const schema = Yup.object().shape({
-  quantity: Yup.number().required("Campo necessário").min(1),
-  client: Yup.number().required("Cliente é necessário"),
+  quantity: Yup.number().required("Campo obrigatório").min(1),
+  client: Yup.number().required("Cliente é obrigatório"),
   obs: Yup.string(),
-  order_date: Yup.string().required("Necessário definir data"),
+  order_date: Yup.string().required("obrigatório definir data"),
 });
 
 const CarboyLoan: React.FC = () => {
@@ -84,7 +84,8 @@ const CarboyLoan: React.FC = () => {
           >
             {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
               <>
-                <RemoteSelect
+              <ContainerRemoteButtonText>
+                  <RemoteSelect
                   style={styles.input}
                   onSelectChange={handleChange("client")}
                   data={clients}
@@ -92,25 +93,28 @@ const CarboyLoan: React.FC = () => {
                   valueField="id"
                   initialLabel="Selecione um cliente"
                 />
+              </ContainerRemoteButtonText>
+
 
                 {errors.client && (
-                  <Text style={styles.errorText}>{errors.client}</Text>
+                  <ErrorValue>{errors.client}</ErrorValue>
                 )}
-                <TextInput
-                  style={styles.input}
+                <InputText
+                keyboardType="numeric"
+                  icon="shopping-cart"
                   onChangeText={handleChange("quantity")}
-                  keyboardType="numeric"
                   onBlur={handleBlur("quantity")}
                   placeholder="quantidade"
                   value={String(values.quantity)}
                 />
 
                 {errors.quantity && (
-                  <Text style={styles.errorText}>{errors.quantity}</Text>
+                  <ErrorValue>{errors.quantity}</ErrorValue>
                 )}
 
-                <TextInput
-                  style={styles.input}
+                <InputText
+                  keyboardType="default"
+                  icon="alert-circle"
                   onChangeText={handleChange("obs")}
                   onBlur={handleBlur("obs")}
                   placeholder="Observação"
@@ -118,12 +122,13 @@ const CarboyLoan: React.FC = () => {
                 />
 
                 <DateInput
+                  icon="bell"
                   value={values.order_date}
                   handleChange={handleChange("order_date")}
                 />
 
                 <View>
-                  <Button onPress={handleSubmit} title="Registrar" />
+                  <Button onPress={handleSubmit} title="Registrar" color="#000"/>
                 </View>
               </>
             )}
@@ -134,19 +139,14 @@ const CarboyLoan: React.FC = () => {
   );
 };
 
+
 const styles = StyleSheet.create({
   input: {
-    backgroundColor: "#fff",
-    width: "90%",
-    borderStyle: "solid",
-    borderColor: "#000",
-  },
-  errorText: {
-    color: "red",
-  },
-  confirmButton: {
-    width: "90%",
-  },
+    flex:1,
+    color: "#000",
+    fontSize: 16,
+    fontFamily: "RobotoSlab-Regular",
+  }
 });
 
 export default CarboyLoan;

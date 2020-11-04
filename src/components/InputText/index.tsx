@@ -7,6 +7,7 @@ interface InputProps {
  onBlur: any;
  placeholder: string;
  value: string;
+ keyboardType: any;
 }
 
 const InputText : React.FC<InputProps> =({ icon, ...rest}) =>(
