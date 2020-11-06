@@ -21,7 +21,7 @@ const initialValues: any = {
   obs: "",
 };
 
-const Purchase: React.FC = () => {
+const CreatePurchase: React.FC = () => {
   const navigation= useNavigation();
   const onSubmit = (values: any) => {
     try {
@@ -102,8 +102,8 @@ const Purchase: React.FC = () => {
                   handleChange={handleChange("submit_date")}
                 />
 
-                <View>
-                  <Button onPress={handleSubmit} title="Registrar" color="#000" />
+                <View style={{width:330}}>
+                  <Button  disabled={false} onPress={handleSubmit} title="Registrar" color="#000" />
                 </View>
               </>
             )}
@@ -115,4 +115,4 @@ const Purchase: React.FC = () => {
 };
 
 
-export default Purchase;
+export default CreatePurchase;

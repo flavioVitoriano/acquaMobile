@@ -3,25 +3,32 @@ import Icon from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import api from "../../services/index";
 import {
-  ShoppingValue,
+  PathValue,
   Container,
-  Shopping,
+  Path,
   Header,
-  ShoppingList,
-  SearchData,
-  ShoppingProperty,
+  PathList,
+  PathProperty,
   DetailsButton,
   DetailsButtonText,
 } from "./styles";
-import uniqBy from "lodash/uniqBy";
+import RemoteSelect from "../../components/RemoteSelect";
 import moment from "moment";
+import { Alert } from "react-native";
+import uniqBy from "lodash/uniqBy";
 
-interface PurchaseFormData {
+interface ClientData {
+  id: number;
+  full_name: string;
+}
+
+interface PathFormData {
   id: number;
   quantity: number;
   value: number;
   obs: string;
   submit_date: any;
+  client: ClientData;
 }
 
 interface DateProps {
@@ -39,38 +46,52 @@ const makeResponseData = (data: Array<object>) =>
     return item;
   });
 
-export default function ShoppingCreated() {
-  const [purchases, setPurchaces] = useState<PurchaseFormData[]>([]);
+export default function CreatedClientRoute() {
+  const [paths, setPaths] = useState<PathFormData[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [filterParams, setFilterParams] = useState({});
+  const [client, setClient] = useState("");
+  const [clients, setClients] = useState([]);
 
   const navigation = useNavigation();
 
   function navigateToDetail(id: number) {
-    navigation.navigate("DetailShopping", { id });
+    navigation.navigate("DetailClientRoute", { id });
   }
 
-  function loadShoppings() {
+  function loadPaths() {
     api
-      .get("/purchases/", {
+      .get("/paths/", {
         params: { page },
       })
       .then((response) => {
-        setPurchaces(makeResponseData(response.data));
+        setPaths(makeResponseData(response.data));
         setTotal(response.headers["x-total-count"]);
         setPage(page + 1);
         setLoading(false);
       });
   }
 
+  const onClientChange = (value: string) => {
+    setClient(value);
+  };
+
+  const getClientData = () => {
+    api
+      .get("/clients/", { params: { limit: 1000 } })
+      .then((response) => setClients(response.data))
+      .catch((error) => Alert.alert("Fracasso"));
+  };
+
   const onSubmitFilter = (dates: DateProps) => {
-    setPurchaces([]);
+    setPaths([]);
     setPage(1);
     setFilterParams({
       start_date: dates.startDate,
       end_date: dates.endDate,
+      client: client,
     });
   };
 
@@ -78,7 +99,7 @@ export default function ShoppingCreated() {
     if (loading) {
       return;
     }
-    if (Number(total) > 0 && Number(purchases.length) === Number(total)) {
+    if (Number(total) > 0 && Number(paths.length) === Number(total)) {
       return;
     }
     setPage(page + 1);
@@ -88,59 +109,63 @@ export default function ShoppingCreated() {
     setLoading(true);
 
     api
-      .get("/purchases/", {
+      .get("/paths/", {
         params: { page, ...filterParams },
       })
       .then((response) => {
         const resData = makeResponseData(response.data);
-        const data = uniqBy([...purchases, ...resData], "id");
-        setPurchaces(data);
+        const data = uniqBy([...paths, ...resData], "id");
+        setPaths(data);
         setTotal(response.headers["x-total-count"]);
         setLoading(false);
       });
   }, [page, filterParams]);
 
   useEffect(() => {
-    loadShoppings();
+    loadPaths();
+  }, []);
+
+  useEffect(() => {
+    getClientData();
   }, []);
 
   return (
     <Container>
-
-<SearchData
-        placeholder="Buscar compras por data..."
-        //onChangeText={onFilterChange}
-        //value={filterValue}
-        autoCorrect={false}
-      />
       <Header></Header>
-
-
-      <ShoppingList
-        data={purchases}
-        keyExtractor={(purchase) => String(purchase.id)}
+      <RemoteSelect
+        onSelectChange={onClientChange}
+        data={clients}
+        labelField="full_name"
+        valueField="id"
+        initialLabel="Selecione um cliente"
+      />
+      <PathList
+        data={paths}
+        keyExtractor={(path) => String(path.id)}
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.2}
-        renderItem={({ item: purchase }) => (
-          <Shopping>
-            <ShoppingProperty>Data:</ShoppingProperty>
-            <ShoppingValue>{humanDate(purchase.submit_date)}</ShoppingValue>
+        renderItem={({ item: path }) => (
+          <Path>
+            <PathProperty>ID e cliente:</PathProperty>
+            <PathValue>
+              {path.id}-{path.client.full_name}
+            </PathValue>
 
-            <ShoppingProperty>Quantidade:</ShoppingProperty>
-            <ShoppingValue>{purchase.quantity}</ShoppingValue>
+            <PathProperty>Data:</PathProperty>
+            <PathValue>{humanDate(path.submit_date)}</PathValue>
 
-            <ShoppingProperty>Valor Unitário:</ShoppingProperty>
-            <ShoppingValue>{purchase.value}</ShoppingValue>
+            <PathProperty>Quantidade:</PathProperty>
+            <PathValue>{path.quantity}</PathValue>
 
-            <ShoppingProperty>total:</ShoppingProperty>
-            <ShoppingValue>{purchase.quantity * purchase.value}</ShoppingValue>
+            <PathProperty>Valor Unitário:</PathProperty>
+            <PathValue>{path.value}</PathValue>
 
-            <DetailsButton onPress={() => navigateToDetail(purchase.id)}>
+            <DetailsButton onPress={() => navigateToDetail(path.id)}>
               <DetailsButtonText>Ver mais detalhes</DetailsButtonText>
               <Icon name="arrow-right" size={16} color="#E02041" />
             </DetailsButton>
-          </Shopping>
+          </Path>
         )}
       />
     </Container>

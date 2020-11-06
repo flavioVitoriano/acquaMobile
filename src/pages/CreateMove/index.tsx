@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import {
-  TextInput,
   View,
   KeyboardAvoidingView,
   Platform,
   Alert,
   StyleSheet,
   Button,
-  Text,
+
 } from "react-native";
 import * as Yup from "yup";
 import { Formik } from "formik";
+import { useNavigation } from "@react-navigation/native";
 
 import api from "../../services/index";
 import InputText from '../../components/InputText'
@@ -44,14 +44,14 @@ const schema = Yup.object().shape({
 
 const CreateMove: React.FC = () => {
   const [clients, setClients] = useState([]);
-
+const navigation = useNavigation();
   const onSubmit = (values: any) => {
-    api
-      .post("/moves/", values)
-      .then(() => Alert.alert("Sucesso!", "movimento registrado!"))
-      .catch(() =>
-        Alert.alert("Fracasso!", "contate o administrador do sistema"),
-      );
+    try {
+    api.post("/moves/", values)
+      Alert.alert("Sucesso!", "movimento registrado!")
+      navigation.navigate('MoveStackRoutes')
+    } catch { Alert.alert("Fracasso!", "contate o administrador do sistema")
+  }
   };
 
   const getClientData = () => {
@@ -74,7 +74,7 @@ const CreateMove: React.FC = () => {
       >
         <Container>
           <View>
-            <Title>Registro de movimento</Title>
+            <Title>Registrar  movimento</Title>
           </View>
 
           <Formik
@@ -103,6 +103,7 @@ const CreateMove: React.FC = () => {
                   <ErrorValue>{errors.status}</ErrorValue>
                 )}
                 <InputText
+                  keyboardType="numeric"
                   icon="dollar-sign"
                   onChangeText={handleChange("value")}
                   onBlur={handleBlur("value")}
@@ -115,6 +116,7 @@ const CreateMove: React.FC = () => {
                 )}
 
                 <InputText
+                  keyboardType="default"
                   icon="alert-circle"
                   onChangeText={handleChange("obs")}
                   onBlur={handleBlur("obs")}
@@ -129,7 +131,7 @@ const CreateMove: React.FC = () => {
                 />
 
                 <View>
-                  <Button onPress={handleSubmit} title="Registrar" color='#000'/>
+                  <Button  disabled={false}  onPress={handleSubmit} title="Registrar" color='#000'/>
                 </View>
               </>
             )}

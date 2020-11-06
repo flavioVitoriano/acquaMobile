@@ -11,10 +11,11 @@ import {
 } from "react-native";
 import * as Yup from "yup";
 import { Formik } from "formik";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import api from "../../services/index";
-
-import { Container, Title } from "./styles";
+import InputText from '../../components/InputText'
+import { Container, Title,ContainerRemoteButtonText,ErrorValue } from "./styles";
 import DateInput from "../../components/DateInput";
 import RemoteSelect from "../../components/RemoteSelect";
 import moment from "moment";
@@ -45,16 +46,18 @@ const schema = Yup.object().shape({
   submit_date: Yup.string().required("obrigatório definir data"),
 });
 
-const Sale: React.FC = () => {
+const CreateSale: React.FC = () => {
+  const navigation  = useNavigation()
   const [clients, setClients] = useState([]);
 
   const onSubmit = (values: any) => {
-    api
-      .post("/sales/", values)
-      .then(() => Alert.alert("Sucesso!", "venda registrada!"))
-      .catch(() =>
-        Alert.alert("Fracasso!", "contate o administrador do sistema"),
-      );
+    try {
+    api.post("/sales/", values)
+       Alert.alert("Sucesso!", "venda registrada!")
+       navigation.navigate('SaleStackRoutes')
+    }catch {
+        Alert.alert("Fracasso!", "contate o administrador do sistema")
+    }
   };
 
   const getClientData = () => {
@@ -87,20 +90,24 @@ const Sale: React.FC = () => {
           >
             {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
               <>
+              <ContainerRemoteButtonText>
                 <RemoteSelect
-                  style={styles.input}
+                                  style={styles.input}
+
+                  initialLabel="Selecione um cliente"
                   onSelectChange={handleChange("client")}
                   data={clients}
                   labelField="full_name"
                   valueField="id"
-                  initialLabel="Selecione um cliente"
                 />
+              </ContainerRemoteButtonText>
+
 
                 {errors.client && (
-                  <Text style={styles.errorText}>{errors.client}</Text>
+                  <ErrorValue>{errors.client}</ErrorValue>
                 )}
-                <TextInput
-                  style={styles.input}
+                <InputText
+                icon="shopping-cart"
                   onChangeText={handleChange("quantity")}
                   keyboardType="numeric"
                   onBlur={handleBlur("quantity")}
@@ -109,11 +116,11 @@ const Sale: React.FC = () => {
                 />
 
                 {errors.quantity && (
-                  <Text style={styles.errorText}>{errors.quantity}</Text>
+                  <ErrorValue>{errors.quantity}</ErrorValue>
                 )}
 
-                <TextInput
-                  style={styles.input}
+                <InputText
+                 icon="dollar-sign"
                   onChangeText={handleChange("value")}
                   keyboardType="numeric"
                   onBlur={handleBlur("value")}
@@ -122,11 +129,12 @@ const Sale: React.FC = () => {
                 />
 
                 {errors.value && (
-                  <Text style={styles.errorText}>{errors.value}</Text>
+                  <ErrorValue>{errors.value}</ErrorValue>
                 )}
 
-                <TextInput
-                  style={styles.input}
+                <InputText
+                  keyboardType="default"
+                  icon="alert-circle"
                   onChangeText={handleChange("obs")}
                   onBlur={handleBlur("obs")}
                   placeholder="Observação"
@@ -140,7 +148,7 @@ const Sale: React.FC = () => {
                 />
 
                 <View>
-                  <Button onPress={handleSubmit} title="Registrar" />
+                  <Button  disabled={false} onPress={handleSubmit} title="Registrar" color="#000"/>
                 </View>
               </>
             )}
@@ -151,19 +159,13 @@ const Sale: React.FC = () => {
   );
 };
 
+
 const styles = StyleSheet.create({
   input: {
-    backgroundColor: "#fff",
-    width: "90%",
-    borderStyle: "solid",
-    borderColor: "#000",
-  },
-  errorText: {
-    color: "red",
-  },
-  confirmButton: {
-    width: "90%",
-  },
-});
+    flex:1,
+    color: "#000",
+    fontSize: 16,
+    fontFamily: "RobotoSlab-Regular",
+  },})
 
-export default Sale;
+export default CreateSale;

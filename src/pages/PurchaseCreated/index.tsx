@@ -3,32 +3,25 @@ import Icon from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import api from "../../services/index";
 import {
-  LoanValue,
+  ShoppingValue,
   Container,
-  Loan,
+  Shopping,
   Header,
-  LoanList,
-  LoanProperty,
+  ShoppingList,
+  SearchData,
+  ShoppingProperty,
   DetailsButton,
   DetailsButtonText,
 } from "./styles";
-import RemoteSelect from "../../components/RemoteSelect";
-import moment from "moment";
-import { Alert } from "react-native";
 import uniqBy from "lodash/uniqBy";
+import moment from "moment";
 
-interface ClientData {
-  id: number;
-  full_name: string;
-}
-
-interface LoanFormData {
+interface PurchaseFormData {
   id: number;
   quantity: number;
   value: number;
   obs: string;
   submit_date: any;
-  client: ClientData;
 }
 
 interface DateProps {
@@ -46,52 +39,38 @@ const makeResponseData = (data: Array<object>) =>
     return item;
   });
 
-export default function LoanCreated() {
-  const [loans, setLoans] = useState<LoanFormData[]>([]);
+export default function PurchaseCreated() {
+  const [purchases, setPurchaces] = useState<PurchaseFormData[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [filterParams, setFilterParams] = useState({});
-  const [client, setClient] = useState("");
-  const [clients, setClients] = useState([]);
 
   const navigation = useNavigation();
 
   function navigateToDetail(id: number) {
-    navigation.navigate("DetailLoan", { id });
+    navigation.navigate("DetailPurchase", { id });
   }
 
-  function loadLoans() {
+  function loadShoppings() {
     api
-      .get("/loans/", {
+      .get("/purchases/", {
         params: { page },
       })
       .then((response) => {
-        setLoans(makeResponseData(response.data));
+        setPurchaces(makeResponseData(response.data));
         setTotal(response.headers["x-total-count"]);
         setPage(page + 1);
         setLoading(false);
       });
   }
 
-  const onClientChange = (value: string) => {
-    setClient(value);
-  };
-
-  const getClientData = () => {
-    api
-      .get("/clients/", { params: { limit: 1000 } })
-      .then((response) => setClients(response.data))
-      .catch((error) => Alert.alert("Fracasso"));
-  };
-
   const onSubmitFilter = (dates: DateProps) => {
-    setLoans([]);
+    setPurchaces([]);
     setPage(1);
     setFilterParams({
       start_date: dates.startDate,
       end_date: dates.endDate,
-      client: client,
     });
   };
 
@@ -99,7 +78,7 @@ export default function LoanCreated() {
     if (loading) {
       return;
     }
-    if (Number(total) > 0 && Number(loans.length) === Number(total)) {
+    if (Number(total) > 0 && Number(purchases.length) === Number(total)) {
       return;
     }
     setPage(page + 1);
@@ -109,63 +88,59 @@ export default function LoanCreated() {
     setLoading(true);
 
     api
-      .get("/loans/", {
+      .get("/purchases/", {
         params: { page, ...filterParams },
       })
       .then((response) => {
         const resData = makeResponseData(response.data);
-        const data = uniqBy([...loans, ...resData], "id");
-        setLoans(data);
+        const data = uniqBy([...purchases, ...resData], "id");
+        setPurchaces(data);
         setTotal(response.headers["x-total-count"]);
         setLoading(false);
       });
   }, [page, filterParams]);
 
   useEffect(() => {
-    loadLoans();
-  }, []);
-
-  useEffect(() => {
-    getClientData();
+    loadShoppings();
   }, []);
 
   return (
     <Container>
-      <Header></Header>
-      <RemoteSelect
-        onSelectChange={onClientChange}
-        data={clients}
-        labelField="full_name"
-        valueField="id"
-        initialLabel="Selecione um cliente"
+
+<SearchData
+        placeholder="Buscar compras por data..."
+        //onChangeText={onFilterChange}
+        //value={filterValue}
+        autoCorrect={false}
       />
-      <LoanList
-        data={loans}
-        keyExtractor={(loan) => String(loan.id)}
+      <Header></Header>
+
+
+      <ShoppingList
+        data={purchases}
+        keyExtractor={(purchase) => String(purchase.id)}
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.2}
-        renderItem={({ item: loan }) => (
-          <Loan>
-            <LoanProperty>ID e cliente:</LoanProperty>
-            <LoanValue>
-              {loan.id}-{loan.client.full_name}
-            </LoanValue>
+        renderItem={({ item: purchase }) => (
+          <Shopping>
+            <ShoppingProperty>Data:</ShoppingProperty>
+            <ShoppingValue>{humanDate(purchase.submit_date)}</ShoppingValue>
 
-            <LoanProperty>Data:</LoanProperty>
-            <LoanValue>{humanDate(loan.submit_date)}</LoanValue>
+            <ShoppingProperty>Quantidade:</ShoppingProperty>
+            <ShoppingValue>{purchase.quantity}</ShoppingValue>
 
-            <LoanProperty>Quantidade:</LoanProperty>
-            <LoanValue>{loan.quantity}</LoanValue>
+            <ShoppingProperty>Valor Unitário:</ShoppingProperty>
+            <ShoppingValue>{purchase.value}</ShoppingValue>
 
-            <LoanProperty>Obs:</LoanProperty>
-            <LoanValue>{loan.obs}</LoanValue>
+            <ShoppingProperty>total:</ShoppingProperty>
+            <ShoppingValue>{purchase.quantity * purchase.value}</ShoppingValue>
 
-            <DetailsButton onPress={() => navigateToDetail(loan.id)}>
+            <DetailsButton onPress={() => navigateToDetail(purchase.id)}>
               <DetailsButtonText>Ver mais detalhes</DetailsButtonText>
               <Icon name="arrow-right" size={16} color="#E02041" />
             </DetailsButton>
-          </Loan>
+          </Shopping>
         )}
       />
     </Container>
