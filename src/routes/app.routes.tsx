@@ -22,6 +22,7 @@ import MoveStackRoutes from "./move.stack.routes";
 import CreateClientRoute from "../pages/CreateClientRoute";
 import ClientRouteStackCreatedClientRoutes from "./routes.client.stack.routes";
 
+import HomeStackRoutes from './home.stack.routes'
 import SignOut from "../pages/SignOut";
 
 const Drawer = createDrawerNavigator();
@@ -37,6 +38,24 @@ const DrawerNavgation: React.FC = () => (
       inactiveTintColor: "#FFF",
     }}
   >
+
+
+<Drawer.Screen
+      name="HomeStackRoutes"
+      component={HomeStackRoutes}
+      options={{
+        unmountOnBlur: true,
+        drawerLabel: ({ focused }) => (
+          <Text style={{ color: focused ? "#313131" : "#fff" }}>
+            Home
+          </Text>
+        ),
+        drawerIcon: ({ focused }) => (
+          <Icon color={focused ? "#313131" : "#fff"} name="home" />
+        ),
+      }}
+    />
+
     <Drawer.Screen
       name="CreateClient"
       component={CreateClient}
