@@ -40,7 +40,7 @@ const makeResponseData = (data: Array<object>) =>
     return item;
   });
 
-export default function MoveCreated() {
+export default function CreatedMove() {
   const [moves, setMoves] = useState<MoveFormData[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);

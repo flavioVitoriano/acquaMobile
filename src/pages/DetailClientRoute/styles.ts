@@ -34,7 +34,7 @@ color: #41414d;
 font-family: 'RobotoSlab-Medium';
 `;
 
-export const Clients = styled.View`
+export const Paths = styled.View`
 padding: 24px;
 border-radius: 8px;
 background-color: #fff;
@@ -49,14 +49,14 @@ export const ContactBox= styled.View`
   margin-bottom: 16px;
 `;
 
-export const ClientTitle= styled.Text`
+export const PathsTitle= styled.Text`
   font-family: 'RobotoSlab-Medium';
   font-size: 20px;
   color: #13131a;
   line-height: 30px;
 `;
 
-export const ClientDescription= styled.Text`
+export const PathsDescription= styled.Text`
   font-size: 15px;
   color: #737380;
   margin-top: 16px;

@@ -45,7 +45,7 @@ export const SaleList = styled(FlatList as new () => FlatList<SaleFormData>)`
 margin-top:32px;
 `;
 
-export const Sale = styled.View`
+export const Sales = styled.View`
 padding: 24px;
 border-radius:8px;
 background-color: #FFF;

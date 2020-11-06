@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/Feather";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Linking, ScrollView, Alert, Button, Text } from "react-native";
+import { Linking, ScrollView, Alert, Button } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import {
   Container,
@@ -9,9 +9,10 @@ import {
   Action,
   ActionText,
   Actions,
-  ShoppingDescription,
-  ShoppingTitle,
-  Shoppings,
+  SeachData,
+  LoansDescription,
+  LoansTitle,
+  Loans,
   Title,
   ContactBox,
   Input,
@@ -22,22 +23,22 @@ import api from "../../services";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-interface shoppingRouteParams {
+interface loansRouteParams {
   id: number;
 }
-interface ShoppingDetail {
+interface loansDetail {
+ // accept_date
+ //status
+  client: number;
   quantity: number;
-  submit_date: string;
   user: number;
-  value: number;
   obs: string;
 }
 
-const initialValues: ShoppingDetail = {
+const initialValues: loansDetail = {
+  client: 0,
   quantity: 0,
-  submit_date: '',
   user: 0,
-  value: 0,
   obs: "",
 };
 
@@ -45,32 +46,31 @@ const schema = Yup.object().shape({
   obs: Yup.string().required("Campo obrigatório"),
 });
 
-export default function Detailshopping() {
+export default function Detailloans() {
   const route = useRoute();
   const navigation = useNavigation();
 
-  const params = route.params as shoppingRouteParams;
-  const [shopping, setShopping] = useState<ShoppingDetail>(initialValues);
+  const params = route.params as loansRouteParams;
+  const [loans, setLoans] = useState<loansDetail>(initialValues);
 
   useEffect(() => {
-    api.get(`/purchases/${params.id}/`).then((response) => {
-      setShopping({ ...shopping, ...response.data });
+    api.get(`/loans/${params.id}/`).then((response) => {
+      setLoans({ ...loans, ...response.data });
     });
   }, [params.id]);
 
-  const updateShopping = (values: object) => {
+  const updateloans = (values: object) => {
     try {
       api
-        .patch(`/purchases/${params.id}/`, values)
-      Alert.alert("sucesso!", "Compra atualizada")
+        .patch(`/loans/${params.id}/`, values)
+      Alert.alert("sucesso!", "empréstimo atualizado")
     } catch {
       Alert.alert("fracasso!", "contate o administrador do sistema")
     }
   };
 
-
   function navigateBack() {
-    navigation.navigate("Shopping");
+    navigation.goBack();
   }
 
 
@@ -82,7 +82,7 @@ export default function Detailshopping() {
           <RectButton onPress={navigateBack}>
             <Icon name="arrow-left" size={28} color="#E82041" />
           </RectButton>
-          <Title>Toque Para editar Compra</Title>
+          <Title>Toque Para editar Empréstimo</Title>
 
           <RectButton onPress={() => { }}>
             <Icon name="edit" size={28} color="#e82041" />
@@ -90,26 +90,27 @@ export default function Detailshopping() {
         </Header>
 
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Shoppings>
+          <Loans>
             <Formik
-              initialValues={shopping}
+              initialValues={loans}
               enableReinitialize={true}
-              onSubmit={updateShopping}
+              onSubmit={updateloans}
               validationSchema={schema}
             >
               {({ handleChange, handleBlur, handleSubmit, values, errors }) => {
                 return (
                   <>
 
-                    <Description>Data: </Description>
 
+                    <Description>Cliente: </Description>
                     <Input
+                      autoCorrect={false}
+                      placeholder="Cliente"
                       keyboardType="numeric"
-                      placeholder="Data da compra"
-                      onChangeText={handleChange("submit_date")}
-                      onBlur={handleBlur("submit_date")}
-                      value={String(values.submit_date)}
-                      returnKeyType="send"
+                      onChangeText={handleChange("client")}
+                      onBlur={handleBlur("client")}
+                      value={String(values.client)}
+                      returnKeyType="next"
                     />
 
                     <Description>Quantidade: </Description>
@@ -122,18 +123,19 @@ export default function Detailshopping() {
                       value={String(values.quantity)}
                       returnKeyType="next"
                     />
-                    <Description>Valor unitátio: </Description>
 
+                    <Description>Usuário: </Description>
                     <Input
                       autoCorrect={false}
                       autoCapitalize="characters"
-                      placeholder="Valor unitário"
-                      onChangeText={handleChange("value")}
-                      onBlur={handleBlur("value")}
-                      value={String(values.value)}
+                      placeholder="Usuário"
+                      onChangeText={handleChange("user")}
+                      onBlur={handleBlur("user")}
+                      value={String(values.user)}
                       keyboardType="numeric"
                       returnKeyType="next"
                     />
+
                     <Description>Observação: </Description>
 
                     <Input
@@ -152,13 +154,13 @@ export default function Detailshopping() {
                 );
               }}
             </Formik>
-          </Shoppings>
+          </Loans>
 
           <ContactBox>
-            <ShoppingTitle>Entre em contato e</ShoppingTitle>
-            <ShoppingTitle>converse com o dono dessa compra</ShoppingTitle>
+            <LoansTitle>Entre em contato e</LoansTitle>
+            <LoansTitle>converse com o dono dessa compra</LoansTitle>
 
-            <ShoppingDescription>Entrar em contato via:</ShoppingDescription>
+            <LoansDescription>Entrar em contato via:</LoansDescription>
 
             <Actions>
               <Action onPress={() => { }}>

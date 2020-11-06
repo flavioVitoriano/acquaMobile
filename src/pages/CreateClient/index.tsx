@@ -27,7 +27,7 @@ interface ClientFormData {
   city: string;
 }
 
-const Client: React.FC = () => {
+const CreateClient: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
 
@@ -55,7 +55,7 @@ const Client: React.FC = () => {
           "Cadastro realizado com sucesso!",
           "Veja agora seus clientes cadastrados",
         );
-        navigation.navigate("StackRoutes");
+        navigation.navigate("ClientStackRoutes");
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -143,4 +143,4 @@ const Client: React.FC = () => {
   );
 };
 
-export default Client;
+export default CreateClient;

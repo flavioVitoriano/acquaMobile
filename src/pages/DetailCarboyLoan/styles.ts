@@ -28,13 +28,19 @@ color: #4169b3;
 font-weight: bold;
 `;
 
+export const SeachData = styled.TextInput`
+font-size: 16px;
+line-height:24px;
+font-family: 'RobotoSlab-Medium';
+color: #4169b3;
+;`
 export const Title = styled.Text`
 font-size: 20px;
 color: #41414d;
 font-family: 'RobotoSlab-Medium';
 `;
 
-export const Clients = styled.View`
+export const Loans = styled.View`
 padding: 24px;
 border-radius: 8px;
 background-color: #fff;
@@ -49,14 +55,14 @@ export const ContactBox= styled.View`
   margin-bottom: 16px;
 `;
 
-export const ClientTitle= styled.Text`
+export const LoansTitle= styled.Text`
   font-family: 'RobotoSlab-Medium';
   font-size: 20px;
   color: #13131a;
   line-height: 30px;
 `;
 
-export const ClientDescription= styled.Text`
+export const LoansDescription= styled.Text`
   font-size: 15px;
   color: #737380;
   margin-top: 16px;

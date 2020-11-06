@@ -4,20 +4,25 @@ import Icon from "react-native-vector-icons/Feather";
 
 import { Text } from "react-native";
 
-import Client from "../pages/Client";
-import StackRoutes from "./client.stack.routes";
+import CreateClient from "../pages/CreateClient";
+import ClientStackRoutes from "./client.stack.routes";
 
-import ShoppingStackRoutes from "./shopping.stack.routes";
 import CreatePurchase from "../pages/CreatePurchase";
+import ShoppingStackRoutes from "./purchase.stack.routes";
 
-import SaleCreated from "../pages/SaleCreated";
-import CarboyLoans from "../pages/CarboyLoans";
-import Reports from "../pages/Reports";
-import RoutesClients from "../pages/RoutesClients";
-import SignOut from "../pages/SignOut";
+import CreateSale from '../pages/CreateSale'
+import SaleStackRoutes from "./sale.stack.routes";
+
 import CreateCarboyLoan from "../pages/CreateCarboyLoan";
+import CarboyLoanStackRoutes from "./carboyLoan.stack.routes";
+
 import CreateMove from "../pages/CreateMove";
+import MoveStackRoutes from "./move.stack.routes";
+
 import CreateClientRoute from "../pages/CreateClientRoute";
+import ClientRouteStackCreatedClientRoutes from "./routes.client.stack.routes";
+
+import SignOut from "../pages/SignOut";
 
 const Drawer = createDrawerNavigator();
 
@@ -33,13 +38,13 @@ const DrawerNavgation: React.FC = () => (
     }}
   >
     <Drawer.Screen
-      name="Client"
-      component={Client}
+      name="CreateClient"
+      component={CreateClient}
       options={{
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>
-            Cadastrar cliente
+            Registrar cliente
           </Text>
         ),
         drawerIcon: ({ focused }) => (
@@ -49,8 +54,8 @@ const DrawerNavgation: React.FC = () => (
     />
 
     <Drawer.Screen
-      name="StackRoutes"
-      component={StackRoutes}
+      name="ClientStackRoutes"
+      component={ClientStackRoutes}
       options={{
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
@@ -96,9 +101,25 @@ const DrawerNavgation: React.FC = () => (
       }}
     />
 
+<Drawer.Screen
+      name="CreateSale"
+      component={CreateSale}
+      options={{
+        unmountOnBlur: true,
+        drawerLabel: ({ focused }) => (
+          <Text style={{ color: focused ? "#313131" : "#fff" }}>
+            Registrar Vendas
+            </Text>
+        ),
+        drawerIcon: ({ focused }) => (
+          <Icon color={focused ? "#313131" : "#fff"} name="shopping-bag" />
+        ),
+      }}
+    />
+
     <Drawer.Screen
-      name="SaleCreated"
-      component={SaleCreated}
+      name="SaleStackRoutes"
+      component={SaleStackRoutes}
       options={{
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
@@ -118,7 +139,7 @@ const DrawerNavgation: React.FC = () => (
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>
-            Cadastrar Empréstimo
+            Registrar Empréstimo
           </Text>
         ),
         drawerIcon: ({ focused }) => (
@@ -127,13 +148,13 @@ const DrawerNavgation: React.FC = () => (
       }}
     />
     <Drawer.Screen
-      name="CarboyLoans"
-      component={CarboyLoans}
+      name="CarboyLoanStackRoutes"
+      component={CarboyLoanStackRoutes}
       options={{
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
           <Text style={{ color: focused ? "#313131" : "#fff" }}>
-            Empréstimo de garrafão
+            Empréstimos
           </Text>
         ),
         drawerIcon: ({ focused }) => (
@@ -159,8 +180,8 @@ const DrawerNavgation: React.FC = () => (
     />
 
     <Drawer.Screen
-      name="Reports"
-      component={Reports}
+      name="MoveStackRoutes"
+      component={MoveStackRoutes}
       options={{
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
@@ -189,8 +210,8 @@ const DrawerNavgation: React.FC = () => (
       }}
     />
     <Drawer.Screen
-      name="RoutesClients"
-      component={RoutesClients}
+      name="ClientRouteStackCreatedClientRoutes"
+      component={ClientRouteStackCreatedClientRoutes}
       options={{
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (

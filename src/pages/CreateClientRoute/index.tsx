@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import {
-  TextInput,
   View,
   KeyboardAvoidingView,
   Platform,
   Alert,
   StyleSheet,
   Button,
-  Text,
 } from "react-native";
 import * as Yup from "yup";
 import { Formik } from "formik";
+import { useNavigation } from '@react-navigation/native';
 
 import api from "../../services/index";
 import InputText from '../../components/InputText'
@@ -18,7 +17,6 @@ import { Container, Title, ContainerRemoteButtonText, ErrorValue } from "./style
 import DateInput from "../../components/DateInput";
 import RemoteSelect from "../../components/RemoteSelect";
 import moment from "moment";
-import { ScrollView } from "react-native-gesture-handler";
 
 /*
 interface CreateClientRouteFormData {
@@ -50,15 +48,17 @@ const schema = Yup.object().shape({
 });
 
 const CreateClientRoute: React.FC = () => {
+const navigation = useNavigation();
   const [clients, setClients] = useState([]);
 
   const onSubmit = (values: any) => {
-    api
-      .post("/paths/", values)
-      .then(() => Alert.alert("Sucesso!", "rota de cliente cadastrada!"))
-      .catch(() =>
-        Alert.alert("Fracasso!", "contate o administrador do sistema"),
-      );
+   try {
+    api.post("/paths/", values)
+       Alert.alert("Sucesso!", "rota de cliente cadastrada!")
+       navigation.navigate('ClientRouteStackCreatedClientRoutes')
+   }catch {
+        Alert.alert("Fracasso!", "contate o administrador do sistema")
+   }
   };
 
   const getClientData = () => {
@@ -124,7 +124,7 @@ const CreateClientRoute: React.FC = () => {
                 <InputText
                   keyboardType="numeric"
 
-                  icon="alert-circle"
+                  icon="dollar-sign"
                   onChangeText={handleChange("value")}
                   onBlur={handleBlur("value")}
                   placeholder="valor unitário"
@@ -174,7 +174,7 @@ const CreateClientRoute: React.FC = () => {
                 )}
 
                 <View>
-                  <Button onPress={handleSubmit} title="Registrar" color="#000" />
+                  <Button disabled={false}  onPress={handleSubmit} title="Registrar" color="#000" />
                 </View>
               </>
             )}

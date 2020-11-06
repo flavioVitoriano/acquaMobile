@@ -5,7 +5,7 @@ import api from "../../services/index";
 import {
   SaleValue,
   Container,
-  Sale,
+  Sales,
   Header,
   SaleList,
   SaleProperty,
@@ -146,7 +146,7 @@ export default function SaleCreated() {
         onEndReached={onEndReached}
         onEndReachedThreshold={0.2}
         renderItem={({ item: sales }) => (
-          <Sale>
+          <Sales>
             <SaleProperty>ID e cliente:</SaleProperty>
             <SaleValue>
          {sales.client.full_name}
@@ -168,7 +168,7 @@ export default function SaleCreated() {
               <DetailsButtonText>Ver mais detalhes</DetailsButtonText>
               <Icon name="arrow-right" size={16} color="#E02041" />
             </DetailsButton>
-          </Sale>
+          </Sales>
         )}
       />
     </Container>

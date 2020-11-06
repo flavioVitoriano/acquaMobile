@@ -17,7 +17,7 @@ import { Container, Title,ErrorValue,ContainerRemoteButtonText } from "./styles"
 import DateInput from "../../components/DateInput";
 import RemoteSelect from "../../components/RemoteSelect";
 import moment from "moment";
-import { ScrollView } from "react-native-gesture-handler";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 /*
 interface CarboyLoanFormData {
@@ -42,16 +42,18 @@ const schema = Yup.object().shape({
   order_date: Yup.string().required("obrigatório definir data"),
 });
 
-const CarboyLoan: React.FC = () => {
+const CreateCarboyLoan: React.FC = () => {
   const [clients, setClients] = useState([]);
-
+const navigation =useNavigation();
   const onSubmit = (values: any) => {
+    try {
     api
       .post("/loans/", values)
-      .then(() => Alert.alert("Sucesso!", "emprestimo registrado!"))
-      .catch(() =>
-        Alert.alert("Fracasso!", "contate o administrador do sistema"),
-      );
+       Alert.alert("Sucesso!", "empréstimo registrado!")
+       navigation.navigate('CarboyLoanStackRoutes')
+    }catch{
+        Alert.alert("Fracasso!", "contate o administrador do sistema")
+    }
   };
 
   const getClientData = () => {
@@ -74,7 +76,7 @@ const CarboyLoan: React.FC = () => {
       >
         <Container>
           <View>
-            <Title>Cadastro de empréstimo</Title>
+            <Title>Cadastrar empréstimo</Title>
           </View>
 
           <Formik
@@ -128,7 +130,7 @@ const CarboyLoan: React.FC = () => {
                 />
 
                 <View>
-                  <Button onPress={handleSubmit} title="Registrar" color="#000"/>
+                  <Button  disabled={false} onPress={handleSubmit} title="Registrar" color="#000"/>
                 </View>
               </>
             )}
@@ -149,4 +151,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CarboyLoan;
+export default CreateCarboyLoan;

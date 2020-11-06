@@ -3,12 +3,12 @@ import Icon from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import api from "../../services/index";
 import {
-  PathValue,
+  LoanValue,
   Container,
-  Path,
+  Loan,
   Header,
-  PathList,
-  PathProperty,
+  LoanList,
+  LoanProperty,
   DetailsButton,
   DetailsButtonText,
 } from "./styles";
@@ -22,7 +22,7 @@ interface ClientData {
   full_name: string;
 }
 
-interface PathFormData {
+interface LoanFormData {
   id: number;
   quantity: number;
   value: number;
@@ -46,8 +46,8 @@ const makeResponseData = (data: Array<object>) =>
     return item;
   });
 
-export default function PathCreated() {
-  const [paths, setPaths] = useState<PathFormData[]>([]);
+export default function CreatedCarboyLoan() {
+  const [loans, setLoans] = useState<LoanFormData[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -58,16 +58,16 @@ export default function PathCreated() {
   const navigation = useNavigation();
 
   function navigateToDetail(id: number) {
-    navigation.navigate("DetailPath", { id });
+    navigation.navigate("DetailCarboyLoan", { id });
   }
 
-  function loadPaths() {
+  function loadLoans() {
     api
-      .get("/paths/", {
+      .get("/loans/", {
         params: { page },
       })
       .then((response) => {
-        setPaths(makeResponseData(response.data));
+        setLoans(makeResponseData(response.data));
         setTotal(response.headers["x-total-count"]);
         setPage(page + 1);
         setLoading(false);
@@ -86,7 +86,7 @@ export default function PathCreated() {
   };
 
   const onSubmitFilter = (dates: DateProps) => {
-    setPaths([]);
+    setLoans([]);
     setPage(1);
     setFilterParams({
       start_date: dates.startDate,
@@ -99,7 +99,7 @@ export default function PathCreated() {
     if (loading) {
       return;
     }
-    if (Number(total) > 0 && Number(paths.length) === Number(total)) {
+    if (Number(total) > 0 && Number(loans.length) === Number(total)) {
       return;
     }
     setPage(page + 1);
@@ -109,20 +109,20 @@ export default function PathCreated() {
     setLoading(true);
 
     api
-      .get("/paths/", {
+      .get("/loans/", {
         params: { page, ...filterParams },
       })
       .then((response) => {
         const resData = makeResponseData(response.data);
-        const data = uniqBy([...paths, ...resData], "id");
-        setPaths(data);
+        const data = uniqBy([...loans, ...resData], "id");
+        setLoans(data);
         setTotal(response.headers["x-total-count"]);
         setLoading(false);
       });
   }, [page, filterParams]);
 
   useEffect(() => {
-    loadPaths();
+    loadLoans();
   }, []);
 
   useEffect(() => {
@@ -139,33 +139,33 @@ export default function PathCreated() {
         valueField="id"
         initialLabel="Selecione um cliente"
       />
-      <PathList
-        data={paths}
-        keyExtractor={(path) => String(path.id)}
+      <LoanList
+        data={loans}
+        keyExtractor={(loan) => String(loan.id)}
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.2}
-        renderItem={({ item: path }) => (
-          <Path>
-            <PathProperty>ID e cliente:</PathProperty>
-            <PathValue>
-              {path.id}-{path.client.full_name}
-            </PathValue>
+        renderItem={({ item: loan }) => (
+          <Loan>
+            <LoanProperty>ID e cliente:</LoanProperty>
+            <LoanValue>
+              {loan.id}-{loan.client.full_name}
+            </LoanValue>
 
-            <PathProperty>Data:</PathProperty>
-            <PathValue>{humanDate(path.submit_date)}</PathValue>
+            <LoanProperty>Data:</LoanProperty>
+            <LoanValue>{humanDate(loan.submit_date)}</LoanValue>
 
-            <PathProperty>Quantidade:</PathProperty>
-            <PathValue>{path.quantity}</PathValue>
+            <LoanProperty>Quantidade:</LoanProperty>
+            <LoanValue>{loan.quantity}</LoanValue>
 
-            <PathProperty>Valor Unitário:</PathProperty>
-            <PathValue>{path.value}</PathValue>
+            <LoanProperty>Obs:</LoanProperty>
+            <LoanValue>{loan.obs}</LoanValue>
 
-            <DetailsButton onPress={() => navigateToDetail(path.id)}>
+            <DetailsButton onPress={() => navigateToDetail(loan.id)}>
               <DetailsButtonText>Ver mais detalhes</DetailsButtonText>
               <Icon name="arrow-right" size={16} color="#E02041" />
             </DetailsButton>
-          </Path>
+          </Loan>
         )}
       />
     </Container>
