@@ -1,67 +1,83 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList,TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation, useRoute } from "@react-navigation/native";
 
+
+interface resultsFormData {
+  client_id: number;
+  path_id: number;
+  status: string;
+  until_days: string;
+}
+interface RoutesFormData {
+  qtd_atencao: number;
+  qtd_atrasado: number;
+  qtd_no_prazo: number;
+  results: resultsFormData[];
+}
+
 import api from '../../services/index';
-import styles from './styles';
+import {
+  ContainerList,
+  RoutesButton,
+  RoutesButtonText,
+  RoutesDescription,
+  RoutesTitle,
+  Container,
+
+} from './styles';
 
 export default function Main() {
-  const navigation= useNavigation();
+  const navigation = useNavigation();
 
-    const [product, setProduct] = useState([1]);
-    const [total, setTotal] = useState(0)
-    const [page, setPage] = useState(1)
-    const [loading, setLoading] = useState(false)
+  const [routes, setRoutes] = useState<RoutesFormData>();
 
-    async function loadProducts() {
+  function navigationHome() {
+    navigation.navigate('Home')
+  }
+  async function loadroutes() {
+    const response = await api.get('/paths/status/')
+    setRoutes(response.data);
+  }
 
-        if (loading) {
-            return;
-        }
+  useEffect(() => {
+    loadroutes()
+  }, []);
 
-        if (total > 0 && product.length === total) {
-            return;
-        }
-        setLoading(true);
 
-        const response = await api.get('product', {
-            params: { page }
-        });
+  return (
+    <>
 
-        setProduct([...product]);
-        setTotal(response.headers['x-total-count'])
-        setPage(page + 1);
-        setLoading(false);
-    }
+      <RoutesTitle style={{paddingLeft: 20}}>O número de rotas é: {routes?.qtd_atrasado + routes?.qtd_atencao + routes?.qtd_no_prazo} nesse momento.</RoutesTitle>
+      <Container>
 
-    useEffect(() => {
-        loadProducts()
-    }, []);
+        <ContainerList>
+          <RoutesTitle>Rotas no Prazo</RoutesTitle>
+          <RoutesDescription>{routes?.qtd_no_prazo} nesse momento</RoutesDescription>
+          <RoutesButton onPress={navigationHome}>
+            <RoutesButtonText>Acessar</RoutesButtonText>
+          </RoutesButton>
+        </ContainerList>
 
-    return (
-        <>
+        <ContainerList>
+          <RoutesTitle>Rotas em Atenção</RoutesTitle>
+          <RoutesDescription>{routes?.qtd_atencao} nesse momento</RoutesDescription>
+          <RoutesButton onPress={navigationHome}>
+            <RoutesButtonText>Acessar</RoutesButtonText>
+          </RoutesButton>
+        </ContainerList>
 
-            <Text style={styles.productTitle}> Total de rotas: 25  nesse momento.</Text>
+        <ContainerList>
+          <RoutesTitle>Rotas em Atraso</RoutesTitle>
+          <RoutesDescription>{routes?.qtd_atrasado} nesse momento</RoutesDescription>
+          <RoutesButton onPress={navigationHome}>
+            <RoutesButtonText>Acessar</RoutesButtonText>
+          </RoutesButton>
+        </ContainerList>
 
-            <FlatList contentContainerStyle={styles.list}
-                data={product}
-                keyExtractor={product => String(1)}
-                showsVerticalScrollIndicator={false}
-                onEndReached={loadProducts}
-                onEndReachedThreshold={0.2}
-                renderItem={({ item: product }) => (
+      </Container>
 
-                    <View style={styles.productContainer}>
-                       <Text style={styles.productTitle}>Rotas Atrasadas</Text>
-                        <Text style={styles.productDescription}>25 nesse momento</Text>
-
-                        <TouchableOpacity style={styles.productButton}
-                         onPress={()=>{}}>
-                            <Text style={styles.productButtonText}>Acessar</Text>
-                        </TouchableOpacity>
-                    </View>
-                )}
-            />
-        </>
-    );
+    </>
+  );
 }
+

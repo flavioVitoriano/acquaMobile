@@ -1,49 +1,45 @@
-import {StyleSheet} from 'react-native';
+import styled from 'styled-components/native';
 
-export default StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#fafafa"
-    },
-    list: {
-        padding: 20
-    },
-    productContainer: {
+export const Container = styled.ScrollView`
+flex: 1px;
+background-color: #fafafa;
+padding: 20px;
+`;
 
-        backgroundColor: "#fff",
-        borderWidth: 1,
-        borderRadius: 5,
-        padding: 20,
-        marginBottom: 20,
+  export const ContainerList = styled.View`
+    background-color: #fff;
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+`;
 
-    },
 
-    productTitle: {
-        fontSize: 18,
-        fontWeight: "bold",
-        color: "#333"
-    },
+  export const RoutesTitle = styled.Text`
+        font-size: 16px;
+        font-family: 'RobotoSlab-Medium';
+        color: #333;
+   `;
 
-    productDescription: {
-        fontSize: 16,
-        color: "#999",
-        marginTop: 5,
-        lineHeight: 24
-    },
-    productButton: {
-        height: 42,
-        borderRadius: 5,
-        borderWidth: 2,
-        borderColor: "#da552f",
-        backgroundColor: "transparent",
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 10
-    },
+ export const RoutesDescription= styled.Text`
+        font-size: 16px;
+        color: #999;
+        margin-top: 5px;
+        line-height: 24px;
+    `;
+ export const RoutesButton = styled.TouchableOpacity`
+        height: 42px;
+        border-radius: 5px;
+        border-width: 2px;
+        border-color: #da552f;
+        background-color: transparent;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+    `;
 
-    productButtonText: {
-        fontSize: 16,
-        color: "#da552f",
-        fontWeight: "bold"
-    }
-})
+ export const RoutesButtonText= styled.Text`
+        font-size: 16px;
+        color: #da552f;
+        font-family: 'RobotoSlab-Medium';
+    `;
