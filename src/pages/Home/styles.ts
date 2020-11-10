@@ -13,6 +13,13 @@ padding: 20px;
     padding: 20px;
     margin-bottom: 20px;
 `;
+export const AtrasadoList = styled.View`
+    background-color: #fff;
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+`;
 
 
   export const RoutesTitle = styled.Text`

@@ -13,7 +13,7 @@ interface RoutesFormData {
   qtd_atencao: number;
   qtd_atrasado: number;
   qtd_no_prazo: number;
-  results: resultsFormData[];
+  results: Array<resultsFormData>;
 }
 
 import api from '../../services/index';
@@ -21,6 +21,7 @@ import {
   ContainerList,
   RoutesButton,
   RoutesButtonText,
+  AtrasadoList,
   RoutesDescription,
   RoutesTitle,
   Container,
@@ -29,12 +30,8 @@ import {
 
 export default function Main() {
   const navigation = useNavigation();
-
   const [routes, setRoutes] = useState<RoutesFormData>();
 
-  function navigationHome() {
-    navigation.navigate('Home')
-  }
   async function loadroutes() {
     const response = await api.get('/paths/status/')
     setRoutes(response.data);
@@ -48,32 +45,27 @@ export default function Main() {
   return (
     <>
 
-      <RoutesTitle style={{paddingLeft: 20}}>O número de rotas é: {routes?.qtd_atrasado + routes?.qtd_atencao + routes?.qtd_no_prazo} nesse momento.</RoutesTitle>
       <Container>
 
         <ContainerList>
-          <RoutesTitle>Rotas no Prazo</RoutesTitle>
-          <RoutesDescription>{routes?.qtd_no_prazo} nesse momento</RoutesDescription>
-          <RoutesButton onPress={navigationHome}>
-            <RoutesButtonText>Acessar</RoutesButtonText>
-          </RoutesButton>
+          <RoutesTitle>Veja suas rotas:</RoutesTitle>
+          <RoutesDescription>No prazo: {routes?.qtd_no_prazo}.</RoutesDescription>
+          <RoutesDescription>atenção: {routes?.qtd_atencao}.</RoutesDescription>
+          <RoutesDescription>Atrasadas: {routes?.qtd_atrasado}.</RoutesDescription>
         </ContainerList>
 
-        <ContainerList>
-          <RoutesTitle>Rotas em Atenção</RoutesTitle>
-          <RoutesDescription>{routes?.qtd_atencao} nesse momento</RoutesDescription>
-          <RoutesButton onPress={navigationHome}>
-            <RoutesButtonText>Acessar</RoutesButtonText>
-          </RoutesButton>
-        </ContainerList>
+        <AtrasadoList>
+          <RoutesTitle>Id/Cliente: {routes?.results[0].client_id} </RoutesTitle>
+          <RoutesTitle>Id/Rota: {routes?.results[0].path_id} </RoutesTitle>
+          <RoutesTitle>Dias faltantes: {routes?.results[0].until_days} </RoutesTitle>
+          {routes?.results[0].status ? (
+            <RoutesTitle style={{ color: "#0f0" }}>Status: {routes?.results[0].status} </RoutesTitle>
+          ) :
+            <RoutesTitle style={{ color: "#f00" }}>Status: {routes?.results[0].status} </RoutesTitle>
+          }
 
-        <ContainerList>
-          <RoutesTitle>Rotas em Atraso</RoutesTitle>
-          <RoutesDescription>{routes?.qtd_atrasado} nesse momento</RoutesDescription>
-          <RoutesButton onPress={navigationHome}>
-            <RoutesButtonText>Acessar</RoutesButtonText>
-          </RoutesButton>
-        </ContainerList>
+        </AtrasadoList>
+
 
       </Container>
 
