@@ -22,6 +22,9 @@ import MoveStackRoutes from "./move.stack.routes";
 import CreateClientRoute from "../pages/CreateClientRoute";
 import ClientRouteStackCreatedClientRoutes from "./routes.client.stack.routes";
 
+import CreatedReports from '../pages/CreatedReports';
+import CreatedProfitReport from '../pages/CreatedProfitReport';
+
 import HomeStackRoutes from './home.stack.routes'
 import SignOut from "../pages/SignOut";
 
@@ -38,7 +41,6 @@ const DrawerNavgation: React.FC = () => (
       inactiveTintColor: "#FFF",
     }}
   >
-
 
 <Drawer.Screen
       name="HomeStackRoutes"
@@ -243,6 +245,39 @@ const DrawerNavgation: React.FC = () => (
         ),
       }}
     />
+
+<Drawer.Screen
+      name="CreatedReports"
+      component={CreatedReports}
+      options={{
+        unmountOnBlur: true,
+        drawerLabel: ({ focused }) => (
+          <Text style={{ color: focused ? "#313131" : "#fff" }}>
+            Relatório de rotas
+          </Text>
+        ),
+        drawerIcon: ({ focused }) => (
+          <Icon color={focused ? "#313131" : "#fff"} name="folder" />
+        ),
+      }}
+    />
+
+<Drawer.Screen
+      name="CreatedProfitReport"
+      component={CreatedProfitReport}
+      options={{
+        unmountOnBlur: true,
+        drawerLabel: ({ focused }) => (
+          <Text style={{ color: focused ? "#313131" : "#fff" }}>
+            Relatório de lucro
+          </Text>
+        ),
+        drawerIcon: ({ focused }) => (
+          <Icon color={focused ? "#313131" : "#fff"} name="clipboard" />
+        ),
+      }}
+    />
+
 
     <Drawer.Screen
       name="SignOut"

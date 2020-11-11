@@ -8,7 +8,7 @@ const HomeStack = createStackNavigator();
 const HomeStackRoutes: React.FC = () => (
   <HomeStack.Navigator
     screenOptions={{
-      title: "AcquaMobile",
+      title: "HomePage",
       headerShown: true,
       headerTintColor:'#fff',
       headerStyle : {
