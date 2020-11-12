@@ -1,9 +1,10 @@
 import styled from 'styled-components/native';
+import { Platform } from 'react-native';
 
 export const Container = styled.ScrollView`
 flex: 1px;
 background-color: #fafafa;
-padding: 20px;
+padding: 24px 24px ${Platform.OS === 'android' ? 8 : 40}px;
 `;
 
   export const ContainerList = styled.View`

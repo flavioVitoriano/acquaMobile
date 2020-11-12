@@ -3,10 +3,10 @@ import {Container, Icon,TextInput} from './styles';
 
 interface InputProps {
  icon: string;
- onChangeText: any;
- onBlur: any;
+ onChangeText?: any;
+ onBlur?: any;
  placeholder: string;
- value: string;
+ value?: string;
  keyboardType: any;
 }
 
