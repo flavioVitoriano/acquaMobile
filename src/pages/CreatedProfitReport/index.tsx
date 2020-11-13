@@ -36,12 +36,19 @@ export default function CreatedProfitReport() {
   return (
     <>
       <Container>
-        <DateInput value={initial_date} handleChange={setInitial_date} />
-        <DateInput value={end_date} handleChange={setEnd_date} />
+        <DateInput icon="bell"
+
+        value={initial_date}
+        handleChange={setInitial_date}
+        />
+        <DateInput icon="bell"
+        value={end_date}
+         handleChange={setEnd_date}
+          />
         <TouchableOpacity onPress={loadProfit} style={styles.loadButton}>
           <Icon name="filter" size={20} color="#FFF" />
         </TouchableOpacity>
-        <ContainerList style={{ paddingTop: 100 }}>
+        <ContainerList>
           <ProfitTitle>Veja Seus Lucros:</ProfitTitle>
           <ProfitDescription>
             Soma de entrada: {profit?.entry_sum ? profit?.entry_sum : 0}.

@@ -97,6 +97,7 @@ const CreatePurchase: React.FC = () => {
                 />
 
                 <DateInput
+
                   icon="bell"
                   value={values.submit_date}
                   handleChange={handleChange("submit_date")}

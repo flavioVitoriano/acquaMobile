@@ -6,7 +6,7 @@ import { Container, Icon } from "./styles";
 interface DateInputProps {
   handleChange: Function;
   value: string;
-  icon?: string;
+  icon: string;
 }
 
 const DateInput: React.FC<DateInputProps> = (props) => {
@@ -19,7 +19,7 @@ const DateInput: React.FC<DateInputProps> = (props) => {
 
   return (
     <Container>
-      {props.icon ?? <Icon name={props.icon} size={20} color="#000" />}
+       <Icon name={props.icon} size={20} color="#000" />
 
       <TextInputMask
         onChangeText={onChange}
