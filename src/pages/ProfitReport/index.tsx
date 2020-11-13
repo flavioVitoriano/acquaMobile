@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { TextInput, TouchableOpacity, StyleSheet, View } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import api from "../../services/index";
-
+import Button from '../../components/Button'
 import DateInput from "../../components/DateInput";
 interface ProfitFormData {
   entry_sum: number;
@@ -18,12 +17,10 @@ import {
   Container,
 } from "./styles";
 
-export default function CreatedProfitReport() {
-  const navigation = useNavigation();
-  const route = useRoute();
+export default function ProfitReport() {
+
   const [initial_date, setInitial_date] = useState("");
   const [end_date, setEnd_date] = useState("");
-
   const [profit, setProfit] = useState<ProfitFormData>();
 
   async function loadProfit() {
@@ -45,9 +42,7 @@ export default function CreatedProfitReport() {
         value={end_date}
          handleChange={setEnd_date}
           />
-        <TouchableOpacity onPress={loadProfit} style={styles.loadButton}>
-          <Icon name="filter" size={20} color="#FFF" />
-        </TouchableOpacity>
+<Button onPress={loadProfit}>Acessar</Button>
         <ContainerList>
           <ProfitTitle>Veja Seus Lucros:</ProfitTitle>
           <ProfitDescription>
@@ -64,22 +59,3 @@ export default function CreatedProfitReport() {
     </>
   );
 }
-const styles = StyleSheet.create({
-  loadButton: {
-    width: 50,
-    height: 50,
-    backgroundColor: "#8E4Dff",
-    borderRadius: 25,
-    justifyContent: "center",
-    alignItems: "center",
-    marginLeft: 15,
-  },
-  searchForm: {
-    position: "absolute",
-    top: 20,
-    left: 20,
-    right: 20,
-    zIndex: 5,
-    flexDirection: "row",
-  },
-});

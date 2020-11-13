@@ -155,7 +155,7 @@ export default function CreatedCarboyLoan() {
             <LoanProperty>Data:</LoanProperty>
             <LoanValue>{humanDate(loan.submit_date)}</LoanValue>
 
-            <LoanProperty>Quantidade123:</LoanProperty>
+            <LoanProperty>Quantidade:</LoanProperty>
             <LoanValue>{loan.quantity}</LoanValue>
 
             <LoanProperty>Obs:</LoanProperty>

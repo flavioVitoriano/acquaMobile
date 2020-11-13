@@ -5,23 +5,20 @@ import {
   ContainerList,
   RoutesButton,
   RoutesButtonText,
-  AtrasadoList,
   RoutesDescription,
   RoutesTitle,
   Container,
-
 } from './styles';
 
 const Home : React.FC = () => {
 const navigation = useNavigation();
 
-function NavigationCreatedReports() {
-  navigation.navigate('CreatedReports')
+function navigationReportsStackRoutes() {
+  navigation.navigate('ReportsRoutes')
 }
 
-
-function CreatedProfitReport() {
-  navigation.navigate('CreatedProfitReport')
+function navigationProfitReport() {
+  navigation.navigate('ProfitReport')
 }
 
   return (
@@ -31,7 +28,7 @@ function CreatedProfitReport() {
       <ContainerList>
           <RoutesTitle>Relatório de rotas.</RoutesTitle>
           <RoutesDescription>Acesse para mais detalhes.</RoutesDescription>
-      <RoutesButton onPress={NavigationCreatedReports}>
+      <RoutesButton onPress={navigationReportsStackRoutes}>
        <RoutesButtonText>Acessar</RoutesButtonText>
         </RoutesButton>
         </ContainerList>
@@ -39,7 +36,7 @@ function CreatedProfitReport() {
         <ContainerList>
           <RoutesTitle>Relatório de lucro.</RoutesTitle>
           <RoutesDescription>Acesse para mais detalhes.</RoutesDescription>
-      <RoutesButton onPress={CreatedProfitReport}>
+      <RoutesButton onPress={navigationProfitReport}>
        <RoutesButtonText>Acessar</RoutesButtonText>
         </RoutesButton>
         </ContainerList>
