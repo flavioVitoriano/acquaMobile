@@ -1,12 +1,12 @@
 ﻿import React, { useState } from "react";
 import TextInputMask from "react-native-text-input-mask";
 import moment from "moment";
-import { Container,Icon } from "./styles";
+import { Container, Icon } from "./styles";
 
 interface DateInputProps {
   handleChange: Function;
   value: string;
-  icon: string;
+  icon?: string;
 }
 
 const DateInput: React.FC<DateInputProps> = (props) => {
@@ -18,9 +18,8 @@ const DateInput: React.FC<DateInputProps> = (props) => {
   };
 
   return (
-
     <Container>
-   <Icon name={props.icon} size={20} color="#000" />
+      {props.icon ?? <Icon name={props.icon} size={20} color="#000" />}
 
       <TextInputMask
         onChangeText={onChange}
@@ -30,7 +29,5 @@ const DateInput: React.FC<DateInputProps> = (props) => {
     </Container>
   );
 };
-
-
 
 export default DateInput;
