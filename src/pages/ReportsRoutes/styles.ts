@@ -7,6 +7,7 @@ interface resultsFormData {
   path_id: number;
   status: string;
   until_days: string;
+  indexOf: number;
 }
 
 export const Container = styled.SafeAreaView`

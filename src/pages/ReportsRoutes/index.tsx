@@ -4,6 +4,7 @@ interface resultsFormData {
   client_id: number;
   path_id: number;
   status: string;
+  indexOf: number;
   until_days: string;
 }
 interface RoutesFormData {
@@ -31,10 +32,6 @@ export default function ReportsRoutes() {
   const [results, setResults] = useState<resultsFormData[]>([]);
   const [conter, setConter] =useState(0)
 
-  function AddCounte(){
-    setConter(conter+1);
-  }
-
   async function loadroutes() {
     const response = await api.get('/paths/status/')
     setRoutes(response.data);
@@ -59,7 +56,7 @@ export default function ReportsRoutes() {
 
         <RouterList
           data={results}
-          keyExtractor={(results) => String(results.client_id)}
+          keyExtractor={(item) => String(results.indexOf(item))}
           showsVerticalScrollIndicator={false}
           onEndReachedThreshold={0.2}
           renderItem={({ item: results }) => (
