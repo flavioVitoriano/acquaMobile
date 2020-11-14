@@ -13,8 +13,8 @@ import {
 const ClientHome : React.FC = () => {
 const navigation = useNavigation();
 
-function navigationCreateClient() {
-  navigation.navigate('CreateClient')
+function navigationClientCreate() {
+  navigation.navigate('ClientCreate')
 }
 
 function navigationClientCreated() {
@@ -28,7 +28,7 @@ function navigationClientCreated() {
       <ContainerList>
           <RoutesTitle>Cadastrar Cliente.</RoutesTitle>
           <RoutesDescription>Acesse para registrar clientes.</RoutesDescription>
-      <RoutesButton onPress={navigationCreateClient}>
+      <RoutesButton onPress={navigationClientCreate}>
        <RoutesButtonText>Acessar</RoutesButtonText>
         </RoutesButton>
         </ContainerList>

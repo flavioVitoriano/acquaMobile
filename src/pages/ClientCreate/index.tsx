@@ -28,7 +28,7 @@ interface ClientFormData {
   city: string;
 }
 
-const CreateClient: React.FC = () => {
+const ClientCreate: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
 
@@ -146,4 +146,4 @@ const CreateClient: React.FC = () => {
   );
 };
 
-export default CreateClient;
+export default ClientCreate;

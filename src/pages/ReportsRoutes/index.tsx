@@ -69,7 +69,7 @@ export default function ReportsRoutes() {
               <RouteProperty>Id da Rota:</RouteProperty>
               <RouterValue>{results.path_id}</RouterValue>
 
-              <RouteProperty>Dtatus:</RouteProperty>
+              <RouteProperty>Status:</RouteProperty>
               <RouterValue>{results.status}</RouterValue>
 
               <RouteProperty>Dias Restantes:</RouteProperty>

@@ -32,7 +32,7 @@ export default function ClientCreated() {
   const navigation = useNavigation();
 
   function navigateToDetail(id: number) {
-    navigation.navigate("DetailClient", { id });
+    navigation.navigate("ClientDetail", { id });
   }
 
   function loadClients() {
