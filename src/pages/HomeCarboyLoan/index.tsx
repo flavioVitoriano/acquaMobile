@@ -34,7 +34,7 @@ function navigationCarboyLoanCreated() {
         </ContainerList>
 
         <ContainerList>
-          <RoutesTitle>Empréstimos Registradas.</RoutesTitle>
+          <RoutesTitle>Empréstimos Registrados.</RoutesTitle>
           <RoutesDescription>Acesse para ver empréstimos registrados.</RoutesDescription>
       <RoutesButton onPress={navigationCarboyLoanCreated}>
        <RoutesButtonText>Acessar</RoutesButtonText>
