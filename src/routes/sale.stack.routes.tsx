@@ -1,18 +1,29 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import Sales from '../pages/SaleCreated';
-import DetailSale from '../pages/DetailSale';
+import HomeSale from '../pages/HomeSale'
+import SaleCreate from '../pages/SaleCreate'
+import SaleCreated from '../pages/SaleCreated';
+import SaleDetail from '../pages/SaleDetail';
 
 const SaleStack = createStackNavigator();
 
 const SaleStackRoutes: React.FC = () => (
   <SaleStack.Navigator
-    screenOptions={{
-      headerShown: false,
-    }}>
-    <SaleStack.Screen name="Sales" component={Sales} />
-    <SaleStack.Screen name="DetailSale" component={DetailSale} />
+  screenOptions={{
+    headerShown: true,
+    headerTintColor:'#fff',
+
+    headerStyle : {
+      backgroundColor: "#3d9be9",
+
+    },
+  }}
+  >
+    <SaleStack.Screen name="Vendas" component={HomeSale} />
+    <SaleStack.Screen options={{headerShown: false}} name="SaleCreate" component={SaleCreate} />
+    <SaleStack.Screen options={{title:"Vendas Registradas"}} name="SaleCreated" component={SaleCreated} />
+    <SaleStack.Screen options={{headerShown: false}} name="SaleDetail" component={SaleDetail} />
 
   </SaleStack.Navigator>
 );

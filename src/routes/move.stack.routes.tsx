@@ -1,18 +1,30 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import CreatedMove from '../pages/CreatedMove';
-import DetailMove from '../pages/DetailMove';
+import HomeMove from '../pages/HomeMove'
+import MoveCreate from '../pages/MoveCreate'
+import MoveCreated from '../pages/MoveCreated';
+import MoveDetail from '../pages/MoveDetail';
 
 const MoveStack = createStackNavigator();
 
 const MoveStackRoutes: React.FC = () => (
   <MoveStack.Navigator
-    screenOptions={{
-      headerShown: false,
-    }}>
-    <MoveStack.Screen name="CreatedMove" component={CreatedMove} />
-    <MoveStack.Screen name="DetailMove" component={DetailMove} />
+  screenOptions={{
+    headerShown: true,
+    headerTintColor:'#fff',
+
+    headerStyle : {
+      backgroundColor: "#3d9be9",
+
+    },
+  }}
+  >
+   <MoveStack.Screen name="Movimentos" component={HomeMove} />
+    <MoveStack.Screen options={{headerShown: false}} name="MoveCreate" component={MoveCreate} />
+    <MoveStack.Screen options={{title:"Movimentos Registrados"}} name="MoveCreated" component={MoveCreated} />
+    <MoveStack.Screen options={{headerShown: false}} name="MoveDetail" component={MoveDetail} />
+
 
   </MoveStack.Navigator>
 );

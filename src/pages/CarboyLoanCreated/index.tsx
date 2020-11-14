@@ -3,12 +3,12 @@ import Icon from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import api from "../../services/index";
 import {
-  SaleValue,
+  LoanValue,
   Container,
-  Sales,
+  Loan,
   Header,
-  SaleList,
-  SaleProperty,
+  LoanList,
+  LoanProperty,
   DetailsButton,
   DetailsButtonText,
 } from "./styles";
@@ -22,7 +22,7 @@ interface ClientData {
   full_name: string;
 }
 
-interface SaleFormData {
+interface LoanFormData {
   id: number;
   quantity: number;
   value: number;
@@ -46,8 +46,8 @@ const makeResponseData = (data: Array<object>) =>
     return item;
   });
 
-export default function SaleCreated() {
-  const [sales, setSales] = useState<SaleFormData[]>([]);
+export default function CarboyLoanCreated() {
+  const [loans, setLoans] = useState<LoanFormData[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -58,16 +58,16 @@ export default function SaleCreated() {
   const navigation = useNavigation();
 
   function navigateToDetail(id: number) {
-    navigation.navigate("SaleDetail", { id });
+    navigation.navigate("CarboyLoanDetail", { id });
   }
 
-  function loadSales() {
+  function loadLoans() {
     api
-      .get("/sales/", {
+      .get("/loans/", {
         params: { page },
       })
       .then((response) => {
-        setSales(makeResponseData(response.data));
+        setLoans(makeResponseData(response.data));
         setTotal(response.headers["x-total-count"]);
         setPage(page + 1);
         setLoading(false);
@@ -86,7 +86,7 @@ export default function SaleCreated() {
   };
 
   const onSubmitFilter = (dates: DateProps) => {
-    setSales([]);
+    setLoans([]);
     setPage(1);
     setFilterParams({
       start_date: dates.startDate,
@@ -99,7 +99,7 @@ export default function SaleCreated() {
     if (loading) {
       return;
     }
-    if (Number(total) > 0 && Number(sales.length) === Number(total)) {
+    if (Number(total) > 0 && Number(loans.length) === Number(total)) {
       return;
     }
     setPage(page + 1);
@@ -109,20 +109,20 @@ export default function SaleCreated() {
     setLoading(true);
 
     api
-      .get("/sales/", {
+      .get("/loans/", {
         params: { page, ...filterParams },
       })
       .then((response) => {
         const resData = makeResponseData(response.data);
-        const data = uniqBy([...sales, ...resData], "id");
-        setSales(data);
+        const data = uniqBy([...loans, ...resData], "id");
+        setLoans(data);
         setTotal(response.headers["x-total-count"]);
         setLoading(false);
       });
   }, [page, filterParams]);
 
   useEffect(() => {
-    loadSales();
+    loadLoans();
   }, []);
 
   useEffect(() => {
@@ -139,36 +139,33 @@ export default function SaleCreated() {
         valueField="id"
         initialLabel="Selecione um cliente"
       />
-      <SaleList
-        data={sales}
-        keyExtractor={(sale) => String(sale.id)}
+      <LoanList
+        data={loans}
+        keyExtractor={(loan) => String(loan.id)}
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.2}
-        renderItem={({ item: sales }) => (
-          <Sales>
-            <SaleProperty>ID e cliente:</SaleProperty>
-            <SaleValue>
-         {sales.client.full_name}
-            </SaleValue>
+        renderItem={({ item: loan }) => (
+          <Loan>
+            <LoanProperty>ID e cliente:</LoanProperty>
+            <LoanValue>
+              {loan.id}-{loan.client.full_name}
+            </LoanValue>
 
-            <SaleProperty>Data:</SaleProperty>
-            <SaleValue>{humanDate(sales.submit_date)}</SaleValue>
+            <LoanProperty>Data:</LoanProperty>
+            <LoanValue>{humanDate(loan.submit_date)}</LoanValue>
 
-            <SaleProperty>Quantidade:</SaleProperty>
-            <SaleValue>{sales.quantity}</SaleValue>
+            <LoanProperty>Quantidade:</LoanProperty>
+            <LoanValue>{loan.quantity}</LoanValue>
 
-            <SaleProperty>Valor Unitário:</SaleProperty>
-            <SaleValue>{sales.value}</SaleValue>
+            <LoanProperty>Obs:</LoanProperty>
+            <LoanValue>{loan.obs}</LoanValue>
 
-            <SaleProperty>total:</SaleProperty>
-            <SaleValue>{sales.quantity * sales.value}</SaleValue>
-
-            <DetailsButton onPress={() => navigateToDetail(sales.id)}>
+            <DetailsButton onPress={() => navigateToDetail(loan.id)}>
               <DetailsButtonText>Ver mais detalhes</DetailsButtonText>
               <Icon name="arrow-right" size={16} color="#E02041" />
             </DetailsButton>
-          </Sales>
+          </Loan>
         )}
       />
     </Container>

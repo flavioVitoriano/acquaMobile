@@ -19,6 +19,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 
 import { Container, Title } from "./styles";
+import Icon  from 'react-native-vector-icons/Feather';
 
 interface ClientFormData {
   full_name: string;
@@ -77,7 +78,9 @@ const CreateClient: React.FC = () => {
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         enabled
       >
+
         <Container>
+
           <View>
             <Title>Cadastrar Cliente</Title>
           </View>

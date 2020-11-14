@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import api from "../../services/index";
 import Button from '../../components/Button'
@@ -34,7 +34,6 @@ export default function ProfitReport() {
     <>
       <Container>
         <DateInput icon="bell"
-
         value={initial_date}
         handleChange={setInitial_date}
         />
@@ -43,6 +42,7 @@ export default function ProfitReport() {
          handleChange={setEnd_date}
           />
 <Button onPress={loadProfit}>Acessar</Button>
+<View style={{paddingTop:16}}></View>
         <ContainerList>
           <ProfitTitle>Veja Seus Lucros:</ProfitTitle>
           <ProfitDescription>

@@ -26,7 +26,7 @@ function navigationProfitReport() {
 
       <Container>
       <ContainerList>
-          <RoutesTitle>Relatório de rotas.</RoutesTitle>
+          <RoutesTitle>Relatório de Rotas.</RoutesTitle>
           <RoutesDescription>Acesse para mais detalhes.</RoutesDescription>
       <RoutesButton onPress={navigationReportsStackRoutes}>
        <RoutesButtonText>Acessar</RoutesButtonText>
@@ -34,7 +34,7 @@ function navigationProfitReport() {
         </ContainerList>
 
         <ContainerList>
-          <RoutesTitle>Relatório de lucro.</RoutesTitle>
+          <RoutesTitle>Relatório de Lucro.</RoutesTitle>
           <RoutesDescription>Acesse para mais detalhes.</RoutesDescription>
       <RoutesButton onPress={navigationProfitReport}>
        <RoutesButtonText>Acessar</RoutesButtonText>
