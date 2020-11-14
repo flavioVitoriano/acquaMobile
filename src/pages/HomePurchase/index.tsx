@@ -13,12 +13,12 @@ import {
 const HomePurchase : React.FC = () => {
 const navigation = useNavigation();
 
-function navigationCreatePurchases() {
-  navigation.navigate('CreatePurchase')
+function navigationPurchaseCreate() {
+  navigation.navigate('PurchaseCreate')
 }
 
-function navigationCreatedPurchase() {
-  navigation.navigate('CreatedPurchase')
+function navigationPurchaseCreated() {
+  navigation.navigate('PurchaseCreated')
 }
 
   return (
@@ -28,7 +28,7 @@ function navigationCreatedPurchase() {
       <ContainerList>
           <RoutesTitle>Cadastrar Compras.</RoutesTitle>
           <RoutesDescription>Acesse para registrar compras.</RoutesDescription>
-      <RoutesButton onPress={navigationCreatePurchases}>
+      <RoutesButton onPress={navigationPurchaseCreate}>
        <RoutesButtonText>Acessar</RoutesButtonText>
         </RoutesButton>
         </ContainerList>
@@ -36,7 +36,7 @@ function navigationCreatedPurchase() {
         <ContainerList>
           <RoutesTitle>Compras Registradas.</RoutesTitle>
           <RoutesDescription>Acesse para ver compras registradas.</RoutesDescription>
-      <RoutesButton onPress={navigationCreatedPurchase}>
+      <RoutesButton onPress={navigationPurchaseCreated}>
        <RoutesButtonText>Acessar</RoutesButtonText>
         </RoutesButton>
         </ContainerList>

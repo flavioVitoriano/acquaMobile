@@ -10,39 +10,40 @@ import {
   Container,
 } from './styles';
 
-const Home : React.FC = () => {
-const navigation = useNavigation();
+const HomeReports: React.FC = () => {
+  const navigation = useNavigation();
 
-function navigationReportsStackRoutes() {
-  navigation.navigate('ReportsRoutes')
-}
+  function navigationReportsStackRoutes() {
+    navigation.navigate('ReportsRoutes')
+  }
 
-function navigationProfitReport() {
-  navigation.navigate('ProfitReport')
-}
+  function navigationReportsProfit() {
+    navigation.navigate('ReportsProfit')
+  }
 
   return (
     <>
 
       <Container>
-      <ContainerList>
+        <ContainerList>
           <RoutesTitle>Relatório de Rotas.</RoutesTitle>
           <RoutesDescription>Acesse para mais detalhes.</RoutesDescription>
-      <RoutesButton onPress={navigationReportsStackRoutes}>
-       <RoutesButtonText>Acessar</RoutesButtonText>
-        </RoutesButton>
+          <RoutesButton onPress={navigationReportsStackRoutes}>
+            <RoutesButtonText>Acessar</RoutesButtonText>
+          </RoutesButton>
         </ContainerList>
 
         <ContainerList>
           <RoutesTitle>Relatório de Lucro.</RoutesTitle>
           <RoutesDescription>Acesse para mais detalhes.</RoutesDescription>
-      <RoutesButton onPress={navigationProfitReport}>
-       <RoutesButtonText>Acessar</RoutesButtonText>
-        </RoutesButton>
+          <RoutesButton onPress={navigationReportsProfit}>
+            <RoutesButtonText>Acessar</RoutesButtonText>
+          </RoutesButton>
         </ContainerList>
 
       </Container>
 
     </>
-  )}
-export default Home;
+  )
+}
+export default HomeReports;

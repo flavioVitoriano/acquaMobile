@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/Feather";
 
 import { Text } from "react-native";
 
-import HomeStackRoutes from './home.stack.routes'
+import ReportStackRoutes from './report.stack.routes'
 import ClientStackRoutes from "./client.stack.routes";
 import PurchaseStackRoutes from "./purchase.stack.routes";
 import SaleStackRoutes from "./sale.stack.routes";
@@ -30,8 +30,8 @@ const DrawerNavgation: React.FC = () => (
   >
 
 <Drawer.Screen
-      name="HomeStackRoutes"
-      component={HomeStackRoutes}
+      name="ReportStackRoutes"
+      component={ReportStackRoutes}
       options={{
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (
@@ -92,7 +92,6 @@ const DrawerNavgation: React.FC = () => (
         ),
       }}
     />
-
 
     <Drawer.Screen
       name="CarboyLoanStackRoutes"

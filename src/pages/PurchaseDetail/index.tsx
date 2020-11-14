@@ -45,7 +45,7 @@ const schema = Yup.object().shape({
   obs: Yup.string().required("Campo obrigatório"),
 });
 
-export default function DetailPurchase() {
+export default function PurchaseDetail() {
   const route = useRoute();
   const navigation = useNavigation();
 

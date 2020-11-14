@@ -17,7 +17,7 @@ import {
   Container,
 } from "./styles";
 
-export default function ProfitReport() {
+export default function ReportsProfit() {
 
   const [initial_date, setInitial_date] = useState("");
   const [end_date, setEnd_date] = useState("");

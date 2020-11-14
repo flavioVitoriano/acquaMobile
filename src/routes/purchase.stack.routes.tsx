@@ -2,9 +2,9 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import HomePurchase from '../pages/HomePurchase'
-import CreatePurchase from "../pages/CreatePurchase";
-import CreatedPurchase from '../pages/CreatedPurchase';
-import DetailPurchase from '../pages/DetailPurchase';
+import PurchaseCreate from "../pages/PurchaseCreate";
+import PurchaseCreated from '../pages/PurchaseCreated';
+import PurchaseDetail from '../pages/PurchaseDetail';
 
 const PurchaseStack = createStackNavigator();
 
@@ -23,21 +23,21 @@ const PurchaseStackRoutes: React.FC = () => (
     <PurchaseStack.Screen name="Compras" component={HomePurchase} />
 
     <PurchaseStack.Screen
-      name="CreatePurchase"
-      component={CreatePurchase}
+      name="PurchaseCreate"
+      component={PurchaseCreate}
       options={{
         headerShown: false,
       }}
     />
     <PurchaseStack.Screen
-    name="CreatedPurchase"
-     component={CreatedPurchase}
+    name="PurchaseCreated"
+     component={PurchaseCreated}
      options={{title: "Compras Registradas"}}
      />
 
     <PurchaseStack.Screen
-      name="DetailPurchase"
-      component={DetailPurchase}
+      name="PurchaseDetail"
+      component={PurchaseDetail}
       options={{
         headerShown: false,
       }}

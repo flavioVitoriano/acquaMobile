@@ -21,7 +21,7 @@ const initialValues: any = {
   obs: "",
 };
 
-const CreatePurchase: React.FC = () => {
+const PurchaseCreate: React.FC = () => {
   const navigation= useNavigation();
   const onSubmit = (values: any) => {
     try {
@@ -116,4 +116,4 @@ const CreatePurchase: React.FC = () => {
 };
 
 
-export default CreatePurchase;
+export default PurchaseCreate;

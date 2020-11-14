@@ -39,7 +39,7 @@ const makeResponseData = (data: Array<object>) =>
     return item;
   });
 
-export default function CreatedPurchase() {
+export default function PurchaseCreated() {
   const [purchases, setPurchaces] = useState<PurchaseFormData[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
@@ -49,7 +49,7 @@ export default function CreatedPurchase() {
   const navigation = useNavigation();
 
   function navigateToDetail(id: number) {
-    navigation.navigate("DetailPurchase", { id });
+    navigation.navigate("PurchaseDetail", { id });
   }
 
   function loadShoppings() {
