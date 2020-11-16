@@ -16,16 +16,15 @@ O app contém os seguintes módulos
 * relatórios
 
 ## páginas
-
-SCREENSHOTS DAS PAGINAS
+![Foto do App](https://github.com/flavioVitoriano/acquaMobile/blob/master/Screenshot_1605541352.png)
 
 ## Testando
 RODANDO O PROJETO
-yarn install=>  para instalar as  Dependências do projeto
-yarn start => para inicializar o projeto
-yarn android => para executar o projeto no emulador android
+* yarn install=>  para instalar as  Dependências do projeto
+* yarn start => para inicializar o projeto
+* yarn android => para executar o projeto no emulador android
 **(NECESSÁRIO EMULADOR ABERTO)**
-yarn ios => Para executar no emulador iOS
+* yarn ios => Para executar no emulador iOS
 **(NÃO NECESSITA DO  EMULADOR ABERTO)**
 
 ****
