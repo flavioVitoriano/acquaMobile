@@ -16,7 +16,7 @@ O app contém os seguintes módulos
 * relatórios
 
 ## páginas
-![Foto do App](https://github.com/flavioVitoriano/acquaMobile/blob/master/Screenshot_1605541352.png)
+![Foto do App](https://github.com/flavioVitoriano/acquaMobile/blob/master/images/routesReports.png)
 
 ## Testando
 RODANDO O PROJETO
