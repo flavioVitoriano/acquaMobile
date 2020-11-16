@@ -8,7 +8,7 @@ import ClientRouteDetail from '../pages/ClientRouteDetail';
 
 const ClientRouteStack = createStackNavigator();
 
-const ClientRouteStackCreateRouteClients: React.FC = () => (
+const ClientRouteStackRoutes: React.FC = () => (
   <ClientRouteStack.Navigator
   screenOptions={{
     headerShown: true,
@@ -28,4 +28,4 @@ const ClientRouteStackCreateRouteClients: React.FC = () => (
   </ClientRouteStack.Navigator>
 );
 
-export default ClientRouteStackCreateRouteClients;
+export default ClientRouteStackRoutes;

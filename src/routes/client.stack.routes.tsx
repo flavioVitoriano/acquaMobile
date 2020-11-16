@@ -30,8 +30,6 @@ const ClientStackRoutes: React.FC = () => (
       }}
     />
 
-
-
     <ClientStack.Screen
       name="ClientCreated"
       component={ClientCreated}

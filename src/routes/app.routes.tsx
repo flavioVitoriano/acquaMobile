@@ -10,8 +10,7 @@ import PurchaseStackRoutes from "./purchase.stack.routes";
 import SaleStackRoutes from "./sale.stack.routes";
 import CarboyLoanStackRoutes from "./carboyLoan.stack.routes";
 import MoveStackRoutes from "./move.stack.routes";
-
-import ClientRouteStackCreatedClientRoutes from "./routes.client.stack.routes";
+import ClientRouteStackRoutes from "./routes.client.stack.routes";
 
 import SignOut from "../pages/SignOut";
 
@@ -126,8 +125,8 @@ const DrawerNavgation: React.FC = () => (
     />
 
     <Drawer.Screen
-      name="ClientRouteStackCreatedClientRoutes"
-      component={ClientRouteStackCreatedClientRoutes}
+      name="ClientRouteStackRoutes"
+      component={ClientRouteStackRoutes}
       options={{
         unmountOnBlur: true,
         drawerLabel: ({ focused }) => (

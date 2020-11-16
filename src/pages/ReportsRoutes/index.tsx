@@ -30,7 +30,6 @@ import {
 export default function ReportsRoutes() {
   const [routes, setRoutes] = useState<RoutesFormData>();
   const [results, setResults] = useState<resultsFormData[]>([]);
-  const [conter, setConter] =useState(0)
 
   async function loadroutes() {
     const response = await api.get('/paths/status/')
@@ -49,9 +48,9 @@ export default function ReportsRoutes() {
 
         <ContainerList>
           <RoutesTitle>Veja suas rotas:</RoutesTitle>
-          <RoutesDescription>No prazo: {routes?.qtd_no_prazo}.</RoutesDescription>
-          <RoutesDescription>atenção: {routes?.qtd_atencao ? routes.qtd_atencao : 0}.</RoutesDescription>
-          <RoutesDescription>Atrasadas: {routes?.qtd_atrasado ? routes.qtd_atrasado : 0}.</RoutesDescription>
+          <RoutesDescription style={{ color: "#0f0" }}>No prazo: {routes?.qtd_no_prazo ? routes.qtd_no_prazo : 0}.</RoutesDescription>
+          <RoutesDescription style={{ color: "#eead2d" }}>atenção: {routes?.qtd_atencao ? routes.qtd_atencao : 0}.</RoutesDescription>
+          <RoutesDescription style={{ color: "#f00" }}>Atrasadas: {routes?.qtd_atrasado ? routes.qtd_atrasado : 0}.</RoutesDescription>
         </ContainerList>
 
         <RouterList
@@ -70,7 +69,15 @@ export default function ReportsRoutes() {
               <RouterValue>{results.path_id}</RouterValue>
 
               <RouteProperty>Status:</RouteProperty>
-              <RouterValue>{results.status}</RouterValue>
+              {results.status === "no prazo" && (
+                <RouterValue style={{ color: "#0f0" }}>{results.status}</RouterValue>
+              )}
+              {results.status === "atenção" && (
+                <RouterValue style={{ color: "#eead2d" }}>{results.status}</RouterValue>
+              )}
+              {results.status === "atradada" && (
+                <RouterValue style={{ color: "#f00" }}>{results.status}</RouterValue>
+              )}
 
               <RouteProperty>Dias Restantes:</RouteProperty>
               <RouterValue>{results.until_days}</RouterValue>
